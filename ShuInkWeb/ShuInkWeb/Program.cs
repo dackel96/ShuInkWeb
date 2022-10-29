@@ -20,10 +20,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/User/Login";
-});
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.LoginPath = "/Account/Login";
+//});
 
 builder.Services.AddControllersWithViews();
 
