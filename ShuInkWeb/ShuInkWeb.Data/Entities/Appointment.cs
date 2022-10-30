@@ -17,9 +17,9 @@ namespace ShuInkWeb.Data.Entities
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        public bool Approved { get; set; }
+        public int DurationTime { get; set; }
 
-        public IEnumerable<Duration> Durations { get; set; } = new HashSet<Duration>();
+        public DateTime Beginning { get; set; }
 
         public string UserId { get; set; } = null!;
 

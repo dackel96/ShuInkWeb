@@ -13,8 +13,6 @@ namespace ShuInkWeb.Data
 
         public DbSet<Appointment> Appointments { get; set; } = null!;
 
-        public DbSet<Duration> Durations { get; set; } = null!;
-
         public DbSet<Artist> Artists { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)

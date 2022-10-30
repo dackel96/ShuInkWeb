@@ -26,7 +26,7 @@ namespace ShuInkWeb.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("TO DO", "TO DO");
+                return RedirectToAction("Index", "Home");
             }
 
             var model = new RegisterViewModel();
@@ -54,7 +54,7 @@ namespace ShuInkWeb.Controllers
 
             if (password.Succeeded)
             {
-                return RedirectToAction("TO DO", "TO DO");
+                return RedirectToAction("Login", "Account");
             }
 
             foreach (var error in password.Errors)
@@ -71,7 +71,7 @@ namespace ShuInkWeb.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("TO DO", "TO DO");
+                return RedirectToAction("index", "Home");
             }
 
             var model = new LoginViewModel();
@@ -96,7 +96,7 @@ namespace ShuInkWeb.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("TO DO", "TO DO");
+                    return RedirectToAction("index", "Home");
                 }
             }
 
@@ -110,7 +110,7 @@ namespace ShuInkWeb.Controllers
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("TO DO", "TO DO");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

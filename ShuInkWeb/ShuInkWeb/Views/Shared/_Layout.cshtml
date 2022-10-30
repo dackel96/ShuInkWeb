@@ -23,22 +23,10 @@
                             <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="Add">Add Appointment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info">Artists</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-info" asp-area="" asp-controller="Gallery" asp-action="Gallery">Gallery</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-info">Merchandise</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-info">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-info">Contacts</a>
+                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="All">All Appointments</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -51,12 +39,6 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ShuInkWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

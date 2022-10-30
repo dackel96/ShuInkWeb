@@ -1,0 +1,73 @@
+﻿@model AddAppointmentViewModel
+
+@{
+    ViewBag.Title = "Add Appointment";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Add" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Title" class="form-label">Title</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Description" class="form-label">Description</label>
+                <input asp-for="@Model.Description" class="form-control" aria-required="true" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Beginning" class="form-label">Beginning</label>
+                <textarea asp-for="@Model.Beginning" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Beginning" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Duration" class="form-label">Duration</label>
+                <input asp-for="@Model.Duration" class="form-control" aria-required="true" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ArtistId" class="form-label">Category</label>
+                <select asp-for="@Model.ArtistId" class="form-control">
+                    @foreach (var artist in Model.Artists)
+                    {
+                        <option value="@artist.Id">@artist.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ArtistId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Client.FirstName" class="form-label">First Name</label>
+                <input asp-for="@Model.Client.FirstName" class="form-control" aria-required="true" />
+                <span asp-validation-for="Client.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Client.LastName" class="form-label">Last Name</label>
+                <input asp-for="@Model.Client.LastName" class="form-control" aria-required="true" />
+                <span asp-validation-for="Client.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Client.PhoneNumber" class="form-label">Phone Number</label>
+                <input asp-for="@Model.Client.PhoneNumber" class="form-control" aria-required="true" />
+                <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Client.ClientSocialMedia" class="form-label">Social Media</label>
+                <input asp-for="@Model.Client.ClientSocialMedia" class="form-control" aria-required="true" />
+                <span asp-validation-for="Client.ClientSocialMedia" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

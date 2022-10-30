@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Services;
 using ShuInkWeb.Data;
 using ShuInkWeb.Data.Entities;
 using static ShuInkWeb.Data.Constants.UserConstants;
@@ -24,6 +25,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 //{
 //    options.LoginPath = "/Account/Login";
 //});
+
+builder.Services.AddScoped<IRepository, Repository>();
+
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 builder.Services.AddControllersWithViews();
 

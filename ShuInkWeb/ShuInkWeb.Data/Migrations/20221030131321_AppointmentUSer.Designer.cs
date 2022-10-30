@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShuInkWeb.Data;
 
@@ -11,9 +12,10 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221030131321_AppointmentUSer")]
+    partial class AppointmentUSer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,14 +180,6 @@ namespace ShuInkWeb.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -210,10 +204,6 @@ namespace ShuInkWeb.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SocialMedia")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -242,19 +232,19 @@ namespace ShuInkWeb.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("ArtistId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Beginning")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("DurationTime")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Duration")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
