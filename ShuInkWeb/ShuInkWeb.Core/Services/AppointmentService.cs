@@ -1,4 +1,5 @@
-﻿using ShuInkWeb.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.AppointmentModels;
 using ShuInkWeb.Data.Entities;
 using System;
@@ -32,13 +33,18 @@ namespace ShuInkWeb.Core.Services
                     FirstName = model.Client.FirstName,
                     LastName = model.Client.LastName,
                     PhoneNumber = model.Client.PhoneNumber,
-                    SocialMedia = model.Client.ClientSocialMedia
+                    SocialMedia = model.Client.SocialMedia
                 }
             };
 
             await repository.AddAsync(appointment);
 
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Artist>> GetArtistsAsync()
+        {
+            return await repository.All<Artist>().ToListAsync();
         }
     }
 }

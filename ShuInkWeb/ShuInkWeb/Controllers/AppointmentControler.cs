@@ -19,9 +19,11 @@ namespace ShuInkWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new AddAppointmentViewModel();
+
+            model.Artists = await appointmentService.GetArtistsAsync();
 
             return View(model);
         }

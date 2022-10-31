@@ -25,6 +25,29 @@ namespace ShuInkWeb.Data
                 .Property(x => x.Email)
                 .HasMaxLength(EmailMaxLength);
 
+
+            builder.Entity<Artist>()
+                .HasData(new Artist()
+                {
+                    Id = Guid.NewGuid(),
+                    NickName = "Shu",
+                    FirstName = "Alexander",
+                    LastName = "Spasov",
+                    Resume = "Lorem Ipsum",
+                    Availability = true,
+                    WorkTime = "10:00 - 18:00"
+                },
+                new Artist()
+                {
+                    Id = Guid.NewGuid(),
+                    NickName = "Svg",
+                    FirstName = "Peter",
+                    LastName = "Angelov",
+                    Resume = "Lorem Ipsum",
+                    Availability = true,
+                    WorkTime = "10:00 - 18:00"
+                });
+
             base.OnModelCreating(builder);
         }
     }

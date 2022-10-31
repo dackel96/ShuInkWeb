@@ -8,8 +8,16 @@ namespace ShuInkWeb.Data.Entities
         public Guid Id { get; init; }
 
         [Required]
-        [MaxLength(ArtistNameMaxLength)]
-        public string Name { get; set; } = null!;
+        [MaxLength(ArtistNickNameMaxLength)]
+        public string NickName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(ArtistFirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(ArtistLastNameMaxLength)]
+        public string LastName { get; set; } = null!;
 
         [Required]
         [MaxLength(ResumeMaxLength)]

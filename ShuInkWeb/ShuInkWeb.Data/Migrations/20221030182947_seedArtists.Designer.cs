@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShuInkWeb.Data;
 
@@ -11,9 +12,10 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221030182947_seedArtists")]
+    partial class seedArtists
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,13 +182,11 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -216,8 +216,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.Property<string>("SocialMedia")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -317,7 +316,7 @@ namespace ShuInkWeb.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("aac23ca4-7532-4884-9750-acb6676f88b2"),
+                            Id = new Guid("df27f3ce-3a1d-4355-ac45-3f7e0d528955"),
                             Availability = true,
                             FirstName = "Alexander",
                             LastName = "Spasov",
@@ -327,7 +326,7 @@ namespace ShuInkWeb.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0e164951-12fa-4c85-8a49-fcafd74e7634"),
+                            Id = new Guid("3779e1cf-9fc5-4a03-9c8a-a2cf6d04ca7b"),
                             Availability = true,
                             FirstName = "Peter",
                             LastName = "Angelov",
