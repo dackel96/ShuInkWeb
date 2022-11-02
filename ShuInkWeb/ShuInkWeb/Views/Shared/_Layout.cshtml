@@ -1,20 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta image()"utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ShuInkWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ShuInkWeb.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/Quartz/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Quartz/css/bootstrap-icons.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Quartz/css/prism-okaidia.css" asp-append-version="true" />
+    <!--Calendar Scripts-->
+    <link rel="stylesheet" href="~/FullCalendar/main.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body style="
-    background-image: url('https://images.wallpapersden.com/image/download/geometric-shapes-pattern_bGlraG6UmZqaraWkpJRobWllrWdma2U.jpg');
-    height: 400px;
-  ">
+<body class="bg-image"
+      style="background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/04/Abstract-fractal-cg-digital-art-artistic-pattern-psychedelic-wallpapers.jpg');
+            background-attachment:scroll; backdrop-filter: blur(5px)">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-black">
-            <div class="container-fluid bg-black">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
+            <div class="container-fluid bg-dark">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShuInk</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +32,7 @@
                             <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="Add">Add Appointment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="All">All Appointments</a>
+                            <a class="nav-link text-info" asp-area="" asp-controller="Calendar" asp-action="Calendar">Calendar</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -37,22 +40,24 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <div class="card border-0 shadow my-5 bg-dark">
-            <div class="card-body p-5">
-                <div class="container bg-dark opacity-100">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+    <div class="background-header opacity-100">
+        <div class="container opacity-100">
+            <div class="card border-0 shadow my-5 bg-dark">
+                <div class="card-body p-5">
+                    <div class="container opacity-100">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
                 </div>
-                <div style="height: 700px"></div>
-                <p class="lead mb-0">You've reached the end!</p>
             </div>
         </div>
     </div>
+    <script src="~/FullCalendar/main.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Quartz/js/prismjs.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
