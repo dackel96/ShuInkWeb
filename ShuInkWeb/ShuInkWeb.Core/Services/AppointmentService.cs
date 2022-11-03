@@ -42,6 +42,19 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<AppointmentViewModel>> GetAllAppointmentsAsync()
+        {
+            var appointments = await repository.All<Appointment>().ToListAsync();
+
+            return appointments
+                .Select(x => new AppointmentViewModel()
+                {
+                    Start = x.Beginning.ToString(),
+                    End = x.Beginning.AddHours(x.DurationTime).ToString(),
+                    Title = x.Title
+                });
+        }
+
         public async Task<IEnumerable<Artist>> GetArtistsAsync()
         {
             return await repository.All<Artist>().ToListAsync();

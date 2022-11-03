@@ -13,5 +13,7 @@ namespace ShuInkWeb.Core.Contracts
         public Task AddAppointmentAsync(AddAppointmentViewModel model);
 
         public Task<IEnumerable<Artist>> GetArtistsAsync();
+
+        public Task<IEnumerable<AppointmentViewModel>> GetAllAppointmentsAsync();
     }
 }

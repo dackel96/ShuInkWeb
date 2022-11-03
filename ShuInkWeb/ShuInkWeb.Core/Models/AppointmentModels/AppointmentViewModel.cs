@@ -8,14 +8,11 @@ namespace ShuInkWeb.Core.Models.AppointmentModels
 {
     public class AppointmentViewModel
     {
+        public string Title { get; set; } = null!;
+
         public string Start { get; set; } = null!;
 
         public string End { get; set; } = null!;
-
-        public int Duration { get; set; }
-
-        public int MyProperty { get; set; }
-
 
     }
 }

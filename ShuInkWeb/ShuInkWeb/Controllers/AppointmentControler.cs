@@ -13,9 +13,12 @@ namespace ShuInkWeb.Controllers
             appointmentService = _appointmentService;
         }
 
-        public IActionResult All()
+        [HttpGet]
+        public async Task<IActionResult> All()
         {
-            return View();
+            var model = await appointmentService.GetAllAppointmentsAsync();
+
+            return View(model);
         }
 
         [HttpGet]
