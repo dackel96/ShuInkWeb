@@ -63,4 +63,23 @@ namespace ShuInkWeb.Data.Constants
 
         public const int ResumeMinLength = 100;
     }
+
+    public static class MerchandiseConstants
+    {
+        public const int PrecisionDigits = 6;
+
+        public const int PrecisionDigitsAfterSign = 2;
+
+        public const int NameMaxLength = 25;
+
+        public const int NameMinLength = 5;
+
+        public const int DescriptionMaxLength = 50;
+
+        public const int DescriptionMinLength = 1;
+
+        public const int TypeMaxLength = 20;
+
+        public const int TypeMinLength = 3;
+    }
 }

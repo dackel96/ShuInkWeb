@@ -15,6 +15,10 @@ namespace ShuInkWeb.Data
 
         public DbSet<Artist> Artists { get; set; } = null!;
 
+        public DbSet<Merchandise> Merchandises { get; set; } = null!;
+
+        public DbSet<MerchandiseType> MerchandiseTypes { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>()

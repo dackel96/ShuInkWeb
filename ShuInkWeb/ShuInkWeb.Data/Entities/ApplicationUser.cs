@@ -14,6 +14,6 @@ namespace ShuInkWeb.Data.Entities
         [MaxLength(UserSocialMediaMaxLength)]
         public string SocialMedia { get; set; } = null!;
 
-        public IEnumerable<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
+        public virtual IEnumerable<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
     }
 }

@@ -27,6 +27,6 @@ namespace ShuInkWeb.Data.Entities
 
         public string WorkTime { get; set; } = null!;
 
-        public IEnumerable<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
+        public virtual IEnumerable<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
     }
 }

@@ -24,11 +24,11 @@ namespace ShuInkWeb.Data.Entities
         public string UserId { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
-        public ApplicationUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         public Guid ArtistId { get; set; }
 
         [ForeignKey(nameof(ArtistId))]
-        public Artist Artist { get; set; } = null!;
+        public virtual Artist Artist { get; set; } = null!;
     }
 }

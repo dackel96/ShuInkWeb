@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShuInkWeb.Data;
 
@@ -11,9 +12,10 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221103101611_MerchandiseTablesAdd")]
+    partial class MerchandiseTablesAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,7 +319,7 @@ namespace ShuInkWeb.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7c33c5bc-7509-44bf-846f-9c2bd04105ce"),
+                            Id = new Guid("afda97a4-8e2d-48ed-baa2-b83a60e88487"),
                             Availability = true,
                             FirstName = "Alexander",
                             LastName = "Spasov",
@@ -327,7 +329,7 @@ namespace ShuInkWeb.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7fb38d53-f676-4023-a31b-fac15c3659c5"),
+                            Id = new Guid("67a0fc3f-47b7-4686-9082-350feb9f9905"),
                             Availability = true,
                             FirstName = "Peter",
                             LastName = "Angelov",
@@ -342,10 +344,6 @@ namespace ShuInkWeb.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsInStock")
                         .HasColumnType("bit");
