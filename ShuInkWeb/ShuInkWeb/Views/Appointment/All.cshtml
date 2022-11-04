@@ -11,20 +11,35 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Day</th>
             <th scope="col">Title</th>
             <th scope="col">Start</th>
             <th scope="col">End</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @for (int i = 0; i < 23; i++)
         {
-            <tr>
-                <th scope="row"></th>
-                <td>@item.Title</td>
-                <td>@item.Start</td>
-                <td>@item.End</td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                if (i == DateTime.Parse(item.Start).Hour)
+                {
+                    <tr>
+                        <th scope="row"></th>
+                        <td><h1>@DateTime.Now.Day</h1></td>
+                        <td>@item.Title</td>
+                        <td>@item.Start</td>
+                        <td>@item.End</td>
+                    </tr>
+                }
+                <tr>
+                    <th scope="row"></th>
+                    <td><h1>@DateTime.Now.Day</h1></td>
+                    <td>Free</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
         }
     </tbody>
 </table>

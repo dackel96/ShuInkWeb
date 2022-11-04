@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body class="bg-image"
-      style="background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/04/Abstract-fractal-cg-digital-art-artistic-pattern-psychedelic-wallpapers.jpg');
-            background-attachment:fixed; backdrop-filter: blur(5px)">
+      style="background-image: url('https://drive.google.com/file/d/1ddtYxCOT-u3P2DTiHH1TS0oo1ulMlUOi/view');
+            background-attachment:fixed;">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
             <div class="container-fluid bg-dark">
@@ -43,19 +43,22 @@
             </div>
         </nav>
     </header>
-    <div class="background-header opacity-100">
-        <div class="container opacity-100">
-            <div class="card border-0 shadow my-5 bg-dark">
-                <div class="card-body p-5">
-                    <div class="container opacity-100">
-                        <main role="main" class="pb-3">
-                            @RenderBody()
-                        </main>
-                    </div>
+    <div class="container opacity-100">
+        <div class="card border-1 shadow my-5 bg-dark">
+            <div class="card-body p-5">
+                <div class="container opacity-100">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
                 </div>
             </div>
         </div>
     </div>
+    <footer class="border-top bg-dark footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - Plzv Softwear Inc.
+        </div>
+    </footer>
     <script src="~/FullCalendar/main.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
