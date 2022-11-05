@@ -2,11 +2,6 @@
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.AppointmentModels;
 using ShuInkWeb.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShuInkWeb.Core.Services
 {
