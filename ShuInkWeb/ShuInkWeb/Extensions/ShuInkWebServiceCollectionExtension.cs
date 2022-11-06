@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IAppointmentService, AppointmentService>();
 
+            services.AddScoped<IArtistService, ArtistService>();
+
             return services;
         }
     }

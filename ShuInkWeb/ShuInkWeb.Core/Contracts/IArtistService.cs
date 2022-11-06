@@ -1,7 +1,7 @@
 ﻿namespace ShuInkWeb.Core.Contracts
 {
-    public interface IAppointmentService
+    public interface IArtistService
     {
-        
+
     }
 }

@@ -14,6 +14,12 @@ namespace ShuInkWeb.Core.Models.AccountModels
         public string Email { get; set; } = null!;
 
         [Required]
+        [DataType(DataType.PhoneNumber)]
+        [StringLength(PhoneNumberLength, MinimumLength = PhoneNumberLength)]
+        [RegularExpression(PhoneNumberRegex)]
+        public string PhoneNumber { get; set; } = null!;
+
+        [Required]
         [DataType(DataType.Password)]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]
         public string Password { get; set; } = null!;

@@ -20,4 +20,10 @@
     <ProjectReference Include="..\ShuInkWeb.Data\ShuInkWeb.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Appointment\" />
+    <Folder Include="Views\Merchandise\" />
+    <Folder Include="Views\Artist\" />
+  </ItemGroup>
+
 </Project>

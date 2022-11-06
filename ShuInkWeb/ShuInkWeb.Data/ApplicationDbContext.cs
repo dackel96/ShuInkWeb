@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Artists;
+using ShuInkWeb.Data.Entities.Clients;
+using ShuInkWeb.Data.Entities.Merchandises;
 using static ShuInkWeb.Data.Constants.UserConstants;
 namespace ShuInkWeb.Data
 {
@@ -13,11 +16,18 @@ namespace ShuInkWeb.Data
 
         public DbSet<Appointment> Appointments { get; set; } = null!;
 
+        public DbSet<Happening> Happenings { get; set; } = null!;
+
         public DbSet<Artist> Artists { get; set; } = null!;
+
+        public DbSet<Tatto> Tattos { get; set; } = null!;
+
+        public DbSet<Client> Clients { get; set; } = null!;
 
         public DbSet<Merchandise> Merchandises { get; set; } = null!;
 
         public DbSet<MerchandiseType> MerchandiseTypes { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,29 +38,6 @@ namespace ShuInkWeb.Data
             builder.Entity<ApplicationUser>()
                 .Property(x => x.Email)
                 .HasMaxLength(EmailMaxLength);
-
-
-            builder.Entity<Artist>()
-                .HasData(new Artist()
-                {
-                    Id = Guid.NewGuid(),
-                    NickName = "Shu",
-                    FirstName = "Alexander",
-                    LastName = "Spasov",
-                    Resume = "Lorem Ipsum",
-                    Availability = true,
-                    WorkTime = "10:00 - 18:00"
-                },
-                new Artist()
-                {
-                    Id = Guid.NewGuid(),
-                    NickName = "Svg",
-                    FirstName = "Peter",
-                    LastName = "Angelov",
-                    Resume = "Lorem Ipsum",
-                    Availability = true,
-                    WorkTime = "10:00 - 18:00"
-                });
 
             base.OnModelCreating(builder);
         }

@@ -31,9 +31,17 @@ namespace ShuInkWeb.Data.Constants
 
         public const int EmailMinLength = 5;
 
+        public const int PhoneNumberLength = 10;
+
+        public const string PhoneNumberRegex = @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$";
+
         public const int UserSocialMediaMaxLength = 1000;
 
         public const int UserSocialMediaMinLength = 15;
+
+        public const int ResumeMaxLength = 1000;
+
+        public const int ResumeMinLength = 100;
     }
     public static class AppointmentConstants
     {
@@ -44,24 +52,6 @@ namespace ShuInkWeb.Data.Constants
         public const int DescriptionMaxLength = 500;
 
         public const int DescriptionMinLength = 20;
-    }
-    public static class ArtistConstants
-    {
-        public const int ArtistFirstNameMaxLength = 25;
-
-        public const int ArtistFirstNameMinLength = 3;
-
-        public const int ArtistLastNameMaxLength = 25;
-
-        public const int ArtistLastNameMinLength = 3;
-
-        public const int ArtistNickNameMaxLength = 25;
-
-        public const int ArtistNickNameMinLength = 3;
-
-        public const int ResumeMaxLength = 1000;
-
-        public const int ResumeMinLength = 100;
     }
 
     public static class MerchandiseConstants
@@ -81,5 +71,29 @@ namespace ShuInkWeb.Data.Constants
         public const int TypeMaxLength = 20;
 
         public const int TypeMinLength = 3;
+    }
+    public static class HappeningConstants
+    {
+        public const int TitleMaxLength = 20;
+
+        public const int TitleMinLength = 5;
+
+        public const int ContentMaxLength = 5000;
+
+        public const int ContentMinLength = 50;
+
+        public const int ImageUrlMax = 500;
+
+        public const int ImageUrlMin = 22;
+    }
+    public static class TattoConstants
+    {
+        public const int TitleMaxLength = 20;
+
+        public const int TitleMinLength = 5;
+
+        public const int ImageUrlMax = 500;
+
+        public const int ImageUrlMin = 22;
     }
 }

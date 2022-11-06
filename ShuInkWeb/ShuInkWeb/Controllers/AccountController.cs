@@ -47,7 +47,9 @@ namespace ShuInkWeb.Controllers
             {
                 UserName = model.Username,
 
-                Email = model.Email
+                Email = model.Email,
+
+                PhoneNumber = model.PhoneNumber,
             };
 
             var password = await userManager.CreateAsync(user, model.Password);

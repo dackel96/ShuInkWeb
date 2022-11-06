@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.AppointmentModels;
+﻿using ShuInkWeb.Core.Contracts;
 
 namespace ShuInkWeb.Controllers
 {
@@ -13,44 +11,6 @@ namespace ShuInkWeb.Controllers
             appointmentService = _appointmentService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> All()
-        {
-            var model = await appointmentService.GetAllAppointmentsAsync();
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            var model = new AddAppointmentViewModel();
-
-            model.Artists = await appointmentService.GetArtistsAsync();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(AddAppointmentViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                await appointmentService.AddAppointmentAsync(model);
-
-                return RedirectToAction(nameof(All));
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Not Valid!");
-
-                return View(model);
-            }
-        }
+        
     }
 }

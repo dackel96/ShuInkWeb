@@ -1,34 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.AppointmentConstants;
+using static ShuInkWeb.Data.Constants.UserConstants;
+using ShuInkWeb.Data.Common;
+using ShuInkWeb.Data.Entities.Artists;
+using ShuInkWeb.Data.Entities.Clients;
 
 namespace ShuInkWeb.Data.Entities
 {
-    public class Appointment
+    public class Appointment : Entity
     {
-        [Key]
-        public Guid Id { get; init; }
-
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; } = null!;
 
-        [Required]
         [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; }
 
-        public int DurationTime { get; set; }
+        public DateTime Start { get; set; }
 
-        public DateTime Beginning { get; set; }
-
-        public string UserId { get; set; } = null!;
-
-        [ForeignKey(nameof(UserId))]
-        public virtual ApplicationUser User { get; set; } = null!;
+        public DateTime End { get; set; }
 
         public Guid ArtistId { get; set; }
-
         [ForeignKey(nameof(ArtistId))]
-        public virtual Artist Artist { get; set; } = null!;
+        public Artist Artist { get; set; } = null!;
+
+        public Guid ClientId { get; set; }
+        [ForeignKey(nameof(ClientId))]
+        public Client Client { get; set; } = null!;
     }
 }

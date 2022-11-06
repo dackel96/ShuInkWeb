@@ -11,11 +11,6 @@ namespace ShuInkWeb.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            //if (User?.Identity?.IsAuthenticated ?? false)
-            //{
-            //    return RedirectToAction("TO DO", "TO DO");
-            //}
-
             return View();
         }
     }
