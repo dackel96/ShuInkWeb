@@ -11,6 +11,10 @@ namespace ShuInkWeb.Data.Entities.Artists
 
         public string UserId { get; set; } = null!;
 
+        [Required]
+        [MaxLength(ResumeMaxLength)]
+        public string ImageUrl { get; set; } = null!;
+
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
 

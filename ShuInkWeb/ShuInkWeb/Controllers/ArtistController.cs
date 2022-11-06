@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.ArtistModels;
 
 namespace ShuInkWeb.Controllers
 {
@@ -12,5 +13,11 @@ namespace ShuInkWeb.Controllers
             this.artistService = _artistService;
         }
 
+        [HttpGet]
+        public IActionResult About()
+        {
+            var model = new ArtistViewModel();
+            return View();
+        }
     }
 }
