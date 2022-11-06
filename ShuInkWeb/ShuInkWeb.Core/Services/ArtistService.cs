@@ -1,4 +1,5 @@
 ﻿using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.ArtistModels;
 
 namespace ShuInkWeb.Core.Services
 {
@@ -9,6 +10,11 @@ namespace ShuInkWeb.Core.Services
         public ArtistService(IRepository _repository)
         {
             this.repository = _repository;
+        }
+
+        public Task<ArtistViewModel> ArtistInfo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ShuInkWeb.Data.Configurations
         {
             builder.HasData(SeedUsers());
         }
-        private IEnumerable<IdentityUser> SeedUsers()
+        private IEnumerable<ApplicationUser> SeedUsers()
         {
             var hasher = new PasswordHasher<ApplicationUser>();
 
@@ -47,6 +47,22 @@ namespace ShuInkWeb.Data.Configurations
                 FirstName = "Петър",
                 LastName = "Ангелов",
                 SocialMedia = "https://www.facebook.com/petar.angelov.92"
+            };
+
+            user.PasswordHash =
+            hasher.HashPassword(user, "yngsovage!QAz");
+
+            users.Add(user);
+
+            user = new ApplicationUser()
+            {
+                Id = "f1b9af46-4eff-41af-814d-cdf1932943fc",
+                UserName = "dackel",
+                Email = "dackel@mail.com",
+                PhoneNumber = "0895792078",
+                FirstName = "Иван",
+                LastName = "Илиев",
+                SocialMedia = "https://www.facebook.com/dackel96"
             };
 
             user.PasswordHash =

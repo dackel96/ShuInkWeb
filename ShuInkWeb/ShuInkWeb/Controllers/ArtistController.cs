@@ -17,6 +17,7 @@ namespace ShuInkWeb.Controllers
         public IActionResult About()
         {
             var model = new ArtistViewModel();
+
             return View();
         }
     }
