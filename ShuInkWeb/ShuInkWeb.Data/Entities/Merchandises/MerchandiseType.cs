@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.MerchandiseConstants;
 namespace ShuInkWeb.Data.Entities.Merchandises
 {
-    public class MerchandiseType : Entity
+    public class MerchandiseType : BaseEntity
     {
         [MaxLength(TypeMaxLength)]
         public string Type { get; set; } = null!;

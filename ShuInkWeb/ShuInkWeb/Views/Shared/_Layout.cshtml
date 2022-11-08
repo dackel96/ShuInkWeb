@@ -37,17 +37,13 @@
             </div>
         </nav>
     </header>
+
     <div class="container opacity-100">
-        <div class="card border-1 shadow my-5 bg-dark">
-            <div class="card-body p-5">
-                <div class="container opacity-100">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
-                </div>
-            </div>
-        </div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
+
     <footer class="border-top bg-dark footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - Plzv Softwear Inc.

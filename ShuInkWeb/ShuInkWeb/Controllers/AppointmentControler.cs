@@ -1,4 +1,6 @@
-﻿using ShuInkWeb.Core.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
+using ShuInkWeb.Core.Contracts;
 
 namespace ShuInkWeb.Controllers
 {
@@ -10,7 +12,5 @@ namespace ShuInkWeb.Controllers
         {
             appointmentService = _appointmentService;
         }
-
-        
     }
 }

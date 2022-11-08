@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.ArtistModels;
 
 namespace ShuInkWeb.Controllers
 {
-    public class ArtistController : Controller
+    public class ArtistController : BaseController
     {
         private readonly IArtistService artistService;
 
@@ -13,12 +15,11 @@ namespace ShuInkWeb.Controllers
             this.artistService = _artistService;
         }
 
-        [HttpGet]
-        public IActionResult About()
+        [AllowAnonymous]
+        public async Task<IActionResult> About()
         {
-            var model = new ArtistViewModel();
-
-            return View();
+            var model = await artistService.ArtistsInfo();
+            return View(model);
         }
     }
 }

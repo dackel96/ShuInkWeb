@@ -8,7 +8,7 @@ using ShuInkWeb.Data.Entities.Clients;
 
 namespace ShuInkWeb.Data.Entities
 {
-    public class Appointment : Entity
+    public class Appointment : BaseEntity
     {
         [Required]
         [MaxLength(TitleMaxLength)]

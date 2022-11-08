@@ -14,7 +14,13 @@ namespace ShuInkWeb.Core.Models.ArtistModels
         [StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength)]
         public string NickName { get; set; } = null!;
 
-        public int Age { get; set; }
+        [Required]
+        [RegularExpression(PhoneNumberRegex)]
+        public string PhoneNumber { get; set; } = null!;
+
+        [Required]
+        [StringLength(UserSocialMediaMaxLength, MinimumLength = UserSocialMediaMinLength)]
+        public string SocialMediaLink { get; set; } = null!;
 
         [Required]
         [StringLength(ResumeMaxLength, MinimumLength = ResumeMinLength)]

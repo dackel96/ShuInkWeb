@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
 
 namespace ShuInkWeb.Controllers
 {

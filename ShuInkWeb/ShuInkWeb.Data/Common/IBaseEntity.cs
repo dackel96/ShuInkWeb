@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Common
 {
-    public interface IEntity
+    public interface IBaseEntity
     {
         public Guid Id { get; init; }
 

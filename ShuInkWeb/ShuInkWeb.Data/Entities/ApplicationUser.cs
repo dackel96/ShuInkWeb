@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ShuInkWeb.Data.Entities.Artists;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static ShuInkWeb.Data.Constants.UserConstants;
+
 namespace ShuInkWeb.Data.Entities
 {
     public class ApplicationUser : IdentityUser

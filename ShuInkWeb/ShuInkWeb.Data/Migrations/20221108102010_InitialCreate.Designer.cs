@@ -12,8 +12,8 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221106154752_SeedData")]
-    partial class SeedData
+    [Migration("20221108102010_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -239,6 +239,62 @@ namespace ShuInkWeb.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "413f4305-47d0-4648-8600-3ac5b7f0f2b9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fe15fbf8-ce25-423d-97c2-c1d3f9f802be",
+                            Email = "shu@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Александър",
+                            LastName = "Спасов",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEC3vebBjtyDkTbkbQC5iVsqc9MXOdJJuUg40UzRKt/1j3w+n0hPMsLf4SpLKKHE5IA==",
+                            PhoneNumber = "0895792178",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d672b2fe-5f92-4dc7-aa35-b347182727cb",
+                            SocialMedia = "https://www.facebook.com/alexandar.spasov2",
+                            TwoFactorEnabled = false,
+                            UserName = "Shu"
+                        },
+                        new
+                        {
+                            Id = "41f39b68-84f6-48b5-9569-12b588693c29",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ae0c1262-f981-4c07-beab-55396165d056",
+                            Email = "yngsovage@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Петър",
+                            LastName = "Ангелов",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAECI+pOa+itVv9mmGqtFcJb8mbLnfXSD9mOh0LJ7Bc1dGm+Ao2oZqhmdob2My5RV6lw==",
+                            PhoneNumber = "0895792378",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e3a35b32-0a11-489a-a9ff-bd8f8dda7c3d",
+                            SocialMedia = "https://www.facebook.com/petar.angelov.92",
+                            TwoFactorEnabled = false,
+                            UserName = "yngsovage"
+                        },
+                        new
+                        {
+                            Id = "4a798927-6e41-4042-9a54-722f7461357c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0967191d-0e05-4661-80db-417bda165338",
+                            Email = "dackel@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Иван",
+                            LastName = "Илиев",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEIMNaqvuidACVRaulrFClvjxNOlQKoJsR53zdpFoEvofH6wjvVx5O9APq0GOLpEEtA==",
+                            PhoneNumber = "0895792078",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "336315a8-30e1-4b65-893c-4d639ec228b2",
+                            SocialMedia = "https://www.facebook.com/dackel96",
+                            TwoFactorEnabled = false,
+                            UserName = "dackel"
+                        });
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Appointment", b =>
@@ -288,6 +344,14 @@ namespace ShuInkWeb.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -297,15 +361,27 @@ namespace ShuInkWeb.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Artists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("78d10525-09e7-4676-8799-9b07b82dac5b"),
+                            Address = "Велико Търново ул.Зеленка 24",
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/shu.jpg",
+                            Resume = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+                        },
+                        new
+                        {
+                            Id = new Guid("a202db1f-6466-4775-8a93-38045d632134"),
+                            Address = "Велико Търново ул.Зеленка 24",
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/yngsovage.jpg",
+                            Resume = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+                        });
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Tatto", b =>
@@ -332,6 +408,44 @@ namespace ShuInkWeb.Data.Migrations
                     b.HasIndex("ArtistId");
 
                     b.ToTable("Tattos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7c49b168-4aa0-4f04-ad74-1ddb9ead7546"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/15.jpg",
+                            Title = "rand1"
+                        },
+                        new
+                        {
+                            Id = new Guid("1d759a45-8235-44f6-8eea-fbb3da9db890"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/1.jpg",
+                            Title = "rand2"
+                        },
+                        new
+                        {
+                            Id = new Guid("b5e44661-a043-413c-a49d-1c6c95df5c9a"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/2.jpg",
+                            Title = "rand3"
+                        },
+                        new
+                        {
+                            Id = new Guid("523636ea-cb1e-46fe-affa-d5ebc239543f"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/3.jpg",
+                            Title = "rand1"
+                        },
+                        new
+                        {
+                            Id = new Guid("3b617ee1-c60a-43e4-9316-1309d7c40f08"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/4.jpg",
+                            Title = "rand2"
+                        },
+                        new
+                        {
+                            Id = new Guid("bc57caef-4b4f-4b0a-b080-cc34bf3e0bcd"),
+                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/5.jpg",
+                            Title = "rand3"
+                        });
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Client", b =>
@@ -536,13 +650,11 @@ namespace ShuInkWeb.Data.Migrations
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", "User")
+                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.Navigation("User");
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Tatto", b =>

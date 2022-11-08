@@ -42,6 +42,8 @@ namespace ShuInkWeb.Data.Constants
         public const int ResumeMaxLength = 1000;
 
         public const int ResumeMinLength = 100;
+
+        public const int AddressMaxLEngth = 100;
     }
     public static class AppointmentConstants
     {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Models;
 using System.Diagnostics;
 using static System.Reflection.Metadata.BlobBuilder;

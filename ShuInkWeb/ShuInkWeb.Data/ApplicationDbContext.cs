@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Data.Configurations;
 using ShuInkWeb.Data.Entities;
 using ShuInkWeb.Data.Entities.Artists;
 using ShuInkWeb.Data.Entities.Clients;
@@ -38,6 +39,12 @@ namespace ShuInkWeb.Data
             builder.Entity<ApplicationUser>()
                 .Property(x => x.Email)
                 .HasMaxLength(EmailMaxLength);
+
+            builder.ApplyConfiguration(new UsersConfiguration());
+
+            builder.ApplyConfiguration(new ArtistsConfiguration());
+
+            builder.ApplyConfiguration(new TattoConfiguration());
 
             base.OnModelCreating(builder);
         }

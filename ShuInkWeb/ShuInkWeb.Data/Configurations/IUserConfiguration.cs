@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Configurations
 {
-    public class IUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+    public class UsersConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
@@ -24,7 +24,6 @@ namespace ShuInkWeb.Data.Configurations
 
             var user = new ApplicationUser()
             {
-                Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "Shu",
                 Email = "shu@mail.com",
                 PhoneNumber = "0895792178",
@@ -40,7 +39,6 @@ namespace ShuInkWeb.Data.Configurations
 
             user = new ApplicationUser()
             {
-                Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "yngsovage",
                 Email = "yngsovage@mail.com",
                 PhoneNumber = "0895792378",
@@ -56,7 +54,6 @@ namespace ShuInkWeb.Data.Configurations
 
             user = new ApplicationUser()
             {
-                Id = "f1b9af46-4eff-41af-814d-cdf1932943fc",
                 UserName = "dackel",
                 Email = "dackel@mail.com",
                 PhoneNumber = "0895792078",
@@ -66,7 +63,7 @@ namespace ShuInkWeb.Data.Configurations
             };
 
             user.PasswordHash =
-            hasher.HashPassword(user, "yngsovage!QAz");
+            hasher.HashPassword(user, "dackel!QAz");
 
             users.Add(user);
 

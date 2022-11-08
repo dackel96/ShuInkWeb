@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.TattoConstants;
 namespace ShuInkWeb.Data.Entities.Artists
 {
-    public class Tatto : Entity
+    public class Tatto : BaseEntity
     {
         [Required]
         [MaxLength(TitleMaxLength)]

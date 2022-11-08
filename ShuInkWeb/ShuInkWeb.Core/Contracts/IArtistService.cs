@@ -4,6 +4,6 @@ namespace ShuInkWeb.Core.Contracts
 {
     public interface IArtistService
     {
-        public Task<ArtistViewModel> ArtistInfo();
+        public Task<IEnumerable<ArtistViewModel>> ArtistsInfo();
     }
 }

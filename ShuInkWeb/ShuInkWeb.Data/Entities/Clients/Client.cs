@@ -9,7 +9,7 @@ using static ShuInkWeb.Data.Constants.UserConstants;
 
 namespace ShuInkWeb.Data.Entities.Clients
 {
-    public class Client : Entity
+    public class Client : BaseEntity
     {
         [Required]
         [MaxLength(UserFirstNameMaxLength)]

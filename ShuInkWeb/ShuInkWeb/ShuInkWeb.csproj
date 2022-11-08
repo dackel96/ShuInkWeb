@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Views\Appointment\" />
     <Folder Include="Views\Merchandise\" />
-    <Folder Include="Views\Artist\" />
   </ItemGroup>
 
 </Project>

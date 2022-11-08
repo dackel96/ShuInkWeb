@@ -6,7 +6,7 @@ using static ShuInkWeb.Data.Constants.MerchandiseConstants;
 
 namespace ShuInkWeb.Data.Entities.Merchandises
 {
-    public class Merchandise : Entity
+    public class Merchandise : BaseEntity
     {
         [MaxLength(NameMaxLength)]
         [Required]
