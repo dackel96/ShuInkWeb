@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Common
 {
-    public class BaseEntity : IBaseEntity
+    public abstract class BaseEntity : IBaseEntity
     {
-        [Key]
         public Guid Id { get; init; } = Guid.NewGuid();
         public DateTime CreatedOn
             => DateTime.UtcNow;

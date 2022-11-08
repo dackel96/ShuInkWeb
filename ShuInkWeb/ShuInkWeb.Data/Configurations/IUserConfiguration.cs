@@ -14,7 +14,7 @@ namespace ShuInkWeb.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.HasData(SeedUsers());
+           // builder.HasData(SeedUsers());
         }
         private IEnumerable<ApplicationUser> SeedUsers()
         {

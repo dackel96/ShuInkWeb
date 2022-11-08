@@ -8,7 +8,7 @@ namespace ShuInkWeb.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Artist> builder)
         {
-            builder.HasData(SeedArtists());
+            //builder.HasData(SeedArtists());
         }
 
         private IEnumerable<Artist> SeedArtists()

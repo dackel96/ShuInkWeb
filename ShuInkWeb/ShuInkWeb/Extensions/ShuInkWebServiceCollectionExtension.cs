@@ -13,6 +13,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IArtistService, ArtistService>();
 
+            services.AddScoped<IHappeningService, HappeningService>();
+
             return services;
         }
     }

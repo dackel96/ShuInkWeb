@@ -18,10 +18,5 @@ namespace ShuInkWeb.Data.Entities
         [Required]
         [MaxLength(ImageUrlMax)]
         public string ImageUrl { get; set; } = null!;
-
-        [Required]
-        public string UserId { get; set; } = null!;
-
-        public ApplicationUser User { get; set; } = null!;
     }
 }
