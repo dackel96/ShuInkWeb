@@ -13,7 +13,7 @@ namespace ShuInkWeb.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {
-            //builder.HasData(SeedTattos());
+            builder.HasData(SeedTattos());
         }
 
         private IEnumerable<Image> SeedTattos()
@@ -22,6 +22,7 @@ namespace ShuInkWeb.Data.Configurations
 
             var tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand1",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/15.jpg"
             };
@@ -30,6 +31,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand2",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/1.jpg"
             };
@@ -38,6 +40,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand3",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/2.jpg"
             };
@@ -46,6 +49,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand1",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/3.jpg"
             };
@@ -54,6 +58,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand2",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/4.jpg"
             };
@@ -62,6 +67,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tatto = new Image()
             {
+                Id = Guid.NewGuid(),
                 Title = "rand3",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/5.jpg"
             };

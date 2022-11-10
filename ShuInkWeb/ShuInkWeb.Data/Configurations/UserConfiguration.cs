@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShuInkWeb.Data.Entities.Identities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Configurations
 {
@@ -14,7 +9,7 @@ namespace ShuInkWeb.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-           // builder.HasData(SeedUsers());
+           builder.HasData(SeedUsers());
         }
         private IEnumerable<ApplicationUser> SeedUsers()
         {
