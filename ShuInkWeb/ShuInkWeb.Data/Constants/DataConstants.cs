@@ -88,7 +88,7 @@ namespace ShuInkWeb.Data.Constants
 
         public const int ImageUrlMin = 22;
     }
-    public static class TattoConstants
+    public static class ImageConstants
     {
         public const int TitleMaxLength = 20;
 

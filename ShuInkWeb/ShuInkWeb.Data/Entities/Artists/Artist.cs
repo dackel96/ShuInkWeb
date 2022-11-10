@@ -1,10 +1,11 @@
 ﻿using ShuInkWeb.Data.Common;
+using ShuInkWeb.Data.Entities.Identities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static ShuInkWeb.Data.Constants.UserConstants;
 namespace ShuInkWeb.Data.Entities.Artists
 {
-    public class Artist : BaseEntity
+    public class Artist : BaseDeletableModel<Guid>
     {
         [MaxLength(ResumeMaxLength)]
         public string? Resume { get; set; }
@@ -22,6 +23,6 @@ namespace ShuInkWeb.Data.Entities.Artists
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        public virtual IEnumerable<Tatto> Tattos { get; set; } = new HashSet<Tatto>();
+        public virtual IEnumerable<Image> Tattos { get; set; } = new HashSet<Image>();
     }
 }

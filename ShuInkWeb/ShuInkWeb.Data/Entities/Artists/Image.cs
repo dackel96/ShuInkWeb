@@ -1,9 +1,9 @@
 ﻿using ShuInkWeb.Data.Common;
 using System.ComponentModel.DataAnnotations;
-using static ShuInkWeb.Data.Constants.TattoConstants;
+using static ShuInkWeb.Data.Constants.ImageConstants;
 namespace ShuInkWeb.Data.Entities.Artists
 {
-    public class Tatto : BaseEntity
+    public class Image : BaseDeletableModel<Guid>
     {
         [Required]
         [MaxLength(TitleMaxLength)]

@@ -12,8 +12,8 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221108102010_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221110110145_newDataBaseStructure")]
+    partial class newDataBaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,33 +23,6 @@ namespace ShuInkWeb.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -104,12 +77,10 @@ namespace ShuInkWeb.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -146,12 +117,10 @@ namespace ShuInkWeb.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -161,7 +130,276 @@ namespace ShuInkWeb.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("ArtistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Resume")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Artists");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ArtistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Tattos");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("SocialMedia")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Happening", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Happenings");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Identities.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Identities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -173,9 +411,15 @@ namespace ShuInkWeb.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -184,6 +428,9 @@ namespace ShuInkWeb.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -195,6 +442,9 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -225,10 +475,12 @@ namespace ShuInkWeb.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -239,280 +491,6 @@ namespace ShuInkWeb.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "413f4305-47d0-4648-8600-3ac5b7f0f2b9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe15fbf8-ce25-423d-97c2-c1d3f9f802be",
-                            Email = "shu@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Александър",
-                            LastName = "Спасов",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEC3vebBjtyDkTbkbQC5iVsqc9MXOdJJuUg40UzRKt/1j3w+n0hPMsLf4SpLKKHE5IA==",
-                            PhoneNumber = "0895792178",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d672b2fe-5f92-4dc7-aa35-b347182727cb",
-                            SocialMedia = "https://www.facebook.com/alexandar.spasov2",
-                            TwoFactorEnabled = false,
-                            UserName = "Shu"
-                        },
-                        new
-                        {
-                            Id = "41f39b68-84f6-48b5-9569-12b588693c29",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae0c1262-f981-4c07-beab-55396165d056",
-                            Email = "yngsovage@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Петър",
-                            LastName = "Ангелов",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAECI+pOa+itVv9mmGqtFcJb8mbLnfXSD9mOh0LJ7Bc1dGm+Ao2oZqhmdob2My5RV6lw==",
-                            PhoneNumber = "0895792378",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3a35b32-0a11-489a-a9ff-bd8f8dda7c3d",
-                            SocialMedia = "https://www.facebook.com/petar.angelov.92",
-                            TwoFactorEnabled = false,
-                            UserName = "yngsovage"
-                        },
-                        new
-                        {
-                            Id = "4a798927-6e41-4042-9a54-722f7461357c",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0967191d-0e05-4661-80db-417bda165338",
-                            Email = "dackel@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Иван",
-                            LastName = "Илиев",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIMNaqvuidACVRaulrFClvjxNOlQKoJsR53zdpFoEvofH6wjvVx5O9APq0GOLpEEtA==",
-                            PhoneNumber = "0895792078",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "336315a8-30e1-4b65-893c-4d639ec228b2",
-                            SocialMedia = "https://www.facebook.com/dackel96",
-                            TwoFactorEnabled = false,
-                            UserName = "dackel"
-                        });
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Appointment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("ArtistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ArtistId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Resume")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Artists");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("78d10525-09e7-4676-8799-9b07b82dac5b"),
-                            Address = "Велико Търново ул.Зеленка 24",
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/shu.jpg",
-                            Resume = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                        },
-                        new
-                        {
-                            Id = new Guid("a202db1f-6466-4775-8a93-38045d632134"),
-                            Address = "Велико Търново ул.Зеленка 24",
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/yngsovage.jpg",
-                            Resume = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
-                        });
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Tatto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ArtistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArtistId");
-
-                    b.ToTable("Tattos");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7c49b168-4aa0-4f04-ad74-1ddb9ead7546"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/15.jpg",
-                            Title = "rand1"
-                        },
-                        new
-                        {
-                            Id = new Guid("1d759a45-8235-44f6-8eea-fbb3da9db890"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/1.jpg",
-                            Title = "rand2"
-                        },
-                        new
-                        {
-                            Id = new Guid("b5e44661-a043-413c-a49d-1c6c95df5c9a"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/2.jpg",
-                            Title = "rand3"
-                        },
-                        new
-                        {
-                            Id = new Guid("523636ea-cb1e-46fe-affa-d5ebc239543f"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/3.jpg",
-                            Title = "rand1"
-                        },
-                        new
-                        {
-                            Id = new Guid("3b617ee1-c60a-43e4-9316-1309d7c40f08"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/4.jpg",
-                            Title = "rand2"
-                        },
-                        new
-                        {
-                            Id = new Guid("bc57caef-4b4f-4b0a-b080-cc34bf3e0bcd"),
-                            ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/5.jpg",
-                            Title = "rand3"
-                        });
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Client", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("SocialMedia")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Happening", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Happenings");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Merchandises.Merchandise", b =>
@@ -521,15 +499,27 @@ namespace ShuInkWeb.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsInStock")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("MerchandiseTypeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -548,6 +538,8 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("MerchandiseTypeId");
 
                     b.ToTable("Merchandises");
@@ -559,10 +551,22 @@ namespace ShuInkWeb.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -571,76 +575,78 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.ToTable("MerchandiseTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Appointment", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", null)
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", null)
                         .WithMany("Appointments")
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("ShuInkWeb.Data.Entities.Artists.Artist", "Artist")
                         .WithMany()
                         .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShuInkWeb.Data.Entities.Clients.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Artist");
@@ -650,14 +656,14 @@ namespace ShuInkWeb.Data.Migrations
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Tatto", b =>
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Image", b =>
                 {
                     b.HasOne("ShuInkWeb.Data.Entities.Artists.Artist", "Artist")
                         .WithMany("Tattos")
@@ -668,20 +674,9 @@ namespace ShuInkWeb.Data.Migrations
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Client", b =>
                 {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", "User")
+                    b.HasOne("ShuInkWeb.Data.Entities.Identities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.Happening", b =>
-                {
-                    b.HasOne("ShuInkWeb.Data.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -691,20 +686,20 @@ namespace ShuInkWeb.Data.Migrations
                     b.HasOne("ShuInkWeb.Data.Entities.Merchandises.MerchandiseType", "Type")
                         .WithMany("Merchandises")
                         .HasForeignKey("MerchandiseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("ShuInkWeb.Data.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
                 {
                     b.Navigation("Tattos");
+                });
+
+            modelBuilder.Entity("ShuInkWeb.Data.Entities.Identities.ApplicationUser", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Merchandises.MerchandiseType", b =>

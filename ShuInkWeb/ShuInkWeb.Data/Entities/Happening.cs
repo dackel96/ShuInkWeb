@@ -5,7 +5,7 @@ using static ShuInkWeb.Data.Constants.HappeningConstants;
 
 namespace ShuInkWeb.Data.Entities
 {
-    public class Happening : BaseEntity
+    public class Happening : BaseDeletableModel<Guid>
     {
         [Required]
         [MaxLength(TitleMaxLength)]

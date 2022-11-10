@@ -1,4 +1,7 @@
 ﻿using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Data.Common.Repositories;
+using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Merchandises;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +12,9 @@ namespace ShuInkWeb.Core.Services
 {
     public class MerchandiseService : IMerchandiseService
     {
-        private readonly IRepository repository;
+        private readonly IDeletableEntityRepository<Merchandise> repository;
 
-        public MerchandiseService(IRepository _repository)
+        public MerchandiseService(IDeletableEntityRepository<Merchandise> _repository)
         {
             repository = _repository;
         }

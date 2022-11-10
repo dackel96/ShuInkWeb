@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Configurations
 {
-    public class TattoConfiguration : IEntityTypeConfiguration<Tatto>
+    public class ImageConfiguration : IEntityTypeConfiguration<Image>
     {
-        public void Configure(EntityTypeBuilder<Tatto> builder)
+        public void Configure(EntityTypeBuilder<Image> builder)
         {
             //builder.HasData(SeedTattos());
         }
 
-        private IEnumerable<Tatto> SeedTattos()
+        private IEnumerable<Image> SeedTattos()
         {
-            var tattos = new HashSet<Tatto>();
+            var tattos = new HashSet<Image>();
 
-            var tatto = new Tatto()
+            var tatto = new Image()
             {
                 Title = "rand1",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/15.jpg"
@@ -28,7 +28,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tattos.Add(tatto);
 
-            tatto = new Tatto()
+            tatto = new Image()
             {
                 Title = "rand2",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/1.jpg"
@@ -36,7 +36,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tattos.Add(tatto);
 
-            tatto = new Tatto()
+            tatto = new Image()
             {
                 Title = "rand3",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/2.jpg"
@@ -44,7 +44,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tattos.Add(tatto);
 
-            tatto = new Tatto()
+            tatto = new Image()
             {
                 Title = "rand1",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/3.jpg"
@@ -52,7 +52,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tattos.Add(tatto);
 
-            tatto = new Tatto()
+            tatto = new Image()
             {
                 Title = "rand2",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/4.jpg"
@@ -60,7 +60,7 @@ namespace ShuInkWeb.Data.Configurations
 
             tattos.Add(tatto);
 
-            tatto = new Tatto()
+            tatto = new Image()
             {
                 Title = "rand3",
                 ImageUrl = "https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/Photos/5.jpg"

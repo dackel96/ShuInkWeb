@@ -1,4 +1,5 @@
 ﻿using ShuInkWeb.Data.Common;
+using ShuInkWeb.Data.Entities.Identities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using static ShuInkWeb.Data.Constants.UserConstants;
 
 namespace ShuInkWeb.Data.Entities.Clients
 {
-    public class Client : BaseEntity
+    public class Client : BaseDeletableModel<Guid>
     {
         [Required]
         [MaxLength(UserFirstNameMaxLength)]

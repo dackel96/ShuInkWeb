@@ -1,7 +1,7 @@
 ﻿using ShuInkWeb.Data.Entities.Artists;
 using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.UserConstants;
-using static ShuInkWeb.Data.Constants.TattoConstants;
+using static ShuInkWeb.Data.Constants.ImageConstants;
 namespace ShuInkWeb.Core.Models.ArtistModels
 {
     public class ArtistViewModel
@@ -30,6 +30,6 @@ namespace ShuInkWeb.Core.Models.ArtistModels
         [StringLength(ImageUrlMax, MinimumLength = ImageUrlMin)]
         public string imageUrl { get; set; } = null!;
 
-        public IEnumerable<Tatto> Works { get; set; } = new HashSet<Tatto>();
+        public IEnumerable<Image> Works { get; set; } = new HashSet<Image>();
     }
 }

@@ -1,15 +1,26 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿#nullable disable
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Data.Common;
 using ShuInkWeb.Data.Configurations;
 using ShuInkWeb.Data.Entities;
 using ShuInkWeb.Data.Entities.Artists;
 using ShuInkWeb.Data.Entities.Clients;
+using ShuInkWeb.Data.Entities.Identities;
 using ShuInkWeb.Data.Entities.Merchandises;
+using System.Reflection;
+
 using static ShuInkWeb.Data.Constants.UserConstants;
+
 namespace ShuInkWeb.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
+        private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
+            typeof(ApplicationDbContext).GetMethod(
+                nameof(SetIsDeletedQueryFilter),
+                BindingFlags.NonPublic | BindingFlags.Static);
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -21,7 +32,7 @@ namespace ShuInkWeb.Data
 
         public DbSet<Artist> Artists { get; set; } = null!;
 
-        public DbSet<Tatto> Tattos { get; set; } = null!;
+        public DbSet<Image> Tattos { get; set; } = null!;
 
         public DbSet<Client> Clients { get; set; } = null!;
 
@@ -29,9 +40,54 @@ namespace ShuInkWeb.Data
 
         public DbSet<MerchandiseType> MerchandiseTypes { get; set; } = null!;
 
+        public override int SaveChanges() => this.SaveChanges(true);
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            this.SaveChangesAsync(true, cancellationToken);
+
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            // Needed for Identity models configuration
+            base.OnModelCreating(builder);
+
+            this.ConfigureUserIdentityRelations(builder);
+
+            EntityIndexesConfiguration.Configure(builder);
+
+            var entityTypes = builder.Model.GetEntityTypes().ToList();
+
+            // Set global query filter for not deleted entities only
+            var deletableEntityTypes = entityTypes
+                .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType));
+            foreach (var deletableEntityType in deletableEntityTypes)
+            {
+                var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);
+                method.Invoke(null, new object[] { builder });
+            }
+
+            // Disable cascade delete
+            var foreignKeys = entityTypes
+                .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
+            foreach (var foreignKey in foreignKeys)
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             builder.Entity<ApplicationUser>()
                .Property(x => x.UserName)
                .HasMaxLength(UsernameMaxLength);
@@ -44,9 +100,40 @@ namespace ShuInkWeb.Data
 
             builder.ApplyConfiguration(new ArtistsConfiguration());
 
-            builder.ApplyConfiguration(new TattoConfiguration());
+            builder.ApplyConfiguration(new ImageConfiguration());
 
-            base.OnModelCreating(builder);
+        }
+
+        private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
+            where T : class, IDeletableEntity
+        {
+            builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
+        }
+
+        // Applies configurations
+        private void ConfigureUserIdentityRelations(ModelBuilder builder)
+             => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+
+        private void ApplyAuditInfoRules()
+        {
+            var changedEntries = this.ChangeTracker
+                .Entries()
+                .Where(e =>
+                    e.Entity is IAuditInfo &&
+                    (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var entry in changedEntries)
+            {
+                var entity = (IAuditInfo)entry.Entity;
+                if (entry.State == EntityState.Added && entity.CreatedOn == default)
+                {
+                    entity.CreatedOn = DateTime.UtcNow;
+                }
+                else
+                {
+                    entity.ModifiedOn = DateTime.UtcNow;
+                }
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Identities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

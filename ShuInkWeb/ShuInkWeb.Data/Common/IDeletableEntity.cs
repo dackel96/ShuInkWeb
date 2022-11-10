@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Data.Common
 {
-    public interface IBaseEntity
+    public interface IDeletableEntity
     {
-        public Guid Id { get; init; }
+        bool IsDeleted { get; set; }
 
-        public DateTime CreatedOn { get; }
+        DateTime? DeletedOn { get; set; }
     }
 }

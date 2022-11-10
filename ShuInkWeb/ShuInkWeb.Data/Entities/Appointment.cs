@@ -8,7 +8,7 @@ using ShuInkWeb.Data.Entities.Clients;
 
 namespace ShuInkWeb.Data.Entities
 {
-    public class Appointment : BaseEntity
+    public class Appointment : BaseDeletableModel<Guid>
     {
         [Required]
         [MaxLength(TitleMaxLength)]
