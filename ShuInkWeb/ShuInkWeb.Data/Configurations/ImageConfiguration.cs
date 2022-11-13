@@ -13,7 +13,7 @@ namespace ShuInkWeb.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {
-            builder.HasData(SeedTattos());
+            //builder.HasData(SeedTattos());
         }
 
         private IEnumerable<Image> SeedTattos()

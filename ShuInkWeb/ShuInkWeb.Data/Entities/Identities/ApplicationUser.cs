@@ -19,13 +19,13 @@ namespace ShuInkWeb.Data.Entities.Identities
 
 
         [MaxLength(UserFirstNameMaxLength)]
-        public string FirstName { get; set; } = null!;
+        public string? FirstName { get; set; }
 
         [MaxLength(UserLastNameMaxLength)]
-        public string LastName { get; set; } = null!;
+        public string? LastName { get; set; }
 
         [MaxLength(UserSocialMediaMaxLength)]
-        public string SocialMedia { get; set; } = null!;
+        public string? SocialMedia { get; set; }
 
         public virtual IEnumerable<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
     }

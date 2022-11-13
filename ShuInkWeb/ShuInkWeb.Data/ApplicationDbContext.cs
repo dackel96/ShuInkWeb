@@ -96,11 +96,6 @@ namespace ShuInkWeb.Data
                 .Property(x => x.Email)
                 .HasMaxLength(EmailMaxLength);
 
-            builder.ApplyConfiguration(new UsersConfiguration());
-
-            builder.ApplyConfiguration(new ArtistsConfiguration());
-
-            builder.ApplyConfiguration(new ImageConfiguration());
 
         }
 

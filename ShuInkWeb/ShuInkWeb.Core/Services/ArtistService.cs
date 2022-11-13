@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#nullable disable
+
+using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.AppointmentModels;
 using ShuInkWeb.Core.Models.ArtistModels;
 using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
@@ -30,6 +33,19 @@ namespace ShuInkWeb.Core.Services
                     imageUrl = x.ImageUrl,
                     Works = x.Tattos.ToList()
                 }).ToListAsync();
+
+            return models;
+        }
+
+        public async Task<IEnumerable<AppointmentArtistViewModel>> GetArtistsIdAsync()
+        {
+            var models = await repository.All()
+                .Select(x => new AppointmentArtistViewModel
+                {
+                    Id = x.Id,
+                    Name = x.ApplicationUser.UserName
+                })
+                .ToListAsync();
 
             return models;
         }

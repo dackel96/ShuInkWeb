@@ -15,6 +15,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.Get
     .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+});
+
 builder.Services.Configure<CookiePolicyOptions>(
      options =>
      {
