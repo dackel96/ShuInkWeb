@@ -1,4 +1,6 @@
-﻿using ShuInkWeb.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.HappeningModels;
 using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
 using System;
@@ -18,6 +20,30 @@ namespace ShuInkWeb.Core.Services
             this.repository = _repository;
         }
 
+        public async Task AddHappeningAsync(HappeningViewModel model)
+        {
+            var happening = new Happening()
+            {
+                Title = model.Title,
+                Content = model.Content,
+                ImageUrl = model.ImageUrl
+            };
 
+            await repository.AddAsync(happening);
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync()
+        {
+            return await repository.All()
+                .Select(x => new HappeningViewModel()
+                {
+                    Title = x.Title,
+                    Content = x.Content,
+                    ImageUrl = x.ImageUrl
+                })
+                .ToListAsync();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.HappeningModels;
 
 namespace ShuInkWeb.Controllers
 {
@@ -12,10 +13,28 @@ namespace ShuInkWeb.Controllers
             this.happeningService = _happeningService;
         }
 
-        public IActionResult All()
+        [HttpGet]
+        public async Task<IActionResult> All()
         {
+            var models = await happeningService.GetHappeningsAsync();
 
-            return View();
+            return View(models);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            var model = new HappeningViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(HappeningViewModel model)
+        {
+            await happeningService.AddHappeningAsync(model);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
