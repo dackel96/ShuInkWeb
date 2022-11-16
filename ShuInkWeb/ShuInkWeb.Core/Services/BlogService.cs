@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Core.Services
 {
-    public class HappeningService : IHappeningService
+    public class BlogService : IBlogService
     {
         private readonly IDeletableEntityRepository<Happening> repository;
 
-        public HappeningService(IDeletableEntityRepository<Happening> _repository)
+        public BlogService(IDeletableEntityRepository<Happening> _repository)
         {
             this.repository = _repository;
         }

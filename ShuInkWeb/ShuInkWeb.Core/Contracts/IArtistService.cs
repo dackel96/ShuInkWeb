@@ -9,5 +9,7 @@ namespace ShuInkWeb.Core.Contracts
         public Task<IEnumerable<ArtistViewModel>> ArtistsInfo();
 
         public Task<IEnumerable<AppointmentArtistViewModel>> GetArtistsIdAsync();
+
+        public Task<bool> ExistArtist(string id);
     }
 }

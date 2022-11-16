@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShuInkWeb.Core.Contracts
 {
-    public interface IHappeningService
+    public interface IBlogService
     {
         public Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync();
 

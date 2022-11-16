@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IArtistService, ArtistService>();
 
-            services.AddScoped<IHappeningService, HappeningService>();
+            services.AddScoped<IBlogService, BlogService>();
 
             return services;
         }

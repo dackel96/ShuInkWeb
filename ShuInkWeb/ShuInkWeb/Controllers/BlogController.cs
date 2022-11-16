@@ -4,11 +4,11 @@ using ShuInkWeb.Core.Models.HappeningModels;
 
 namespace ShuInkWeb.Controllers
 {
-    public class HappeningController : Controller
+    public class BlogController : Controller
     {
-        private readonly IHappeningService happeningService;
+        private readonly IBlogService happeningService;
 
-        public HappeningController(IHappeningService _happeningService)
+        public BlogController(IBlogService _happeningService)
         {
             this.happeningService = _happeningService;
         }
