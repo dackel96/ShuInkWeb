@@ -27,5 +27,7 @@ namespace ShuInkWeb.Data.Entities.Merchandises
         public Guid MerchandiseTypeId { get; set; }
         [ForeignKey(nameof(MerchandiseTypeId))]
         public virtual MerchandiseType Type { get; set; } = null!;
+
+        public IEnumerable<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

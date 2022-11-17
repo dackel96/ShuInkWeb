@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.HappeningModels;
 
 namespace ShuInkWeb.Controllers
 {
+    [Authorize]
     public class BlogController : Controller
     {
         private readonly IBlogService happeningService;
@@ -14,6 +16,7 @@ namespace ShuInkWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var models = await happeningService.GetHappeningsAsync();

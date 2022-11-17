@@ -40,11 +40,6 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<Appointment> FindByIdAsync(Guid id)
-        {
-           
-        }
-
         public async Task<IEnumerable<AppointmentShareModel>> GetAppointmentsAsync()
         {
             return await repository.All()

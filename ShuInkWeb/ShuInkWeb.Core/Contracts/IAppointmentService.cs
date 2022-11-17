@@ -9,6 +9,5 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task<IEnumerable<AppointmentShareModel>> GetAppointmentsAsync();
 
-        public Task<AppointmentViewModel> FindByIdAsync(Guid id);
     }
 }

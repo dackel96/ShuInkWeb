@@ -31,5 +31,7 @@ namespace ShuInkWeb.Data.Entities.Clients
         public string? UserId { get; set; }
 
         public ApplicationUser? User { get; set; }
+
+        public IEnumerable<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

@@ -40,6 +40,8 @@ namespace ShuInkWeb.Data
 
         public DbSet<MerchandiseType> MerchandiseTypes { get; set; } = null!;
 
+        public DbSet<Order> Orders { get; set; } = null!;
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

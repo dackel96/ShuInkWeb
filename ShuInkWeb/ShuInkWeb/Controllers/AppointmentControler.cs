@@ -49,30 +49,5 @@ namespace ShuInkWeb.Controllers
 
             return RedirectToAction(nameof(All));
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var model = appointmentService.FindByIdAsync(id);
-
-            if (model == null)
-            {
-                return BadRequest();
-            }
-
-            if (await artistService.ExistArtist(User.Id()))
-            {
-                return Unauthorized();
-            }
-
-            AppointmentViewModel viewModel = new AppointmentViewModel()
-            
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit()
-        {
-
-        }
     }
 }
