@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Data;
 using ShuInkWeb.Data.Entities.Identities;
+using ShuInkWeb.ModelBinders;
 using static ShuInkWeb.Data.Constants.UserConstants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,11 @@ builder.Services.Configure<CookiePolicyOptions>(
          options.MinimumSameSitePolicy = SameSiteMode.None;
      });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    });
 
 builder.Services.AddApplicationServices();
 
