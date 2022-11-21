@@ -21,5 +21,9 @@ namespace ShuInkWeb.Controllers
             var model = await artistService.ArtistsInfo();
             return View(model);
         }
+
+        //TO DO Artist Gallery
+
+        //TO DO Current Artist Schedule
     }
 }

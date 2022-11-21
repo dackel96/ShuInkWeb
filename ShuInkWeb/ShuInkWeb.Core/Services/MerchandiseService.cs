@@ -1,4 +1,6 @@
-﻿using ShuInkWeb.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.MerchandiseModels;
 using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
 using ShuInkWeb.Data.Entities.Merchandises;
@@ -19,5 +21,35 @@ namespace ShuInkWeb.Core.Services
             repository = _repository;
         }
 
+        public async Task AddMerchandiseAsync(MerchandiseViewModel model)
+        {
+            var merchandise = new Merchandise()
+            {
+                Name = model.Name,
+                ImageUrl = model.ImageUrl,
+                Price = model.Price,
+                Description = model.Description,
+                Quantity = model.Quantity,
+                IsInStock = model.Quantity > 0 ? true : false,
+                MerchandiseTypeId = model.TypeId
+            };
+
+            await repository.AddAsync(merchandise);
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<MerchandiseViewModel>> GetAllMerchandisesAsync()
+        {
+            return await repository.All()
+                .Select(x => new MerchandiseViewModel()
+                {
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                    Price = x.Price,
+                    InStock = x.IsInStock,
+                    TypeId = x.MerchandiseTypeId
+                }).ToListAsync();
+        }
     }
 }

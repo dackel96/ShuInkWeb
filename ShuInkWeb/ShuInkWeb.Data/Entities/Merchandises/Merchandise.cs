@@ -12,6 +12,10 @@ namespace ShuInkWeb.Data.Entities.Merchandises
         [Required]
         public string Name { get; set; } = null!;
 
+        [Required]
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; } = null!;
+
         [Precision(PrecisionDigits, PrecisionDigitsAfterSign)]
         public decimal Price { get; set; }
 

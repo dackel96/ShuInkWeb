@@ -14,5 +14,7 @@ namespace ShuInkWeb.Controllers
         {
             return View();
         }
+
+        //TO DO Interface of HomePage
     }
 }

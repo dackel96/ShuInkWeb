@@ -73,6 +73,7 @@ namespace ShuInkWeb.Data.Constants
         public const int TypeMaxLength = 20;
 
         public const int TypeMinLength = 3;
+
     }
     public static class HappeningConstants
     {

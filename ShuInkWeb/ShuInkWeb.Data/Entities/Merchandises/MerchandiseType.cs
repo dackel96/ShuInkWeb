@@ -5,11 +5,9 @@ namespace ShuInkWeb.Data.Entities.Merchandises
 {
     public class MerchandiseType : BaseDeletableModel<Guid>
     {
+        [Required]
         [MaxLength(TypeMaxLength)]
-        public string Type { get; set; } = null!;
-
-        [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         public virtual IEnumerable<Merchandise> Merchandises { get; set; } = new HashSet<Merchandise>();
     }
