@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Data.Entities.Merchandises;
 using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.MerchandiseConstants;
 
@@ -26,5 +27,7 @@ namespace ShuInkWeb.Core.Models.MerchandiseModels
         public string ImageUrl { get; set; } = null!;
 
         public Guid TypeId { get; set; }
+
+        public IEnumerable<MerchandiseType> Types { get; set; } = new HashSet<MerchandiseType>();
     }
 }

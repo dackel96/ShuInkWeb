@@ -9,6 +9,7 @@ namespace ShuInkWeb.Controllers
     {
         private readonly IMerchandiseService merchandiseService;
 
+
         public MerchandiseControler(IMerchandiseService _merchandiseService)
         {
             this.merchandiseService = _merchandiseService;
@@ -27,6 +28,7 @@ namespace ShuInkWeb.Controllers
         public IActionResult Add()
         {
             var model = new MerchandiseViewModel();
+
 
             return View(model);
         }

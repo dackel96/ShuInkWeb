@@ -1,1 +1,20 @@
-﻿@model IEnumerable<MerchandiseViewModel>
+﻿@using ShuInkWeb.Core.Models.MerchandiseModels
+@model IEnumerable<MerchandiseViewModel>
+
+@{
+    ViewBag.Title = "Shop";
+}
+
+<div class="card-body col-12 align-content-center bg-dark rounded-3">
+    @foreach (var item in Model)
+    {
+        <div class="align-content-center">
+            <img src="@item.ImageUrl">
+            <h3>@item.Name</h3>
+            <p>
+                @item.Price
+            </p>
+        </div>
+        <hr />
+    }
+</div>
