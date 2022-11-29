@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Data;
@@ -33,6 +34,7 @@ builder.Services.AddControllersWithViews()
     {
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
     });
+
 
 builder.Services.AddApplicationServices();
 

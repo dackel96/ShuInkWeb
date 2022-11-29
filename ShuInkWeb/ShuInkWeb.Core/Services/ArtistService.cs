@@ -37,6 +37,11 @@ namespace ShuInkWeb.Core.Services
             return models;
         }
 
+        public async Task<bool> ExistById(string userId)
+        {
+            return await repository.All().AnyAsync(x => x.ApplicationUserId == userId);
+        }
+
         public async Task<IEnumerable<AppointmentArtistViewModel>> GetArtistsIdAsync()
         {
             var models = await repository.All()

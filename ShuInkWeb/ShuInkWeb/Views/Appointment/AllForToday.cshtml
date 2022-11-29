@@ -1,0 +1,110 @@
+﻿@model IEnumerable<AppointmentShareModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Events</h1>
+
+@if (ViewData["Alert"] != null)
+{
+    <h3>@ViewData["Alert"]</h3>
+}
+
+<p>
+    <a asp-controller="Appointment" asp-action="Add" class="btn btn-success">Create New</a>
+    <a asp-controller="Appointment" asp-action="AllForMonth" class="btn btn-success">Month Schedule</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+               @* <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+@*@model IEnumerable<AppointmentShareModel>
+
+@{
+    ViewBag.Title = "Today Schedule";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+            </div>
+
+            <a asp-controller="Appointment" asp-action="AllForMonth" class="btn btn-success">Month Schedule</a>
+
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Title</th>
+                            <th>Starts in</th>
+                            <th>Ends in</th>
+                            <th>Artist</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var appointment in Model)
+                        {
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td>@appointment.Day @appointment.DayOfWeek</td>
+                                <td>@appointment.Title</td>
+                                <td>@appointment.Start</td>
+                                <td>@appointment.End</td>
+                                <td>@appointment.ArtistName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>*@

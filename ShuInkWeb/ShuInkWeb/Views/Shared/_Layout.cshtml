@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="~/Quartz/css/bootstrap-icons.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Quartz/css/prism-okaidia.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/toaster/toastr.min.css" />
+    <!--Callendar Scripts-->
+    <link rel="stylesheet" href="~/css/main.css" />
 </head>
 <body class="bg-image"
       style="background-image: url('https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/ShuInkWeb/ShuInkWeb/wwwroot/images/Abstract-backgroundBLur.jpg');
             background-attachment:fixed;">
+    <partial name="_UserMessage"></partial>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
             <div class="container-fluid bg-dark">
@@ -32,10 +36,10 @@
                             <a class="nav-link text-info" asp-area="" asp-controller="Blog" asp-action="Add">Add Post</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="Create">Add Appointment</a>
+                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="Add">Add Appointment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="All">Today Appointments</a>
+                            <a class="nav-link text-info" asp-area="" asp-controller="Appointment" asp-action="AllForToday">Today Appointments</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -55,6 +59,8 @@
             &copy; @DateTime.Now.Year - Plzv Softwear Inc.
         </div>
     </footer>
+    <script src="~/js/main.js"></script>
+    <script src="~/lib/toaster/toastr.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Quartz/js/prismjs.js" asp-append-version="true"></script>

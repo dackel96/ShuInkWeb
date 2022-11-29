@@ -40,7 +40,22 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AppointmentShareModel>> GetAppointmentsAsync()
+        public async Task<AppointmentViewModel> AppointmentInfoModelById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return await repository.AllAsNoTracking().AnyAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAllAppointments()
+        {
+            return await repository.All().ToListAsync();
+        }
+
+        public async Task<IEnumerable<AppointmentShareModel>> GetAppointmentsForTodayAsync()
         {
             return await repository.All()
                 .Where(x => x.Start.Date == DateTime.Now.Date)
@@ -55,6 +70,23 @@ namespace ShuInkWeb.Core.Services
                     ArtistName = x.Artist.ApplicationUser!.UserName
 
                 }).ToListAsync();
+        }
+
+        public async Task<bool> HasArtistWithId(Guid id, string userId)
+        {
+            bool isTrue = false;
+
+            var appointment = await repository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Include(x => x.Artist)
+                .FirstOrDefaultAsync();
+
+            if (appointment?.Artist != null && appointment.Artist.ApplicationUserId == userId)
+            {
+                isTrue = true;
+            }
+
+            return isTrue;
         }
     }
 }

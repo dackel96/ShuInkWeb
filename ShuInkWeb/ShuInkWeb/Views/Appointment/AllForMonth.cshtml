@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Old Capital Schedule";
+}
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+<div class="card-body bg-dark rounded-2 opacity-75">
+    <div class="text-center">
+        <div id='calendar'></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'today prev,next',
+                center: 'title',
+                right: 'timeGridWeek,dayGridMonth,listWeek'
+            },
+            events: @Html.Raw(ViewData["Events"]),
+            resources: @Html.Raw(ViewData["Resources"])
+                });
+        calendar.render();
+    });
+</script>
