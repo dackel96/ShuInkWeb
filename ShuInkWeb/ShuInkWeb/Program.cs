@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Data;
 using ShuInkWeb.Data.Entities.Identities;
 using ShuInkWeb.ModelBinders;
-using static ShuInkWeb.Data.Constants.UserConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +27,13 @@ builder.Services.Configure<CookiePolicyOptions>(
          options.CheckConsentNeeded = context => true;
          options.MinimumSameSitePolicy = SameSiteMode.None;
      });
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
@@ -62,6 +68,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseNotyf();
+
 app.MapRazorPages();
 
 app.Run();

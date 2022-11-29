@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core;
 using ShuInkWeb.Core.Contracts;
@@ -10,16 +11,19 @@ namespace ShuInkWeb.Controllers
 {
     public class AppointmentController : BaseController
     {
+        private readonly INotyfService toastNotification;
 
         private readonly IAppointmentService appointmentService;
 
         private readonly IArtistService artistService;
 
         public AppointmentController(IAppointmentService _appointmentService,
-                                     IArtistService _artistService)
+                                     IArtistService _artistService,
+                                     INotyfService _toastNotification)
         {
             appointmentService = _appointmentService;
             artistService = _artistService;
+            toastNotification = _toastNotification;
         }
 
         [HttpGet]
@@ -45,7 +49,8 @@ namespace ShuInkWeb.Controllers
         {
             if (!(await artistService.ExistById(User.Id())))
             {
-                TempData[MessageConstant.ErrorMessage] = "Зада запазите час трябва да сте Артист!";
+                toastNotification.Custom("Here is a message for you - closes in 8 seconds.", 8, "#602AC3", "fa fa-envelope-o");
+
                 return RedirectToAction("Index", "Home");
             }
 

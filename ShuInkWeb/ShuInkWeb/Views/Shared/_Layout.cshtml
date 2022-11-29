@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="~/Quartz/css/bootstrap-icons.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Quartz/css/prism-okaidia.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/toaster/toastr.min.css" />
     <!--Callendar Scripts-->
     <link rel="stylesheet" href="~/css/main.css" />
 </head>
 <body class="bg-image"
       style="background-image: url('https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/ShuInkWeb/ShuInkWeb/wwwroot/images/Abstract-backgroundBLur.jpg');
             background-attachment:fixed;">
-    <partial name="_UserMessage"></partial>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
             <div class="container-fluid bg-dark">
@@ -60,11 +58,11 @@
         </div>
     </footer>
     <script src="~/js/main.js"></script>
-    <script src="~/lib/toaster/toastr.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Quartz/js/prismjs.js" asp-append-version="true"></script>
     <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
 </body>
 </html>

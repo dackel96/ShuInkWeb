@@ -40,7 +40,7 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<AppointmentViewModel> AppointmentInfoModelById(Guid id)
+        public Task<AppointmentViewModel> AppointmentInfoModelById(Guid id)
         {
             throw new NotImplementedException();
         }
