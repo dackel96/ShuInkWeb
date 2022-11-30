@@ -40,9 +40,23 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public Task<AppointmentViewModel> AppointmentInfoModelById(Guid id)
+        public async Task<AppointmentDetailsModel> AppointmentInfoModelById(Guid id)
         {
-            throw new NotImplementedException();
+            return await repository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new AppointmentDetailsModel()
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    Start = x.Start,
+                    End = x.End,
+                    ClientFirstName = x.Client.FirstName,
+                    ClientLastName = x.Client.LastName,
+                    PhoneNumber = x.Client.PhoneNumber,
+                    SocialMedia = x.Client.SocialMedia,
+                    ArtistName = x.Artist.ApplicationUser!.FirstName
+                })
+                .FirstAsync();
         }
 
         public async Task<bool> Exists(Guid id)
@@ -61,6 +75,7 @@ namespace ShuInkWeb.Core.Services
                 .Where(x => x.Start.Date == DateTime.Now.Date)
                 .Select(x => new AppointmentShareModel()
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     Day = DateTime.Now.Day.ToString(),
                     Month = DateTime.Now.Month.ToString(),

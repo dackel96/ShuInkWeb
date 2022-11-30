@@ -28,18 +28,20 @@ builder.Services.Configure<CookiePolicyOptions>(
          options.MinimumSameSitePolicy = SameSiteMode.None;
      });
 
-builder.Services.AddNotyf(config =>
-{
-    config.DurationInSeconds = 5;
-    config.IsDismissable = true;
-    config.Position = NotyfPosition.TopRight;
-});
+
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
     });
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
 
 
 builder.Services.AddApplicationServices();
@@ -65,12 +67,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.UseNotyf();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapRazorPages();
+});
 
 app.Run();

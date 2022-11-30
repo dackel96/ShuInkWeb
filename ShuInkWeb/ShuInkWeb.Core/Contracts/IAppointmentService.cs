@@ -17,7 +17,7 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task<bool> HasArtistWithId(Guid id, string userId);
 
-        public Task<AppointmentViewModel> AppointmentInfoModelById(Guid id);
+        public Task<AppointmentDetailsModel> AppointmentInfoModelById(Guid id);
 
     }
 }

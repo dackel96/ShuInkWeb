@@ -49,7 +49,6 @@ namespace ShuInkWeb.Controllers
         {
             if (!(await artistService.ExistById(User.Id())))
             {
-                toastNotification.Custom("Here is a message for you - closes in 8 seconds.", 8, "#602AC3", "fa fa-envelope-o");
 
                 return RedirectToAction("Index", "Home");
             }
@@ -73,6 +72,22 @@ namespace ShuInkWeb.Controllers
 
             return RedirectToAction(nameof(AllForToday));
         }
+
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if ((await appointmentService.Exists(id)) == false)
+            {
+                toastNotification.Error("This Appointment doe's not exist");
+
+                return RedirectToAction(nameof(AllForToday));
+            }
+
+            var model = await appointmentService.AppointmentInfoModelById(id);
+
+            return View(model);
+        }
+
 
         //[HttpGet]
         //public async Task<IActionResult> Edit(Guid id)
