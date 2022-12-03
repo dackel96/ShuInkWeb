@@ -1,14 +1,6 @@
 ﻿@{
     this.ViewData["Title"] = "Home";
 }
-@*<form method="post" asp-controller="Home" asp-action="Index">
-    <div class="text-center">
-        <button class="btn btn-success" name="submit" value="Success">Toast Success</button>
-        <button class="btn btn-primary" name="submit" value="Info">Toast Info</button>
-        <button class="btn btn-danger" name="submit" value="Error">Toast Error</button>
-        <button class="btn btn-warning" name="submit" value="Warning">Toast Warning</button>
-    </div>
-</form>*@
 <div class="container opacity-100">
     <div class="card border-1 shadow my-5 bg-dark">
         <div class="card-body p-5">
@@ -40,5 +32,36 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="align-content-center">
+    <h2 class="align-content-lg-center">CONTACT US</h2>
+
+    <div class="align-content-center">
+        <i class="fa fa-map-marker" style="width:30px"></i>VELIKO TARNOVO<br>
+        <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br>
+        <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
+    </div>
+    <div class="w3-col m6">
+        <form action="/action_page.php" target="_blank">
+            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+                </div>
+                <div class="w3-half">
+                    <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+                </div>
+            </div>
+            <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+            <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+        </form>
+    </div>
+</div>
+
+<div style="text-align:center">
+
+    <div class="mx-auto">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2914.020897922721!2d25.6304577441776!3d43.083055995165395!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a92778524c66a3%3A0x52ba16deaa4312e!2sOld%20Capital%20Tattoo%20Shop!5e0!3m2!1sbg!2sbg!4v1668721242090!5m2!1sbg!2sbg" width="600" height="450" style="border: 0px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </div>

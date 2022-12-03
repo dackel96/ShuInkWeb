@@ -12,5 +12,7 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task<bool> ExistById(string userId);
 
+        public Task<Guid> GetArtistIdAsync(string userId);
+
     }
 }

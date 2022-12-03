@@ -1,9 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Core.Models.ClientModels;
+using ShuInkWeb.Data.Entities.Clients;
 using ShuInkWeb.Extensions;
 using ShuInkWeb.JsonSerializer;
 
@@ -17,17 +20,25 @@ namespace ShuInkWeb.Controllers
 
         private readonly IArtistService artistService;
 
+        private readonly IJsonCalendarListEvents jsonSerializer;
+
+        private readonly IClientService clientService;
+
         public AppointmentController(IAppointmentService _appointmentService,
                                      IArtistService _artistService,
-                                     INotyfService _toastNotification)
+                                     INotyfService _toastNotification,
+                                     IJsonCalendarListEvents _jsonSerializer,
+                                     IClientService _clientService)
         {
             appointmentService = _appointmentService;
             artistService = _artistService;
             toastNotification = _toastNotification;
+            jsonSerializer = _jsonSerializer;
+            this.clientService = _clientService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllForToday()
+        public async Task<IActionResult> All()
         {
             var models = await appointmentService.GetAppointmentsForTodayAsync();
 
@@ -35,32 +46,32 @@ namespace ShuInkWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllForMonth()
+        public IActionResult AllForMonth()
         {
-            ViewData["Events"] = JsonCalendarListEvents.GetEventListJSONString(await appointmentService.GetAllAppointments());
+            ViewData["Events"] = jsonSerializer.GetEventListJSONString();
 
-            ViewData["Resources"] = JsonCalendarListEvents.GetResourceListJSONString(await artistService.GetArtistsIdAsync());
+            ViewData["Resources"] = jsonSerializer.GetResourceListJSONString();
 
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Add()
         {
             if (!(await artistService.ExistById(User.Id())))
             {
-
                 return RedirectToAction("Index", "Home");
             }
 
             var model = new AppointmentViewModel();
 
-            model.Artists = await artistService.GetArtistsIdAsync();
 
             return View(model);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Add(AppointmentViewModel model)
         {
             if (!ModelState.IsValid)
@@ -68,9 +79,11 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            await appointmentService.AddAppointmentAsync(model);
+            Guid artistId = await artistService.GetArtistIdAsync(User.Id());
 
-            return RedirectToAction(nameof(AllForToday));
+            await appointmentService.AddAppointmentAsync(model, artistId);
+
+            return RedirectToAction(nameof(All));
         }
 
 
@@ -80,7 +93,7 @@ namespace ShuInkWeb.Controllers
             {
                 toastNotification.Error("This Appointment doe's not exist");
 
-                return RedirectToAction(nameof(AllForToday));
+                return RedirectToAction(nameof(All));
             }
 
             var model = await appointmentService.AppointmentInfoModelById(id);
@@ -88,27 +101,66 @@ namespace ShuInkWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if ((await appointmentService.Exists(id)) == false)
+            {
+                toastNotification.Error("This Appointment doe's not exist");
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(Guid id)
-        //{
-        //    if (!(await appointmentService.Exists(id)))
-        //    {
-        //        return RedirectToAction(nameof(All));
-        //    }
+                return RedirectToAction(nameof(All));
+            }
 
-        //    if (!(await appointmentService.HasArtistWithId(id, User.Id())))
-        //    {
-        //        return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
-        //    }
+            var appointment = await appointmentService.GetAppointmentById(id);
 
-        //}
+            var client = await clientService.GetClientById(appointment.ClientId);
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(AppointmentViewModel model)
-        //{
+            int duration = appointment.End.Hour - appointment.Start.Hour;
 
-        //}
-        //TO DO Remove
+            var model = new AppointmentViewModel()
+            {
+                Id = appointment.Id,
+                Title = appointment.Title,
+                Description = appointment.Description,
+                Start = appointment.Start,
+                Duration = duration,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                PhoneNumber = client.PhoneNumber,
+                SocialMedia = client.SocialMedia
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid id, AppointmentViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+            if ((await appointmentService.Exists(id)) == false)
+            {
+                toastNotification.Error("This Appointment doe's not exist");
+
+                return RedirectToAction(nameof(All));
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await appointmentService.Edit(id, model);
+
+            return RedirectToAction(nameof(Details), id);
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await appointmentService.DeleteAppointment(id);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

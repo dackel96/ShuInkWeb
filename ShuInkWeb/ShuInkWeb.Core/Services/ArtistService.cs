@@ -42,6 +42,10 @@ namespace ShuInkWeb.Core.Services
             return await repository.All().AnyAsync(x => x.ApplicationUserId == userId);
         }
 
+        public async Task<Guid> GetArtistIdAsync(string userId)
+        {
+            return (await repository.AllAsNoTracking().FirstOrDefaultAsync(x => x.ApplicationUserId == userId))?.Id ?? Guid.Parse("00000000-0000-0000-0000-000000000000");
+        }
         public async Task<IEnumerable<AppointmentArtistViewModel>> GetArtistsIdAsync()
         {
             var models = await repository.All()

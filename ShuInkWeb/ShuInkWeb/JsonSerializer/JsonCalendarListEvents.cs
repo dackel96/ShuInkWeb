@@ -1,45 +1,52 @@
-﻿using ShuInkWeb.Core.Models.AppointmentModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
 using ShuInkWeb.Data.Entities.Artists;
-using ShuInkWeb.JsonSerializer.JsonModels;
+
 
 namespace ShuInkWeb.JsonSerializer
 {
-    public static class JsonCalendarListEvents
+    public class JsonCalendarListEvents : IJsonCalendarListEvents
     {
-        public static string GetEventListJSONString(IEnumerable<Appointment> events)
+        private readonly IDeletableEntityRepository<Appointment> appointmentDb;
+
+        private readonly IDeletableEntityRepository<Artist> artistDb;
+        public JsonCalendarListEvents(IDeletableEntityRepository<Appointment> _appointmentDb, IDeletableEntityRepository<Artist> _artistDb)
         {
-            var eventlist = new List<Event>();
-            foreach (var model in events)
-            {
-                var myevent = new Event()
-                {
-                    id = model.Id,
-                    start = model.Start,
-                    end = model.End,
-                    resourceId = model.ArtistId,
-                    description = model.Description,
-                    title = model.Title
-                };
-                eventlist.Add(myevent);
-            }
-            return System.Text.Json.JsonSerializer.Serialize(eventlist);
+            appointmentDb = _appointmentDb;
+            artistDb = _artistDb;
         }
 
-        public static string GetResourceListJSONString(IEnumerable<AppointmentArtistViewModel> artists)
+        public string GetEventListJSONString()
         {
-            var resourcelist = new List<Resource>();
-
-            foreach (var artist in artists)
-            {
-                var resource = new Resource()
+            var events = appointmentDb.AllAsNoTracking()
+                .Select(x => new
                 {
-                    id = artist.Id,
-                    title = artist.Name
-                };
-                resourcelist.Add(resource);
-            }
-            return System.Text.Json.JsonSerializer.Serialize(resourcelist);
+                    id = x.Id,
+                    title = x.Title,
+                    start = x.Start,
+                    end = x.End,
+                    resorceId = x.ArtistId,
+                    description = x.Description
+                })
+                .ToList();
+
+            return JsonConvert.SerializeObject(events, Formatting.Indented);
+        }
+
+        public string GetResourceListJSONString()
+        {
+            var artists = artistDb.AllAsNoTracking()
+                .Select(x => new
+                {
+                    id = x.Id,
+                    title = x.ApplicationUser!.UserName
+                })
+                .ToList();
+
+            return JsonConvert.SerializeObject(artists, Formatting.Indented);
         }
     }
 }

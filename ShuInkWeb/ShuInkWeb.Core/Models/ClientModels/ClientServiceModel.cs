@@ -1,28 +1,14 @@
-﻿using ShuInkWeb.Data.Entities.Clients;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ShuInkWeb.Data.Constants.AppointmentConstants;
 using static ShuInkWeb.Data.Constants.UserConstants;
-
-
-namespace ShuInkWeb.Core.Models.AppointmentModels
+namespace ShuInkWeb.Core.Models.ClientModels
 {
-    public class AppointmentViewModel
+    public class ClientServiceModel
     {
-
-        public Guid Id { get; set; }
-
-        [Required]
-        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
-        public string Title { get; set; } = null!;
-
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
-        public string? Description { get; set; }
-
         [Required]
         [StringLength(UserFirstNameMaxLength, MinimumLength = UserFirstNameMinLength)]
         public string FirstName { get; set; } = null!;
@@ -38,11 +24,5 @@ namespace ShuInkWeb.Core.Models.AppointmentModels
         [MaxLength(PhoneNumberLength)]
         [RegularExpression(PhoneNumberRegex)]
         public string PhoneNumber { get; set; } = null!;
-
-        [DataType(DataType.DateTime)]
-        public DateTime Start { get; set; }
-
-        [Range(1,6)]
-        public int Duration { get; set; }
     }
 }
