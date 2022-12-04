@@ -97,7 +97,18 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
+
             var user = await userManager.FindByNameAsync(model.Username);
+
+            if (user != null && await userManager.IsInRoleAsync(user, "Artist"))
+            {
+                var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Artist", new { area = "Artist" });
+                }
+            }
 
             if (user != null)
             {

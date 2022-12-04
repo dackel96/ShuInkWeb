@@ -40,4 +40,9 @@
     <None Include="Views\Merchandise\All.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Artist\Data\" />
+    <Folder Include="Areas\Artist\Models\" />
+  </ItemGroup>
+
 </Project>

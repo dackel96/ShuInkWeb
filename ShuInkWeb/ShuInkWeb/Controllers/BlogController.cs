@@ -40,6 +40,19 @@ namespace ShuInkWeb.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if ((await happeningService.HappeningExist(id) == false))
+            {
+                RedirectToAction(nameof(All));
+            }
+
+            var model = await happeningService.GetSingleHappeningAsync(id);
+
+            return View(model);
+        }
+
+
         //TO DO Edit
 
         //TO DO Remove

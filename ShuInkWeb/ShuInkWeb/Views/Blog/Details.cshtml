@@ -1,0 +1,17 @@
+﻿@model HappeningViewModel
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row-cols-md-12">
+                    <h3>@Model.Title</h3>
+                    <p>
+                        @Model.Content
+                    </p>
+                    <img src="@Model.ImageUrl">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

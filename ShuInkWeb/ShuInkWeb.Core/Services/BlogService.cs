@@ -39,11 +39,32 @@ namespace ShuInkWeb.Core.Services
             return await repository.All()
                 .Select(x => new HappeningViewModel()
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     Content = x.Content,
                     ImageUrl = x.ImageUrl
                 })
                 .ToListAsync();
+        }
+
+        public async Task<HappeningViewModel> GetSingleHappeningAsync(Guid id)
+        {
+            var model = await repository.All()
+                .Where(x => x.Id == id)
+                 .Select(x => new HappeningViewModel()
+                 {
+                     Title = x.Title,
+                     Content = x.Content,
+                     ImageUrl = x.ImageUrl
+                 })
+                 .FirstOrDefaultAsync();
+
+            return model!;
+        }
+
+        public async Task<bool> HappeningExist(Guid id)
+        {
+            return await repository.AllAsNoTracking().AnyAsync(x => x.Id == id);
         }
     }
 }

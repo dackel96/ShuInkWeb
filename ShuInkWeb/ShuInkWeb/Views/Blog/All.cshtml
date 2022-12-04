@@ -4,16 +4,20 @@
     ViewBag.Title = "Last News";
 }
 
-<div class="card-body col-12 align-content-center bg-dark rounded-3">
+<div class="card-body row-cols-12 text-center bg-dark rounded-3">
     @foreach (var item in Model)
     {
-        <div class="align-content-center">
+        <div class="row-cols-md-12">
             <h3>@item.Title</h3>
             <p>
                 @item.Content
             </p>
             <img src="@item.ImageUrl">
         </div>
+        <hr />
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+        <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         <hr />
     }
 </div>

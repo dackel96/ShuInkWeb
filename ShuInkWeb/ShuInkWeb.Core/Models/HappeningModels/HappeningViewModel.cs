@@ -5,6 +5,8 @@ namespace ShuInkWeb.Core.Models.HappeningModels
 {
     public class HappeningViewModel
     {
+        public Guid Id { get; set; }
+
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
