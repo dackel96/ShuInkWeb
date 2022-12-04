@@ -1,13 +1,10 @@
-﻿using ShuInkWeb.Core.Models.HappeningModels;
-using ShuInkWeb.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShuInkWeb.Core.Contracts
+﻿namespace ShuInkWeb.Core.Contracts
 {
+    using ShuInkWeb.Core.Models.HappeningModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IBlogService
     {
         public Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync();
@@ -17,5 +14,9 @@ namespace ShuInkWeb.Core.Contracts
         public Task<bool> HappeningExist(Guid id);
 
         public Task<HappeningViewModel> GetSingleHappeningAsync(Guid id);
+
+        public Task Edit(Guid id, HappeningViewModel model);
+
+        public Task Delete(Guid id);
     }
 }

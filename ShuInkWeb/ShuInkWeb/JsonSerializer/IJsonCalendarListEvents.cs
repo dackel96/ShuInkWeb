@@ -1,7 +1,4 @@
-﻿using ShuInkWeb.Core.Models.AppointmentModels;
-using ShuInkWeb.Data.Entities;
-
-namespace ShuInkWeb.JsonSerializer
+﻿namespace ShuInkWeb.JsonSerializer
 {
     public interface IJsonCalendarListEvents
     {

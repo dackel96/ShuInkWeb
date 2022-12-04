@@ -1,29 +1,27 @@
-﻿using ShuInkWeb.Core.Models.AppointmentModels;
-using ShuInkWeb.Data.Entities;
-using ShuInkWeb.Data.Entities.Artists;
-
-namespace ShuInkWeb.Core.Contracts
+﻿namespace ShuInkWeb.Core.Contracts
 {
+    using ShuInkWeb.Core.Models.AppointmentModels;
+    using ShuInkWeb.Data.Entities;
+
     public interface IAppointmentService
     {
-        public Task AddAppointmentAsync(AppointmentViewModel model,Guid artistId);
+        public Task AddAsync(AppointmentViewModel model, Guid artistId);
 
-        public Task<IEnumerable<AppointmentShareModel>> GetAppointmentsForTodayAsync();
+        public Task<IEnumerable<AppointmentShareModel>> GetAllAsync();
 
-        public Task<IEnumerable<Appointment>> GetAllAppointments();
+        public Task<bool> IsExistingAsync(Guid id);
 
-        
-        public Task<bool> Exists(Guid id);
+        public Task<bool> HasArtistWithIdAsync(Guid id, string userId);
 
-        public Task<bool> HasArtistWithId(Guid id, string userId);
+        public Task<AppointmentDetailsModel> DetailsModelByIdAsync(Guid id);
 
-        public Task<AppointmentDetailsModel> AppointmentInfoModelById(Guid id);
+        public Task EditAsync(Guid appointmentId, AppointmentViewModel model);
 
-        public Task Edit(Guid appointmentId, AppointmentViewModel model);
+        public Task<Appointment> GetEntityByIdAsync(Guid id);
 
-        public Task<Appointment> GetAppointmentById(Guid id);
+        public Task DeleteAsync(Guid appointmentId);
 
-        public Task DeleteAppointment(Guid appointmentId);
+        public Task<IEnumerable<AppointmentForCurrentArtistModel>> GetAppointmentsForCurrentArtist(Guid id);
 
     }
 }

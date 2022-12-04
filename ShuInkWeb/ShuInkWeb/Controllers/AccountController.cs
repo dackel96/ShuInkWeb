@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Controllers.Common;
-using ShuInkWeb.Core.Models.AccountModels;
-using ShuInkWeb.Data.Entities.Identities;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Controllers.Common;
+    using ShuInkWeb.Core.Models.AccountModels;
+    using ShuInkWeb.Data.Entities.Identities;
+
 
     public class AccountController : BaseController
     {

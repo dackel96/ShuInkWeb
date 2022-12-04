@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Controllers.Common;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.MerchandiseModels;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Controllers.Common;
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Models.MerchandiseModels;
+
     public class MerchandiseControler : BaseController
     {
         private readonly IMerchandiseService merchandiseService;
@@ -45,5 +45,11 @@ namespace ShuInkWeb.Controllers
 
             return View();
         }
+
+        //TO DO Add product
+
+        //Edit Product
+
+        //Delete Product
     }
 }

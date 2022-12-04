@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Controllers.Common;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.ArtistModels;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Controllers.Common;
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Models.ArtistModels;
+
     public class ArtistController : BaseController
     {
         private readonly IArtistService artistService;
@@ -23,7 +23,5 @@ namespace ShuInkWeb.Controllers
         }
 
         //TO DO Artist Gallery
-
-        //TO DO Current Artist Schedule
     }
 }

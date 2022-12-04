@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.HappeningModels;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
-    [Authorize]
-    public class BlogController : Controller
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Areas.Artist.Controllers;
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Models.HappeningModels;
+
+    public class BlogController : BaseController
     {
         private readonly IBlogService happeningService;
 
@@ -52,9 +52,53 @@ namespace ShuInkWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if (await happeningService.HappeningExist(id))
+            {
+                return RedirectToAction(nameof(All));
+            }
 
-        //TO DO Edit
+            var post = await happeningService.GetSingleHappeningAsync(id);
 
-        //TO DO Remove
+            var model = new HappeningViewModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                ImageUrl = post.ImageUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid id, HappeningViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+            if ((await happeningService.HappeningExist(id) == false))
+            {
+                return RedirectToAction(nameof(All));
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await happeningService.Edit(id, model);
+
+            return RedirectToAction(nameof(Details), id);
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await happeningService.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

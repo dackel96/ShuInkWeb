@@ -1,21 +1,15 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Controllers.Common;
-using ShuInkWeb.Core;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.AppointmentModels;
-using ShuInkWeb.Core.Models.ClientModels;
-using ShuInkWeb.Data.Entities.Clients;
-using ShuInkWeb.Extensions;
-using ShuInkWeb.JsonSerializer;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Controllers.Common;
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Models.AppointmentModels;
+    using ShuInkWeb.Extensions;
+    using ShuInkWeb.JsonSerializer;
+
     public class AppointmentController : BaseController
     {
-        private readonly INotyfService toastNotification;
-
         private readonly IAppointmentService appointmentService;
 
         private readonly IArtistService artistService;
@@ -26,13 +20,11 @@ namespace ShuInkWeb.Controllers
 
         public AppointmentController(IAppointmentService _appointmentService,
                                      IArtistService _artistService,
-                                     INotyfService _toastNotification,
                                      IJsonCalendarListEvents _jsonSerializer,
                                      IClientService _clientService)
         {
             appointmentService = _appointmentService;
             artistService = _artistService;
-            toastNotification = _toastNotification;
             jsonSerializer = _jsonSerializer;
             this.clientService = _clientService;
         }
@@ -40,7 +32,7 @@ namespace ShuInkWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var models = await appointmentService.GetAppointmentsForTodayAsync();
+            var models = await appointmentService.GetAllAsync();
 
             return View(models);
         }
@@ -81,7 +73,7 @@ namespace ShuInkWeb.Controllers
 
             Guid artistId = await artistService.GetArtistIdAsync(User.Id());
 
-            await appointmentService.AddAppointmentAsync(model, artistId);
+            await appointmentService.AddAsync(model, artistId);
 
             return RedirectToAction(nameof(All));
         }
@@ -89,14 +81,12 @@ namespace ShuInkWeb.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            if ((await appointmentService.Exists(id)) == false)
+            if ((await appointmentService.IsExistingAsync(id)) == false)
             {
-                toastNotification.Error("This Appointment doe's not exist");
-
                 return RedirectToAction(nameof(All));
             }
 
-            var model = await appointmentService.AppointmentInfoModelById(id);
+            var model = await appointmentService.DetailsModelByIdAsync(id);
 
             return View(model);
         }
@@ -104,14 +94,12 @@ namespace ShuInkWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            if ((await appointmentService.Exists(id)) == false)
+            if ((await appointmentService.IsExistingAsync(id)) == false)
             {
-                toastNotification.Error("This Appointment doe's not exist");
-
                 return RedirectToAction(nameof(All));
             }
 
-            var appointment = await appointmentService.GetAppointmentById(id);
+            var appointment = await appointmentService.GetEntityByIdAsync(id);
 
             var client = await clientService.GetClientById(appointment.ClientId);
 
@@ -140,10 +128,8 @@ namespace ShuInkWeb.Controllers
             {
                 return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
-            if ((await appointmentService.Exists(id)) == false)
+            if ((await appointmentService.IsExistingAsync(id)) == false)
             {
-                toastNotification.Error("This Appointment doe's not exist");
-
                 return RedirectToAction(nameof(All));
             }
             if (!ModelState.IsValid)
@@ -151,14 +137,14 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            await appointmentService.Edit(id, model);
+            await appointmentService.EditAsync(id, model);
 
             return RedirectToAction(nameof(Details), id);
         }
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            await appointmentService.DeleteAppointment(id);
+            await appointmentService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }

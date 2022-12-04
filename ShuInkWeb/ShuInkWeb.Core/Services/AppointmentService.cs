@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Models.AppointmentModels;
-using ShuInkWeb.Core.Models.ClientModels;
-using ShuInkWeb.Data.Common.Repositories;
-using ShuInkWeb.Data.Entities;
-using ShuInkWeb.Data.Entities.Artists;
-using ShuInkWeb.Data.Entities.Clients;
-using ShuInkWeb.Data.Entities.Identities;
-
-namespace ShuInkWeb.Core.Services
+﻿namespace ShuInkWeb.Core.Services
 {
+    using Microsoft.EntityFrameworkCore;
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Models.AppointmentModels;
+    using ShuInkWeb.Data.Common.Repositories;
+    using ShuInkWeb.Data.Entities;
+    using ShuInkWeb.Data.Entities.Clients;
+
     public class AppointmentService : IAppointmentService
     {
         private readonly IDeletableEntityRepository<Appointment> repository;
@@ -23,7 +19,7 @@ namespace ShuInkWeb.Core.Services
             clientService = _clientService;
         }
 
-        public async Task AddAppointmentAsync(AppointmentViewModel model, Guid artistId)
+        public async Task AddAsync(AppointmentViewModel model, Guid artistId)
         {
             var appointment = new Appointment()
             {
@@ -47,7 +43,7 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<AppointmentDetailsModel> AppointmentInfoModelById(Guid id)
+        public async Task<AppointmentDetailsModel> DetailsModelByIdAsync(Guid id)
         {
             return await repository.AllAsNoTracking()
                 .Where(x => x.Id == id)
@@ -67,7 +63,7 @@ namespace ShuInkWeb.Core.Services
                 .FirstAsync();
         }
 
-        public async Task DeleteAppointment(Guid appointmentId)
+        public async Task DeleteAsync(Guid appointmentId)
         {
             var entity = await repository.GetByIdAsync(appointmentId);
 
@@ -76,7 +72,7 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task Edit(Guid appointmentId, AppointmentViewModel model)
+        public async Task EditAsync(Guid appointmentId, AppointmentViewModel model)
         {
             var appointment = await repository.GetByIdAsync(appointmentId);
 
@@ -94,22 +90,34 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task<bool> Exists(Guid id)
+        public async Task<bool> IsExistingAsync(Guid id)
         {
             return await repository.AllAsNoTracking().AnyAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Appointment>> GetAllAppointments()
-        {
-            return await repository.All().ToListAsync();
-        }
-
-        public async Task<Appointment> GetAppointmentById(Guid id)
+        public async Task<Appointment> GetEntityByIdAsync(Guid id)
         {
             return await repository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<AppointmentShareModel>> GetAppointmentsForTodayAsync()
+        public async Task<IEnumerable<AppointmentForCurrentArtistModel>> GetAppointmentsForCurrentArtist(Guid id)
+        {
+            return await repository.AllAsNoTracking()
+                .Where(x => x.ArtistId == id)
+                .Where(x => x.End >= DateTime.Now)
+                .Select(x => new AppointmentForCurrentArtistModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Start = $"{x.Start.ToShortDateString()},{x.Start.ToShortTimeString()}",
+                    End = $"{x.End.ToShortDateString()},{x.End.ToShortTimeString()}",
+                    ClientContact = $"{x.Client.SocialMedia},{x.Client.PhoneNumber}"
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<AppointmentShareModel>> GetAllAsync()
         {
             return await repository.All()
                 .Where(x => x.Start.Date == DateTime.Now.Date)
@@ -127,7 +135,7 @@ namespace ShuInkWeb.Core.Services
                 }).ToListAsync();
         }
 
-        public async Task<bool> HasArtistWithId(Guid id, string userId)
+        public async Task<bool> HasArtistWithIdAsync(Guid id, string userId)
         {
             bool isTrue = false;
 

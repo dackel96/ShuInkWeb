@@ -34,6 +34,26 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task Delete(Guid id)
+        {
+            var entity = await repository.GetByIdAsync(id);
+
+            repository.Delete(entity);
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task Edit(Guid id, HappeningViewModel model)
+        {
+            var post = await repository.GetByIdAsync(id);
+
+            post.Title = model.Title;
+            post.Content = model.Content;
+            post.ImageUrl = model.ImageUrl;
+
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync()
         {
             return await repository.All()

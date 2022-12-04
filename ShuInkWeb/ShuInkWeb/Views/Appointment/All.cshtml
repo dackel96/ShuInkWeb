@@ -12,10 +12,6 @@
     <h3>@ViewData["Alert"]</h3>
 }
 
-<p>
-    <a asp-controller="Appointment" asp-action="Add" class="btn btn-success">Create New</a>
-    <a asp-controller="Appointment" asp-action="AllForMonth" class="btn btn-success">Month Schedule</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.End)
             </th>
-            <th></th>
+            <th>
+                Options
+            </th>
         </tr>
     </thead>
     <tbody>

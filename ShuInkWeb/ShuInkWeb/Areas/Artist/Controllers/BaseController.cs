@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ShuInkWeb.Areas.Artist.Controllers
+﻿namespace ShuInkWeb.Areas.Artist.Controllers
 {
-    [Area("Artist")]
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using static ShuInkWeb.Constants.AreaConstants;
+
+    [Area(AreaName)]
     [Route("Artist/[controller]/[action]/{id?}")]
-    [Authorize(Roles = "Artist")]
+    [Authorize(Roles = RoleName)]
     public class BaseController : Controller
     {
     }

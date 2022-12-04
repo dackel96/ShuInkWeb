@@ -42,17 +42,31 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3 sidebar-sticky">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Blog" asp-action="Add">Add Post</a>
-                        </li>
+                        <li>Appointment Options</li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Add">Add Appointment</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="All">All Appointment</a>
+                        </li>
+                        <li>Blog Options</li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Blog" asp-action="Add">Add Post</a>
+                        </li>
+                        <li>Shop Options</li>
                     </ul>
                 </div>
             </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    @RenderBody()
+                </div>
+            </main>
         </div>
+
     </div>
+
 
 
     <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -61,11 +75,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
     <script src="dashboard.js"></script>
 
-    <div class="container opacity-100">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
 
     <footer class="footer mt-auto py-3 bg-dark">
         <div class="container">

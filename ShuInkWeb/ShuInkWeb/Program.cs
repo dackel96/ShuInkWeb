@@ -1,5 +1,3 @@
-using AspNetCoreHero.ToastNotification;
-using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Data;
 using ShuInkWeb.Data.Entities.Identities;
@@ -36,13 +34,6 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
     });
 
-builder.Services.AddNotyf(config =>
-{
-    config.DurationInSeconds = 5;
-    config.IsDismissable = true;
-    config.Position = NotyfPosition.TopRight;
-});
-
 
 builder.Services.AddApplicationServices();
 
@@ -66,8 +57,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseNotyf();
 
 app.UseEndpoints(endpoints =>
 {

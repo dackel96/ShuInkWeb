@@ -1,26 +1,18 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using AspNetCoreHero.ToastNotification.Notyf;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ShuInkWeb.Controllers.Common;
-using ShuInkWeb.Models;
-using System.Diagnostics;
-using static System.Reflection.Metadata.BlobBuilder;
-
-namespace ShuInkWeb.Controllers
+﻿namespace ShuInkWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using ShuInkWeb.Controllers.Common;
+
     public class HomeController : BaseController
     {
-        private readonly INotyfService notyfService;
-
-        public HomeController(INotyfService _notyfService)
-        {
-            notyfService = _notyfService;
-        }
-
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.IsInRole("Artist"))
+            {
+                return RedirectToAction("Index", "Artist", new { area = "Artist" });
+            }
             return View();
         }
 

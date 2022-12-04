@@ -1,11 +1,11 @@
-﻿using ShuInkWeb.Core.Contracts;
-using ShuInkWeb.Core.Services;
-using ShuInkWeb.Data;
-using ShuInkWeb.Data.Common.Repositories;
-using ShuInkWeb.JsonSerializer;
-
-namespace Microsoft.Extensions.DependencyInjection
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
+    using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.Services;
+    using ShuInkWeb.Data;
+    using ShuInkWeb.Data.Common.Repositories;
+    using ShuInkWeb.JsonSerializer;
+
     public static class ShuInkWebServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)

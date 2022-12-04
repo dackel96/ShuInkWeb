@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace ShuInkWeb.ModelBinders
+﻿namespace ShuInkWeb.ModelBinders
 {
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     public class DecimalModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
