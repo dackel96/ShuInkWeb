@@ -53,6 +53,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Blog" asp-action="Add">Add Post</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Blog" asp-action="All">All Posts</a>
+                        </li>
                         <li>Shop Options</li>
                     </ul>
                 </div>
@@ -87,7 +90,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/main.js"></script>
-    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,11 +1,11 @@
-﻿namespace ShuInkWeb.Controllers
-{
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using ShuInkWeb.Areas.Artist.Controllers;
-    using ShuInkWeb.Core.Contracts;
-    using ShuInkWeb.Core.Models.HappeningModels;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.HappeningModels;
+using ShuInkWeb.Controllers.Common;
 
+namespace ShuInkWeb.Controllers
+{
     public class BlogController : BaseController
     {
         private readonly IBlogService happeningService;
@@ -15,7 +15,6 @@
             this.happeningService = _happeningService;
         }
 
-        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
@@ -42,7 +41,7 @@
 
         public async Task<IActionResult> Details(Guid id)
         {
-            if ((await happeningService.HappeningExist(id) == false))
+            if (await happeningService.HappeningExist(id))
             {
                 RedirectToAction(nameof(All));
             }
@@ -55,7 +54,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            if (await happeningService.HappeningExist(id))
+            if ((await happeningService.HappeningExist(id) == false))
             {
                 return RedirectToAction(nameof(All));
             }
@@ -91,7 +90,7 @@
 
             await happeningService.Edit(id, model);
 
-            return RedirectToAction(nameof(Details), id);
+            return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Delete(Guid id)

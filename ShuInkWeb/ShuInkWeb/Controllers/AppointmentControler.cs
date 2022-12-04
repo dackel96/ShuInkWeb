@@ -38,6 +38,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult AllForMonth()
         {
             ViewData["Events"] = jsonSerializer.GetEventListJSONString();

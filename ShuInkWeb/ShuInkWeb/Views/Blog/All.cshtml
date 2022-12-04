@@ -4,6 +4,10 @@
     ViewBag.Title = "Last News";
 }
 
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
 <div class="card-body row-cols-12 text-center bg-dark rounded-3">
     @foreach (var item in Model)
     {
@@ -14,10 +18,13 @@
             </p>
             <img src="@item.ImageUrl">
         </div>
-        <hr />
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-        <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-        <hr />
+        @if (User.IsInRole("Artist"))
+        {
+            <hr />
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <hr />
+        }
     }
 </div>

@@ -4,9 +4,10 @@
     ViewBag.Title = "Our Artists";
 }
 
-<h1 class="card-header text-muted border-bottom-0">
-    @ViewBag.Title
-</h1>
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
 <div class="row">
     @foreach (var item in Model)
     {
