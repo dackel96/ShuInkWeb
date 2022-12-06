@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/main.css" />
 </head>
-<body class="bg-image"
-      style="background-image: url('https://raw.githubusercontent.com/dackel96/ShuInkWeb/main/ShuInkWeb/ShuInkWeb/wwwroot/images/Abstract-backgroundBLur.jpg');
-            background-attachment:fixed;">
+<body>
+    <!-- Navigation-->
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
             <div class="container-fluid bg-dark">
@@ -31,28 +30,36 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Appointment" asp-action="AllForMonth">Schedule</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Shop" asp-controller="Home" asp-action="Index">Shop</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
                         </li>
                     </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-white" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-white text-dark ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-
     <div class="container opacity-100">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="footer mt-auto py-3 bg-dark">
-        <div class="container">
-            <span class="text-light"> &copy; @DateTime.Now.Year - Plzv Softwear Inc.</span>
-            <a href="https://www.facebook.com/alexandar.spasov2" class="fa fa-facebook-official"></a>
-            <a href="https://www.instagram.com/alexandarspasov/?hl=bg" class="fa fa-instagram"></a>
-        </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
