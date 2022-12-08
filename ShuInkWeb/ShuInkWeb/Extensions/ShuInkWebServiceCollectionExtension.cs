@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection
 {
     using ShuInkWeb.Core.Contracts;
+    using ShuInkWeb.Core.FilesCloudService;
     using ShuInkWeb.Core.Services;
     using ShuInkWeb.Data;
     using ShuInkWeb.Data.Common.Repositories;
@@ -27,6 +28,10 @@
             services.AddScoped<IBlogService, BlogService>();
 
             services.AddScoped<IClientService, ClientService>();
+
+            services.AddSingleton<ICloudinarySettings, CloudinarySettings>();
+
+            services.AddSingleton<IOldCapitalCloud, OldCapitalCloud>();
 
             return services;
         }
