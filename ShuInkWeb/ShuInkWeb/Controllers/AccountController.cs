@@ -87,7 +87,7 @@
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             var model = new LoginViewModel();
@@ -99,13 +99,17 @@
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            var user = await userManager.FindByNameAsync(model.Username);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-
-            var user = await userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return View(model);
+            }
 
             if (clientsDb.AllAsNoTracking().Any(x => x.PhoneNumber == user.PhoneNumber))
             {
