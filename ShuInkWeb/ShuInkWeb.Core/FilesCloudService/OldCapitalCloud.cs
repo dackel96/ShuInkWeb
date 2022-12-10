@@ -27,7 +27,7 @@ namespace ShuInkWeb.Core.FilesCloudService
 
         public string GetUrl(string publicId)
         {
-            return Cloudinary.Api.UrlImgUp.ResourceType("raw").BuildUrl(publicId);
+            return this.Cloudinary.Api.UrlImgUp.Secure(true).BuildUrl(publicId);
         }
 
         public async Task UploadFile(IFormFile file, string publicId)

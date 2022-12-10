@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.HappeningModels;
 using ShuInkWeb.Controllers.Common;
+using Ganss.Xss;
+using CloudinaryDotNet.Actions;
+using CloudinaryDotNet;
 
 namespace ShuInkWeb.Controllers
 {
@@ -24,7 +27,7 @@ namespace ShuInkWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add([FromForm] IFormFile file)
         {
             var model = new HappeningViewModel();
 
@@ -32,9 +35,9 @@ namespace ShuInkWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(HappeningViewModel model)
+        public async Task<IActionResult> Add([FromForm] IFormFile file,HappeningViewModel model)
         {
-            await happeningService.AddHappeningAsync(model);
+            await happeningService.AddHappeningAsync(model,file);
 
             return RedirectToAction(nameof(All));
         }

@@ -1,5 +1,6 @@
 ﻿namespace ShuInkWeb.Core.Contracts
 {
+    using Microsoft.AspNetCore.Http;
     using ShuInkWeb.Core.Models.HappeningModels;
     using System;
     using System.Collections.Generic;
@@ -9,7 +10,7 @@
     {
         public Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync();
 
-        public Task AddHappeningAsync(HappeningViewModel model);
+        public Task AddHappeningAsync(HappeningViewModel model,IFormFile file);
 
         public Task<bool> HappeningExist(Guid id);
 

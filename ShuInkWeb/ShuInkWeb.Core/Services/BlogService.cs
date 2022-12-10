@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.FilesCloudService;
 using ShuInkWeb.Core.Models.HappeningModels;
 using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
@@ -13,20 +15,25 @@ namespace ShuInkWeb.Core.Services
 {
     public class BlogService : IBlogService
     {
+        private readonly IOldCapitalCloud cloud;
+
         private readonly IDeletableEntityRepository<Happening> repository;
 
-        public BlogService(IDeletableEntityRepository<Happening> _repository)
+        public BlogService(IDeletableEntityRepository<Happening> _repository,IOldCapitalCloud _cloud)
         {
             this.repository = _repository;
+            cloud = _cloud;
         }
 
-        public async Task AddHappeningAsync(HappeningViewModel model)
+        public async Task AddHappeningAsync(HappeningViewModel model,IFormFile file)
         {
+            await cloud.UploadFile(file, model.Title);
+
             var happening = new Happening()
             {
                 Title = model.Title,
                 Content = model.Content,
-                ImageUrl = model.ImageUrl
+                ImageUrl = cloud.GetUrl(model.Title)
             };
 
             await repository.AddAsync(happening);
