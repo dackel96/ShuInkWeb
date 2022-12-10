@@ -34,6 +34,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Shop" asp-controller="Home" asp-action="Index">Shop</a>
                         </li>
+                        @if (this.User?.Identity?.IsAuthenticated ?? false && User.HasClaim(x => x.Type == "username"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Client" asp-action="Mine">My Appointments</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

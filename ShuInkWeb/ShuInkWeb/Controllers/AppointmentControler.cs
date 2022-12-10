@@ -93,6 +93,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if ((await appointmentService.IsExistingAsync(id)) == false)
@@ -123,6 +124,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Edit(Guid id, AppointmentViewModel model)
         {
             if (id != model.Id)
@@ -143,6 +145,7 @@
             return RedirectToAction(nameof(Details), id);
         }
 
+        [Authorize(Roles = "Artist")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await appointmentService.DeleteAsync(id);

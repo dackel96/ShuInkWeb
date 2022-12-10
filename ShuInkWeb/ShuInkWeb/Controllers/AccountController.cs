@@ -5,6 +5,8 @@
     using Microsoft.AspNetCore.Mvc;
     using ShuInkWeb.Controllers.Common;
     using ShuInkWeb.Core.Models.AccountModels;
+    using ShuInkWeb.Data.Common.Repositories;
+    using ShuInkWeb.Data.Entities.Clients;
     using ShuInkWeb.Data.Entities.Identities;
 
 
@@ -16,15 +18,20 @@
 
         private readonly RoleManager<ApplicationRole> roleManager;
 
+        private readonly IDeletableEntityRepository<Client> clientsDb;
+
         public AccountController(SignInManager<ApplicationUser> _signInManager,
                               UserManager<ApplicationUser> _userManager,
-                              RoleManager<ApplicationRole> _roleManager)
+                              RoleManager<ApplicationRole> _roleManager,
+                              IDeletableEntityRepository<Client> _clientsDb)
         {
             signInManager = _signInManager;
 
             userManager = _userManager;
 
             roleManager = _roleManager;
+
+            clientsDb = _clientsDb;
         }
 
         [HttpGet]
@@ -99,6 +106,15 @@
 
 
             var user = await userManager.FindByNameAsync(model.Username);
+
+            if (clientsDb.AllAsNoTracking().Any(x => x.PhoneNumber == user.PhoneNumber))
+            {
+                var clientInfo = clientsDb.All().FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
+                if (clientInfo != null)
+                {
+                    clientInfo.UserId = user.Id;
+                }
+            }
 
             if (user != null && await userManager.IsInRoleAsync(user, "Artist"))
             {
