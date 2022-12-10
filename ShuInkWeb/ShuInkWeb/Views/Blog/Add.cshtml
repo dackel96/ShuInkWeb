@@ -8,28 +8,30 @@
     <h1 class="display-4">@ViewBag.Title</h1>
 </div>
 
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <hr />
         <form asp-action="Add" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <label asp-for="@Model.Title" class="form-label">Title</label>
-                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <input asp-for="@Model.Title" class="form-control text-bg-dark" aria-required="true" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <label asp-for="@Model.Content" class="form-label">Content</label>
-                <textarea asp-for="@Model.Content" class="form-control" aria-required="true" rows="5"></textarea>
+                <textarea asp-for="@Model.Content" class="form-control text-bg-dark" aria-required="true" rows="5"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <label for="formFile" class="form-label">file input</label>
-                <input class="form-control" aria-required="true" type="file" name="file" id="formFile">
+                <input class="form-control text-bg-dark" aria-required="true" type="file" name="file" id="formFile">
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <input class="btn btn-primary" type="submit" value="Add" />
             </div>
         </form>
+        <hr />
     </div>
 </div>
