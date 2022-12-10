@@ -1,63 +1,63 @@
 ﻿@model IEnumerable<AppointmentShareModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Appointments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center bg-dark rounded-bottom">
     <h1 class="display-4">@ViewBag.Title</h1>
 </div>
-@if (ViewData["Alert"] != null)
-{
-    <h3>@ViewData["Alert"]</h3>
-}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArtistName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.End)
-            </th>
-            <th>
-                Options
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArtistName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.End)
-                </td>
-                @if (User.IsInRole("Artist"))
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ArtistName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Start)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.End)
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArtistName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End)
+                        </td>
+                        @if (User.IsInRole("Artist"))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-controller="Appointment" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        }
+                    </tr>
                 }
-            </tr>
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
