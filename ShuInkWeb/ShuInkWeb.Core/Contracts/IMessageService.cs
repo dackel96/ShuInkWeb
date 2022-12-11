@@ -15,5 +15,7 @@ namespace ShuInkWeb.Core.Contracts
         public Task<IEnumerable<MessageViewModel>> All();
 
         public Task Delete(Guid id);
+
+        public Task<bool> IsExistById(Guid id);
     }
 }

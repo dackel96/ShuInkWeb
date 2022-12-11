@@ -59,5 +59,10 @@ namespace ShuInkWeb.Core.Services
 
             await messageRepository.SaveChangesAsync();
         }
+
+        public async Task<bool> IsExistById(Guid id)
+        {
+            return await messageRepository.AllAsNoTracking().AnyAsync(x => x.Id == id);
+        }
     }
 }

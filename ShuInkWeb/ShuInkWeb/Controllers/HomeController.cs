@@ -55,6 +55,7 @@ namespace ShuInkWeb.Controllers
 
             return RedirectToAction(IndexConst, HomeConst);
         }
+
         //TO DO Interface of HomePage
     }
 }

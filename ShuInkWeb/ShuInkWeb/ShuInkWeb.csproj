@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <None Include="Views\Merchandise\All.cshtml" />
+    <None Include="wwwroot\lib\toaster\toastr.min.js" />
   </ItemGroup>
 
   <ItemGroup>

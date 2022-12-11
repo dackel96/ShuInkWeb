@@ -17,6 +17,8 @@
     {
         public const string ArtistRoleName = "Artist";
 
+        public const string ArtistControllerName = "Artist";
+
         public const string ArtistAreaName = "Artist";
 
         public const string IdentityRoleName = "Identity";
@@ -36,6 +38,5 @@
         public const string EventsConst = "Events";
 
         public const string ResourceConst = "Resources";
-
     }
 }
