@@ -8,23 +8,25 @@
     <h1 class="display-4">@ViewBag.Title</h1>
 </div>
 
-<div class="card-body row-cols-12 text-center bg-dark rounded-3">
-    @foreach (var item in Model)
-    {
-        <div class="row-cols-md-12">
-            <h3>@item.Title</h3>
-            <p>
-                @item.Content
-            </p>
-            <img src="@item.ImageUrl">
-        </div>
-        @if (User.IsInRole("Artist"))
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        @foreach (var item in Model)
         {
-            <hr />
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            <hr />
+            <div class="row-cols-md-12">
+                <h3>@item.Title</h3>
+                <p>
+                    @item.Content
+                </p>
+                <img src="@item.ImageUrl">
+            </div>
+            @if (User.IsInRole("Artist"))
+            {
+                <hr />
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <hr />
+            }
         }
-    }
+    </div>
 </div>

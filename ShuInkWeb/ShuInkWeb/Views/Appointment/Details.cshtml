@@ -5,20 +5,16 @@
     <h1 class="display-4">@Model.Title</h1>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <p>Title: @Model.Title</p>
-                <p>Description: @Model.Description</p>
-                <p>Starts in: @Model.Start.ToShortTimeString().ToString()</p>
-                <p>End in: @Model.End.ToShortTimeString().ToString()</p>
-                <p>ArtistName: @Model.ArtistName</p>
-                <p>Client: @Model.ClientFirstName , @Model.ClientLastName</p>
-                <p>Client Contacts: @Model.PhoneNumber , @Model.SocialMedia</p>
-            </div>
-
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <div class="card-body">
+            <p>Title: @Model.Title</p>
+            <p>Description: @Model.Description</p>
+            <p>Starts in: @Model.Start.ToShortTimeString().ToString()</p>
+            <p>End in: @Model.End.ToShortTimeString().ToString()</p>
+            <p>ArtistName: @Model.ArtistName</p>
+            <p>Client: @Model.ClientFirstName , @Model.ClientLastName</p>
+            <p>Client Contacts: @Model.PhoneNumber , @Model.SocialMedia</p>
         </div>
-
     </div>
 </div>

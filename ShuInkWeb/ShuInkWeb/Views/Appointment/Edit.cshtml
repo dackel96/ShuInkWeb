@@ -8,7 +8,11 @@
     <h1 class="display-4">@ViewBag.Title</h1>
 </div>
 
-<partial name="_AppointmentViewPartial" model="@Model" />
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <partial name="_AppointmentViewPartial" model="@Model" />
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
