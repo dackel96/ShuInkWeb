@@ -13,5 +13,7 @@ namespace ShuInkWeb.Core.Contracts
         public Task Add(MessageViewModel model,IFormFile file);
 
         public Task<IEnumerable<MessageViewModel>> All();
+
+        public Task Delete(Guid id);
     }
 }

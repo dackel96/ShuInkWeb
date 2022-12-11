@@ -43,5 +43,12 @@
             return View(models);
         }
 
+        public async Task<IActionResult> DeleteMessage(Guid id)
+        {
+            await messageService.Delete(id);
+
+            return RedirectToAction("AllMessages", "Artist");
+        }
+
     }
 }

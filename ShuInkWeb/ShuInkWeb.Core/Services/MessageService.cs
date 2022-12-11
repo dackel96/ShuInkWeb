@@ -50,5 +50,14 @@ namespace ShuInkWeb.Core.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task Delete(Guid id)
+        {
+            var entity = await messageRepository.GetByIdAsync(id);
+
+            messageRepository.Delete(entity);
+
+            await messageRepository.SaveChangesAsync();
+        }
     }
 }

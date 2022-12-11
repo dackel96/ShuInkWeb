@@ -14,5 +14,8 @@
         <p>@item.Content</p>
         <hr />
         <img src="@item.ImageUrl">
+
+        <a asp-area="Artist" asp-controller="Artist" asp-action="DeleteMessage" asp-route-id="@item.Id">Delete</a>
+
     </div>
 }
