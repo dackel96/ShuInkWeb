@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Data.Entities.Identities;
-using ShuInkWeb.Extensions;
+using static ShuInkWeb.Constants.ActionsConstants;
+using static ShuInkWeb.Constants.AreaConstants;
 
 namespace ShuInkWeb.Controllers
 {
@@ -24,6 +25,11 @@ namespace ShuInkWeb.Controllers
         public async Task<IActionResult> Mine()
         {
             var models = await clientService.GetCurrUserAppointments(userManager.GetUserAsync(User).Result.PhoneNumber);
+
+            if (!(models.Any()))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
 
             return View(models);
         }

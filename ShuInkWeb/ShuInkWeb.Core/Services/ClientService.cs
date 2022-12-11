@@ -23,6 +23,12 @@ namespace ShuInkWeb.Core.Services
             repository = _repository;
             appointmentRepository = _appointmentRepository;
         }
+
+        public async Task<bool> ExistById(string userId)
+        {
+            return await repository.All().AnyAsync(x => x.UserId == userId);
+        }
+
         public Task<Client> GetClientById(Guid id)
         {
             return repository.GetByIdAsync(id);

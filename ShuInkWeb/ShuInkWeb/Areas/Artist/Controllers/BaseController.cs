@@ -4,9 +4,9 @@ using static ShuInkWeb.Constants.AreaConstants;
 
 namespace ShuInkWeb.Areas.Artist.Controllers
 {
-    [Area(AreaName)]
+    [Area(ArtistAreaName)]
     [Route("Artist/[controller]/[action]/{id?}")]
-    [Authorize(Roles = RoleName)]
+    [Authorize(Roles = ArtistRoleName)]
     public class BaseController : Controller
     {
     }

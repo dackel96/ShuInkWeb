@@ -1,11 +1,11 @@
-﻿namespace ShuInkWeb.Controllers
-{
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using ShuInkWeb.Controllers.Common;
-    using ShuInkWeb.Core.Contracts;
-    using ShuInkWeb.Core.Models.ArtistModels;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
+using ShuInkWeb.Core.Contracts;
+using static ShuInkWeb.Constants.ActionsConstants;
 
+namespace ShuInkWeb.Controllers
+{
     public class ArtistController : BaseController
     {
         private readonly IArtistService artistService;
@@ -19,6 +19,12 @@
         public async Task<IActionResult> About()
         {
             var model = await artistService.ArtistsInfo();
+
+            if (model == null)
+            {
+                return RedirectToAction(IndexConst, HomeConst);
+            }
+
             return View(model);
         }
 

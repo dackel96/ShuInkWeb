@@ -1,13 +1,17 @@
-﻿namespace ShuInkWeb.Controllers
-{
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using ShuInkWeb.Controllers.Common;
-    using ShuInkWeb.Core.Contracts;
-    using ShuInkWeb.Core.Models.AppointmentModels;
-    using ShuInkWeb.Extensions;
-    using ShuInkWeb.JsonSerializer;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Extensions;
+using ShuInkWeb.JsonSerializer;
 
+using static ShuInkWeb.Constants.AreaConstants;
+using static ShuInkWeb.Constants.AppointmentControllerConstants;
+using static ShuInkWeb.Constants.ActionsConstants;
+
+namespace ShuInkWeb.Controllers
+{
     public class AppointmentController : BaseController
     {
         private readonly IAppointmentService appointmentService;
@@ -30,6 +34,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> All()
         {
             var models = await appointmentService.GetAllAsync();
@@ -41,20 +46,25 @@
         [AllowAnonymous]
         public IActionResult AllForMonth()
         {
-            ViewData["Events"] = jsonSerializer.GetEventListJSONString();
+            ViewData[EventsConst] = jsonSerializer.GetEventListJSONString();
 
-            ViewData["Resources"] = jsonSerializer.GetResourceListJSONString();
+            ViewData[ResourceConst] = jsonSerializer.GetResourceListJSONString();
 
             return View();
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Add()
         {
             if (!(await artistService.ExistById(User.Id())))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             var model = new AppointmentViewModel();
@@ -64,12 +74,22 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Add(AppointmentViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (!(await artistService.ExistById(User.Id())))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             Guid artistId = await artistService.GetArtistIdAsync(User.Id());
@@ -79,12 +99,22 @@
             return RedirectToAction(nameof(All));
         }
 
-
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Details(Guid id)
         {
             if ((await appointmentService.IsExistingAsync(id)) == false)
             {
                 return RedirectToAction(nameof(All));
+            }
+
+            if (!(await artistService.ExistById(User.Id())))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             var model = await appointmentService.DetailsModelByIdAsync(id);
@@ -93,7 +123,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Edit(Guid id)
         {
             if ((await appointmentService.IsExistingAsync(id)) == false)
@@ -101,9 +131,19 @@
                 return RedirectToAction(nameof(All));
             }
 
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
             var appointment = await appointmentService.GetEntityByIdAsync(id);
 
             var client = await clientService.GetClientById(appointment.ClientId);
+
+            if (client == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
 
             int duration = appointment.End.Hour - appointment.Start.Hour;
 
@@ -124,20 +164,27 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Edit(Guid id, AppointmentViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             if (id != model.Id)
             {
-                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
+
             if ((await appointmentService.IsExistingAsync(id)) == false)
             {
                 return RedirectToAction(nameof(All));
             }
-            if (!ModelState.IsValid)
+
+            if (!(User.IsInRole(ArtistRoleName)))
             {
-                return View(model);
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             await appointmentService.EditAsync(id, model);
@@ -145,9 +192,19 @@
             return RedirectToAction(nameof(Details), id);
         }
 
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Delete(Guid id)
         {
+            if ((await appointmentService.IsExistingAsync(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
             await appointmentService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));

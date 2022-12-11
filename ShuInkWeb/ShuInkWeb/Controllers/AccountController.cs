@@ -9,6 +9,9 @@
     using ShuInkWeb.Data.Entities.Clients;
     using ShuInkWeb.Data.Entities.Identities;
 
+    using static ShuInkWeb.Constants.ActionsConstants;
+    using static ShuInkWeb.Constants.AreaConstants;
+    using static ShuInkWeb.Constants.AccountControllerConstants;
 
     public class AccountController : BaseController
     {
@@ -40,7 +43,7 @@
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(IndexConst, HomeConst);
             }
 
             var model = new RegisterViewModel();
@@ -70,7 +73,7 @@
 
             if (password.Succeeded)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction(nameof(Login), AccountConst);
             }
 
             foreach (var error in password.Errors)
@@ -87,7 +90,7 @@
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(IndexConst, HomeConst);
             }
 
             var model = new LoginViewModel();
@@ -120,13 +123,13 @@
                 }
             }
 
-            if (user != null && await userManager.IsInRoleAsync(user, "Artist"))
+            if (user != null && await userManager.IsInRoleAsync(user, ArtistRoleName))
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Artist", new { area = "Artist" });
+                    return RedirectToAction(IndexConst, ArtistAreaName, new { area = ArtistAreaName });
                 }
             }
 
@@ -136,11 +139,11 @@
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction(IndexConst, HomeConst);
                 }
             }
 
-            ModelState.AddModelError("", "InvalidLogin");
+            ModelState.AddModelError("", InvalidLogin);
 
             return View(model);
         }
@@ -150,7 +153,7 @@
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(IndexConst, HomeConst);
         }
 
         //public async Task<IActionResult> CreateRoles()

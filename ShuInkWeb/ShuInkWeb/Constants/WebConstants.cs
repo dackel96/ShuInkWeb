@@ -5,16 +5,37 @@
     }
     public static class AccountControllerConstants
     {
-        public const string Register = "Register";
+        public const string RegisterConst = "Register";
 
-        public const string Login = "Login";
+        public const string LoginConst = "Login";
 
-        public const string Logout = "Logout";
+        public const string LogoutConst = "Logout";
+
+        public const string InvalidLogin = "InvalidLogin";
     }
     public static class AreaConstants
     {
-        public const string RoleName = "Artist";
+        public const string ArtistRoleName = "Artist";
 
-        public const string AreaName = "Artist";
+        public const string ArtistAreaName = "Artist";
+
+        public const string IdentityRoleName = "Identity";
+    }
+    public static class ActionsConstants
+    {
+        public const string IndexConst = "Index";
+
+        public const string HomeConst = "Home";
+
+        public const string AccountConst = "Account";
+
+        public const string InvalidOperation = "/Account/AccessDenied";
+    }
+    public static class AppointmentControllerConstants
+    {
+        public const string EventsConst = "Events";
+
+        public const string ResourceConst = "Resources";
+
     }
 }
