@@ -1,12 +1,12 @@
-﻿namespace ShuInkWeb.Core.Services
-{
-    using Microsoft.EntityFrameworkCore;
-    using ShuInkWeb.Core.Contracts;
-    using ShuInkWeb.Core.Models.AppointmentModels;
-    using ShuInkWeb.Data.Common.Repositories;
-    using ShuInkWeb.Data.Entities;
-    using ShuInkWeb.Data.Entities.Clients;
+﻿using Microsoft.EntityFrameworkCore;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Data.Common.Repositories;
+using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Clients;
 
+namespace ShuInkWeb.Core.Services
+{
     public class AppointmentService : IAppointmentService
     {
         private readonly IDeletableEntityRepository<Appointment> repository;

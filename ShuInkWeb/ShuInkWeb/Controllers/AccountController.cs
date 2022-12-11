@@ -1,18 +1,18 @@
-﻿namespace ShuInkWeb.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
+using ShuInkWeb.Core.Models.AccountModels;
+using ShuInkWeb.Data.Common.Repositories;
+using ShuInkWeb.Data.Entities.Clients;
+using ShuInkWeb.Data.Entities.Identities;
+
+using static ShuInkWeb.Constants.ActionsConstants;
+using static ShuInkWeb.Constants.AreaConstants;
+using static ShuInkWeb.Constants.AccountControllerConstants;
+
+namespace ShuInkWeb.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using ShuInkWeb.Controllers.Common;
-    using ShuInkWeb.Core.Models.AccountModels;
-    using ShuInkWeb.Data.Common.Repositories;
-    using ShuInkWeb.Data.Entities.Clients;
-    using ShuInkWeb.Data.Entities.Identities;
-
-    using static ShuInkWeb.Constants.ActionsConstants;
-    using static ShuInkWeb.Constants.AreaConstants;
-    using static ShuInkWeb.Constants.AccountControllerConstants;
-
     public class AccountController : BaseController
     {
         private readonly SignInManager<ApplicationUser> signInManager;

@@ -99,4 +99,18 @@ namespace ShuInkWeb.Data.Constants
 
         public const int ImageUrlMin = 22;
     }
+    public static class MessageConstants
+    {
+        public const int TitleMaxLength = 20;
+
+        public const int TitleMinLength = 5;
+
+        public const int ImageUrlMax = 500;
+
+        public const int ImageUrlMin = 22;
+
+        public const int ContentMaxLength = 5000;
+
+        public const int ContentMinLength = 50;
+    }
 }

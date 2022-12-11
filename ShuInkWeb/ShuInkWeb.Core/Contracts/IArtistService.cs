@@ -1,8 +1,8 @@
-﻿namespace ShuInkWeb.Core.Contracts
-{
-    using ShuInkWeb.Core.Models.AppointmentModels;
-    using ShuInkWeb.Core.Models.ArtistModels;
+﻿using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Core.Models.ArtistModels;
 
+namespace ShuInkWeb.Core.Contracts
+{
     public interface IArtistService
     {
         public Task<IEnumerable<ArtistViewModel>> ArtistsInfo();

@@ -1,10 +1,10 @@
-﻿namespace ShuInkWeb.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
-    using ShuInkWeb.Controllers.Common;
-    using ShuInkWeb.Core.Contracts;
-    using ShuInkWeb.Core.Models.MerchandiseModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShuInkWeb.Controllers.Common;
+using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Models.MerchandiseModels;
 
+namespace ShuInkWeb.Controllers
+{
     public class MerchandiseControler : BaseController
     {
         private readonly IMerchandiseService merchandiseService;

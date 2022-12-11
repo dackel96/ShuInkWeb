@@ -1,11 +1,10 @@
-﻿namespace ShuInkWeb.JsonSerializer
+﻿using Newtonsoft.Json;
+using ShuInkWeb.Data.Common.Repositories;
+using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Artists;
+
+namespace ShuInkWeb.JsonSerializer
 {
-    using Newtonsoft.Json;
-    using ShuInkWeb.Data.Common.Repositories;
-    using ShuInkWeb.Data.Entities;
-    using ShuInkWeb.Data.Entities.Artists;
-
-
     public class JsonCalendarListEvents : IJsonCalendarListEvents
     {
         private readonly IDeletableEntityRepository<Appointment> appointmentDb;

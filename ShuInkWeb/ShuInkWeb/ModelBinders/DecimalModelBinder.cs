@@ -1,8 +1,8 @@
-﻿namespace ShuInkWeb.ModelBinders
-{
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
-    using System.Globalization;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Globalization;
 
+namespace ShuInkWeb.ModelBinders
+{
     public class DecimalModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)

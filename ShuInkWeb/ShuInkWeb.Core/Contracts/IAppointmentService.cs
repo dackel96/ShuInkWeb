@@ -1,8 +1,8 @@
-﻿namespace ShuInkWeb.Core.Contracts
-{
-    using ShuInkWeb.Core.Models.AppointmentModels;
-    using ShuInkWeb.Data.Entities;
+﻿using ShuInkWeb.Core.Models.AppointmentModels;
+using ShuInkWeb.Data.Entities;
 
+namespace ShuInkWeb.Core.Contracts
+{
     public interface IAppointmentService
     {
         public Task AddAsync(AppointmentViewModel model, Guid artistId);

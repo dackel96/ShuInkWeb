@@ -42,6 +42,8 @@ namespace ShuInkWeb.Data
 
         public DbSet<Order> Orders { get; set; } = null!;
 
+        public DbSet<Message> Messages { get; set; } = null!;
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

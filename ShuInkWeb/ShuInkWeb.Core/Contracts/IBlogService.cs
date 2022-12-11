@@ -1,11 +1,8 @@
-﻿namespace ShuInkWeb.Core.Contracts
-{
-    using Microsoft.AspNetCore.Http;
-    using ShuInkWeb.Core.Models.HappeningModels;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using ShuInkWeb.Core.Models.HappeningModels;
 
+namespace ShuInkWeb.Core.Contracts
+{
     public interface IBlogService
     {
         public Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync();

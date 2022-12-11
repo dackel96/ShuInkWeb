@@ -5,7 +5,6 @@ using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.AppointmentModels;
 using ShuInkWeb.Core.Models.ArtistModels;
 using ShuInkWeb.Data.Common.Repositories;
-using ShuInkWeb.Data.Entities;
 using ShuInkWeb.Data.Entities.Artists;
 
 namespace ShuInkWeb.Core.Services
