@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MessageViewModel>
+
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        <hr />
+        <p>@item.Name</p>
+        <hr />
+        <p>@item.Content</p>
+        <hr />
+        <img src="@item.ImageUrl">
+    </div>
+}

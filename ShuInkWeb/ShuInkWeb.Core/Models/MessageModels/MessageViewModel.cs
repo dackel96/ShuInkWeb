@@ -1,26 +1,22 @@
-﻿using ShuInkWeb.Data.Common;
-using ShuInkWeb.Data.Entities.Identities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static ShuInkWeb.Data.Constants.MessageConstants;
 
-namespace ShuInkWeb.Data.Entities.Clients
+namespace ShuInkWeb.Core.Models.MessageModels
 {
-    public class Message : BaseDeletableModel<Guid>
+    public class MessageViewModel
     {
+        public Guid Id { get; set; }
+
+        public string? UserId { get; set; }
+
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Name { get; set; } = null!;
-
         [Required]
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; } = null!;
 
-
         [MaxLength(ImageUrlMax)]
         public string? ImageUrl { get; set; }
-
-        public string? UserId { get; set; } = null!;
-
-        public ApplicationUser? User { get; set; }
     }
 }

@@ -29,6 +29,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IClientService, ClientService>();
 
+            services.AddScoped<IMessageService, MessageService>();
+
             services.AddSingleton<ICloudinarySettings, CloudinarySettings>();
 
             services.AddSingleton<IOldCapitalCloud, OldCapitalCloud>();

@@ -1,0 +1,47 @@
+﻿@model MessageViewModel
+
+@{
+    ViewBag.Title = "Contact Us";
+}
+
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <hr />
+        <form asp-action="ContactUs" method="post" enctype="multipart/form-data">
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Name" class="form-label">Your Name</label>
+                <input asp-for="@Model.Name" class="form-control text-bg-secondary" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Content" class="form-label">Content</label>
+                <textarea asp-for="@Model.Content" class="form-control text-bg-secondary" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <hr />
+            <p>You can add some photo if you want!</p>
+            <hr />
+            <div class="mb-3 text-center">
+                <label for="formFile" class="form-label"></label>
+                <input class="form-control text-bg-secondary" aria-required="true" type="file" name="file" id="formFile">
+            </div>
+
+            <div class="mb-3 text-center">
+                <input class="btn btn-primary" type="submit" value="Send" />
+            </div>
+        </form>
+        <hr />
+        <div class="align-content-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2914.020897922721!2d25.6304577441776!3d43.083055995165395!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a92778524c66a3%3A0x52ba16deaa4312e!2sOld%20Capital%20Tattoo%20Shop!5e0!3m2!1sbg!2sbg!4v1668721242090!5m2!1sbg!2sbg" width="431" height="250" style="border:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <hr />
+        <div class="card-footer">
+            <a># Phone Number: 0895792078</a>
+        </div>
+        <hr />
+    </div>
+</div>

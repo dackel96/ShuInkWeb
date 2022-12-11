@@ -14,11 +14,17 @@
 
         private readonly IArtistService artistService;
 
-        public ArtistController(IAppointmentService _appointmentService, UserManager<ApplicationUser> _userManager, IArtistService _artistService)
+        private readonly IMessageService messageService;
+
+        public ArtistController(IAppointmentService _appointmentService,
+            UserManager<ApplicationUser> _userManager,
+            IArtistService _artistService,
+            IMessageService _messageService)
         {
             appointmentService = _appointmentService;
             userManager = _userManager;
             artistService = _artistService;
+            messageService = _messageService;
         }
 
         public async Task<IActionResult> Index()
@@ -29,5 +35,13 @@
 
             return View(models);
         }
+
+        public async Task<IActionResult> AllMessages()
+        {
+            var models = await messageService.All();
+
+            return View(models);
+        }
+
     }
 }
