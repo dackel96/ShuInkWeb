@@ -16,7 +16,7 @@
                 @foreach (var item in Model)
                 {
                     <div class="carousel-item @(first ? "active" : string.Empty)">
-                        <img src="@item.ImageUrl" width="1000" height="650" alt="...">
+                        <img src="@item.ImageUrl" width="1000" height="650" class="shadow-1-strong rounded">
                     </div>
                     @(first = false)
                     ;
