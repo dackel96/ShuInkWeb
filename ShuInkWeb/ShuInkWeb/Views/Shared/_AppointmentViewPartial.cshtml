@@ -33,7 +33,7 @@
     </div>
     <div class="mb-3 text-center">
         <label asp-for="@Model.Start" class="form-label">When</label>
-        <input type="date" asp-for="@Model.Start" class="form-control text-bg-secondary" aria-required="true" />
+        <input type="datetime-local" asp-for="@Model.Start" class="form-control text-bg-secondary" aria-required="true" />
         <span asp-validation-for="Start" class="text-danger"></span>
     </div>
     <div class="mb-3 text-center">

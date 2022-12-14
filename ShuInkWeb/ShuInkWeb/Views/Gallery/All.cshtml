@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ImageViewModel>
+
+@{
+    ViewBag.Title = "Our Art Works";
+}
+
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
+<partial name="_GalleryViewPartial" model="@Model" />

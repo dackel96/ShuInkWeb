@@ -1,0 +1,19 @@
+﻿@model ImageViewModel
+
+<hr />
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+    <div class="mb-3 text-center">
+        <label asp-for="@Model.Title" class="form-label">Title</label>
+        <input asp-for="@Model.Title" class="form-control text-bg-secondary" aria-required="true" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3 text-center">
+        <label for="formFile" class="form-label"></label>
+        <input class="form-control text-bg-secondary" aria-required="true" type="file" name="file" id="formFile">
+    </div>
+
+    <div class="mb-3 text-center">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>
+<hr />

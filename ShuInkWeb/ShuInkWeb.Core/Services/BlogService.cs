@@ -50,13 +50,15 @@ namespace ShuInkWeb.Core.Services
             await repository.SaveChangesAsync();
         }
 
-        public async Task Edit(Guid id, HappeningViewModel model)
+        public async Task Edit(Guid id, HappeningViewModel model, IFormFile file)
         {
+            await cloud.UploadFile(file, model.Title);
+
             var post = await repository.GetByIdAsync(id);
 
             post.Title = model.Title;
             post.Content = model.Content;
-            post.ImageUrl = model.ImageUrl;
+            post.ImageUrl = cloud.GetUrl(model.Title);
 
             await repository.SaveChangesAsync();
         }

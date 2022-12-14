@@ -28,7 +28,7 @@ namespace ShuInkWeb.Controllers
 
             if (!(models.Any()))
             {
-                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+                return RedirectToAction(IndexConst, HomeConst);
             }
 
             return View(models);

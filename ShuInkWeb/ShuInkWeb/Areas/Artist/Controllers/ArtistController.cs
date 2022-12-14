@@ -18,15 +18,19 @@ namespace ShuInkWeb.Areas.Artist.Controllers
 
         private readonly IMessageService messageService;
 
+        private readonly IGalleryService galleryService;
+
         public ArtistController(IAppointmentService _appointmentService,
             UserManager<ApplicationUser> _userManager,
             IArtistService _artistService,
-            IMessageService _messageService)
+            IMessageService _messageService,
+            IGalleryService _galleryService)
         {
             appointmentService = _appointmentService;
             userManager = _userManager;
             artistService = _artistService;
             messageService = _messageService;
+            galleryService = _galleryService;
         }
 
         public async Task<IActionResult> Index()
@@ -39,6 +43,20 @@ namespace ShuInkWeb.Areas.Artist.Controllers
             var id = await artistService.GetArtistIdAsync(User.Id());
 
             var models = await appointmentService.GetAppointmentsForCurrentArtist(id);
+
+            return View(models);
+        }
+
+        public async Task<IActionResult> MyPhotos()
+        {
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
+            var id = await artistService.GetArtistIdAsync(User.Id());
+
+            var models = await galleryService.AllPhotosForAnArtist(id);
 
             return View(models);
         }

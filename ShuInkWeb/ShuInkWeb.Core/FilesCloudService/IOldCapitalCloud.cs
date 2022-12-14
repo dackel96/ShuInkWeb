@@ -12,5 +12,7 @@ namespace ShuInkWeb.Core.FilesCloudService
         public Task UploadFile(IFormFile file, string publicId);
 
         public string GetUrl(string publicId);
+
+        public Task DeletePhoto(string url);
     }
 }

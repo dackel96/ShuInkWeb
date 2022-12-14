@@ -25,6 +25,13 @@ namespace ShuInkWeb.Core.FilesCloudService
         public Account Account { get; init; }
         public Cloudinary Cloudinary { get; init; }
 
+        public Task DeletePhoto(string url)
+        {
+            this.Cloudinary.DeleteUploadPreset(url);
+
+            return Task.CompletedTask;
+        }
+
         public string GetUrl(string publicId)
         {
             return this.Cloudinary.Api.UrlImgUp.Secure(true).BuildUrl(publicId);

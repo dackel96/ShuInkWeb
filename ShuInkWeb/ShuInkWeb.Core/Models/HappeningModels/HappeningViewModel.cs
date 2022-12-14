@@ -5,7 +5,7 @@ namespace ShuInkWeb.Core.Models.HappeningModels
 {
     public class HappeningViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
@@ -13,7 +13,7 @@ namespace ShuInkWeb.Core.Models.HappeningModels
         [Required]
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
         public string Content { get; set; } = null!;
-        [Required]
-        public string ImageUrl { get; set; } = null!;
+
+        public string? ImageUrl { get; set; }
     }
 }

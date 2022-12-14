@@ -22,17 +22,12 @@ namespace ShuInkWeb.Controllers
         {
             var models = await happeningService.GetHappeningsAsync();
 
-            if (!(models.Any()))
-            {
-                return RedirectToAction(IndexConst, HomeConst);
-            }
-
             return View(models);
         }
 
         [HttpGet]
         [Authorize(Roles = ArtistRoleName)]
-        public IActionResult Add([FromForm] IFormFile file)
+        public IActionResult Add()
         {
             if (!(User.IsInRole(ArtistRoleName)))
             {
@@ -83,7 +78,7 @@ namespace ShuInkWeb.Controllers
 
         [HttpGet]
         [Authorize(Roles = ArtistRoleName)]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id, [FromForm] IFormFile file)
         {
             if (!(User.IsInRole(ArtistRoleName)))
             {
@@ -115,7 +110,7 @@ namespace ShuInkWeb.Controllers
 
         [HttpPost]
         [Authorize(Roles = ArtistRoleName)]
-        public async Task<IActionResult> Edit(Guid id, HappeningViewModel model)
+        public async Task<IActionResult> Edit(Guid id, HappeningViewModel model, [FromForm] IFormFile file)
         {
             if (!ModelState.IsValid)
             {
@@ -137,7 +132,7 @@ namespace ShuInkWeb.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await happeningService.Edit(id, model);
+            await happeningService.Edit(id, model,file);
 
             return RedirectToAction(nameof(All));
         }

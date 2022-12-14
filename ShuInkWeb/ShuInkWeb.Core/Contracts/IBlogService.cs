@@ -13,7 +13,7 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task<HappeningViewModel> GetSingleHappeningAsync(Guid id);
 
-        public Task Edit(Guid id, HappeningViewModel model);
+        public Task Edit(Guid id, HappeningViewModel model,IFormFile file);
 
         public Task Delete(Guid id);
     }

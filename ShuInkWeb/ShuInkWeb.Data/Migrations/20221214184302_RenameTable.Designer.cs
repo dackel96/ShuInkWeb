@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShuInkWeb.Data;
 
@@ -11,9 +12,10 @@ using ShuInkWeb.Data;
 namespace ShuInkWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214184302_RenameTable")]
+    partial class RenameTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("OrdersId");
 
-                    b.ToTable("MerchandiseOrder", (string)null);
+                    b.ToTable("MerchandiseOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -195,7 +197,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Artist", b =>
@@ -239,7 +241,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Artists", (string)null);
+                    b.ToTable("Artists");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Artists.Image", b =>
@@ -279,7 +281,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Client", b =>
@@ -328,7 +330,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Clients.Message", b =>
@@ -372,7 +374,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Happening", b =>
@@ -412,7 +414,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Happenings", (string)null);
+                    b.ToTable("Happenings");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Identities.ApplicationRole", b =>
@@ -601,7 +603,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("MerchandiseTypeId");
 
-                    b.ToTable("Merchandises", (string)null);
+                    b.ToTable("Merchandises");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Merchandises.MerchandiseType", b =>
@@ -631,7 +633,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("MerchandiseTypes", (string)null);
+                    b.ToTable("MerchandiseTypes");
                 });
 
             modelBuilder.Entity("ShuInkWeb.Data.Entities.Order", b =>
@@ -673,7 +675,7 @@ namespace ShuInkWeb.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("MerchandiseOrder", b =>

@@ -28,6 +28,8 @@ namespace ShuInkWeb.Controllers
             return View(model);
         }
 
+
+
         //TO DO Artist Gallery
     }
 }

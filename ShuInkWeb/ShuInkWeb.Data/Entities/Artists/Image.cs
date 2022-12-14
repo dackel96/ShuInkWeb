@@ -7,7 +7,7 @@ namespace ShuInkWeb.Data.Entities.Artists
     {
         [Required]
         [MaxLength(TitleMaxLength)]
-        public string? Title { get; set; } = null!;
+        public string Title { get; set; } = null!;
 
         [Required]
         [MaxLength(ImageUrlMax)]

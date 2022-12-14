@@ -13,19 +13,25 @@ namespace ShuInkWeb.Controllers
     {
         private readonly IMessageService messageService;
 
-        public HomeController(IMessageService _messageService)
+        private readonly IGalleryService galleryService;
+
+        public HomeController(IMessageService _messageService, IGalleryService _galleryService)
         {
             messageService = _messageService;
+            galleryService = _galleryService;
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (User.IsInRole(ArtistRoleName))
             {
                 return RedirectToAction(IndexConst, ArtistRoleName, new { area = ArtistAreaName });
             }
-            return View();
+
+            var models = await galleryService.GetLastAdded();
+
+            return View(models);
         }
 
         [AllowAnonymous]

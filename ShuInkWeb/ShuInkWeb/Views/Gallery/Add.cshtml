@@ -1,7 +1,7 @@
-﻿@model HappeningViewModel
+﻿@model ImageViewModel
 
 @{
-    ViewBag.Title = "Add new Post";
+    ViewBag.Title = "Add new Photo";
 }
 
 <div class="text-center bg-dark rounded-bottom">
@@ -10,6 +10,11 @@
 
 <div class="row-md-4 bg-dark rounded-3">
     <div class="col-md-4 offset-md-4">
-        <partial name="_BlogPostViewPartial" model="@Model" />
+        <partial name="_AddPhotoViewPartial" model="@Model" />
     </div>
 </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

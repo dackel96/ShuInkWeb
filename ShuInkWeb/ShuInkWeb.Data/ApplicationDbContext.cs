@@ -32,7 +32,7 @@ namespace ShuInkWeb.Data
 
         public DbSet<Artist> Artists { get; set; } = null!;
 
-        public DbSet<Image> Tattos { get; set; } = null!;
+        public DbSet<Image> Images { get; set; } = null!;
 
         public DbSet<Client> Clients { get; set; } = null!;
 
