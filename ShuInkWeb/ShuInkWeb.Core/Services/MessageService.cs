@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Exceptions;
 using ShuInkWeb.Core.FilesCloudService;
 using ShuInkWeb.Core.Models.MessageModels;
 using ShuInkWeb.Data.Common.Repositories;
@@ -14,13 +16,22 @@ namespace ShuInkWeb.Core.Services
 
         private readonly IOldCapitalCloud cloud;
 
-        public MessageService(IDeletableEntityRepository<Message> _messageRepository, IOldCapitalCloud _cloud)
+        private readonly IGuard guard;
+
+        private readonly ILogger<MessageService> logger;
+
+        public MessageService(IDeletableEntityRepository<Message> _messageRepository,
+            IOldCapitalCloud _cloud,
+            IGuard _guard,
+            ILogger<MessageService> _logger)
         {
             messageRepository = _messageRepository;
             cloud = _cloud;
+            guard = _guard;
+            logger = _logger;
         }
 
-        public async Task Add(MessageViewModel model, IFormFile file)
+        public async Task AddAsync(MessageViewModel model, IFormFile file)
         {
             await cloud.UploadFile(file, model.Name);
 
@@ -31,12 +42,20 @@ namespace ShuInkWeb.Core.Services
                 ImageUrl = cloud.GetUrl(model.Name)
             };
 
-            await messageRepository.AddAsync(message);
+            try
+            {
+                await messageRepository.AddAsync(message);
 
-            await messageRepository.SaveChangesAsync();
+                await messageRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(AddAsync), ex);
+                throw new ApplicationException("Database failed to Add Message!", ex);
+            }
         }
 
-        public async Task<IEnumerable<MessageViewModel>> All()
+        public async Task<IEnumerable<MessageViewModel>> GetAllMessagesAsync()
         {
             return await messageRepository
                 .AllAsNoTracking()
@@ -51,18 +70,29 @@ namespace ShuInkWeb.Core.Services
                 .ToListAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var entity = await messageRepository.GetByIdAsync(id);
 
-            messageRepository.Delete(entity);
+            guard.AgainstNull(entity, "This Message Doe's Not Exists!");
 
-            await messageRepository.SaveChangesAsync();
+            try
+            {
+                messageRepository.Delete(entity);
+
+                await messageRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(DeleteAsync), ex);
+                throw new ApplicationException("Database failed to Delete Message!", ex);
+            }
         }
 
-        public async Task<bool> IsExistById(Guid id)
+        public async Task<bool> IsExistByIdAsync(Guid id)
         {
-            return await messageRepository.AllAsNoTracking().AnyAsync(x => x.Id == id);
+            return await messageRepository.AllAsNoTracking()
+                .AnyAsync(x => x.Id == id);
         }
     }
 }

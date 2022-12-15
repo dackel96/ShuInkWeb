@@ -42,7 +42,7 @@ namespace ShuInkWeb.Areas.Artist.Controllers
 
             var id = await artistService.GetArtistIdAsync(User.Id());
 
-            var models = await appointmentService.GetAppointmentsForCurrentArtist(id);
+            var models = await appointmentService.GetAppointmentsForCurrentArtistAsync(id);
 
             return View(models);
         }
@@ -56,7 +56,7 @@ namespace ShuInkWeb.Areas.Artist.Controllers
 
             var id = await artistService.GetArtistIdAsync(User.Id());
 
-            var models = await galleryService.AllPhotosForAnArtist(id);
+            var models = await galleryService.GetAllPhotosForAnArtistAsync(id);
 
             return View(models);
         }
@@ -68,7 +68,7 @@ namespace ShuInkWeb.Areas.Artist.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            var models = await messageService.All();
+            var models = await messageService.GetAllMessagesAsync();
 
             return View(models);
         }
@@ -80,12 +80,12 @@ namespace ShuInkWeb.Areas.Artist.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if (!(await messageService.IsExistById(id)))
+            if (!(await messageService.IsExistByIdAsync(id)))
             {
                 return RedirectToAction(nameof(AllMessages));
             }
 
-            await messageService.Delete(id);
+            await messageService.DeleteAsync(id);
 
             return RedirectToAction(nameof(AllMessages), ArtistControllerName);
         }

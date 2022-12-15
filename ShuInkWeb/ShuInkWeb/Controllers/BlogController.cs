@@ -20,7 +20,7 @@ namespace ShuInkWeb.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var models = await happeningService.GetHappeningsAsync();
+            var models = await happeningService.GetPostAsync();
 
             return View(models);
         }
@@ -53,7 +53,7 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            await happeningService.AddHappeningAsync(model, file);
+            await happeningService.AddAsync(model, file);
 
             return RedirectToAction(nameof(All));
         }
@@ -66,12 +66,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if (await happeningService.HappeningExist(id))
+            if (await happeningService.IsExistAsync(id))
             {
                 RedirectToAction(nameof(All));
             }
 
-            var model = await happeningService.GetSingleHappeningAsync(id);
+            var model = await happeningService.GetSinglePostAsync(id);
 
             return View(model);
         }
@@ -85,12 +85,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await happeningService.HappeningExist(id) == false))
+            if ((await happeningService.IsExistAsync(id) == false))
             {
                 return RedirectToAction(nameof(All));
             }
 
-            var post = await happeningService.GetSingleHappeningAsync(id);
+            var post = await happeningService.GetSinglePostAsync(id);
 
             if (post == null)
             {
@@ -127,12 +127,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await happeningService.HappeningExist(id) == false))
+            if ((await happeningService.IsExistAsync(id) == false))
             {
                 return RedirectToAction(nameof(All));
             }
 
-            await happeningService.Edit(id, model,file);
+            await happeningService.EditAsync(id, model,file);
 
             return RedirectToAction(nameof(All));
         }
@@ -145,12 +145,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await happeningService.HappeningExist(id) == false))
+            if ((await happeningService.IsExistAsync(id) == false))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            await happeningService.Delete(id);
+            await happeningService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }

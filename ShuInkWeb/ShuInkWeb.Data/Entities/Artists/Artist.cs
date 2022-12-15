@@ -23,6 +23,6 @@ namespace ShuInkWeb.Data.Entities.Artists
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        public virtual IEnumerable<Image> Tattos { get; set; } = new HashSet<Image>();
+        public virtual IEnumerable<Image> Images { get; set; } = new HashSet<Image>();
     }
 }

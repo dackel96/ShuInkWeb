@@ -41,10 +41,6 @@ namespace ShuInkWeb.Controllers
 
             var model = new ImageViewModel();
 
-            var id = await artistService.GetArtistIdAsync(User.Id());
-
-            model.ArtistId = id;
-
             return View(model);
         }
 
@@ -62,7 +58,11 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            await galleryService.Add(model, file);
+            var id = await artistService.GetArtistIdAsync(User.Id());
+
+            model.ArtistId = id;
+
+            await galleryService.AddAsync(model, file);
 
             return RedirectToAction(nameof(All));
         }
@@ -70,7 +70,7 @@ namespace ShuInkWeb.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var models = await galleryService.AllPhotos();
+            var models = await galleryService.GetAllPhotosAsync();
 
             if (!(models.Any()))
             {
@@ -83,7 +83,7 @@ namespace ShuInkWeb.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AllForAnArtist(Guid id)
         {
-            var models = await galleryService.AllPhotosForAnArtist(id);
+            var models = await galleryService.GetAllPhotosForAnArtistAsync(id);
 
             if (!(models.Any()))
             {
@@ -102,12 +102,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await galleryService.IsExist(id)) == false)
+            if ((await galleryService.IsExistAsync(id)) == false)
             {
                 return RedirectToAction(nameof(All));
             }
 
-            var model = galleryService.GetSingleImage(id);
+            var model = galleryService.GetSinglePhotoAsync(id);
 
             return View(model);
         }
@@ -131,12 +131,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await galleryService.IsExist(id) == false))
+            if ((await galleryService.IsExistAsync(id) == false))
             {
                 return RedirectToAction(nameof(All));
             }
 
-            await galleryService.Edit(id, model, file);
+            await galleryService.EditAsync(id, model, file);
 
             return RedirectToAction(nameof(All));
         }
@@ -149,12 +149,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if ((await galleryService.IsExist(id) == false))
+            if ((await galleryService.IsExistAsync(id) == false))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            await galleryService.Delete(id);
+            await galleryService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }
@@ -167,12 +167,12 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            if (await galleryService.IsExist(id))
+            if (await galleryService.IsExistAsync(id))
             {
                 RedirectToAction(nameof(All));
             }
 
-            var model = await galleryService.GetSingleImage(id);
+            var model = await galleryService.GetSinglePhotoAsync(id);
 
             return View(model);
         }

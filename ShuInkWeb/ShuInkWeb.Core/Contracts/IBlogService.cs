@@ -5,16 +5,16 @@ namespace ShuInkWeb.Core.Contracts
 {
     public interface IBlogService
     {
-        public Task<IEnumerable<HappeningViewModel>> GetHappeningsAsync();
+        public Task<IEnumerable<HappeningViewModel>> GetPostAsync();
 
-        public Task AddHappeningAsync(HappeningViewModel model,IFormFile file);
+        public Task AddAsync(HappeningViewModel model,IFormFile file);
 
-        public Task<bool> HappeningExist(Guid id);
+        public Task<bool> IsExistAsync(Guid id);
 
-        public Task<HappeningViewModel> GetSingleHappeningAsync(Guid id);
+        public Task<HappeningViewModel> GetSinglePostAsync(Guid id);
 
-        public Task Edit(Guid id, HappeningViewModel model,IFormFile file);
+        public Task EditAsync(Guid id, HappeningViewModel model,IFormFile file);
 
-        public Task Delete(Guid id);
+        public Task DeleteAsync(Guid id);
     }
 }

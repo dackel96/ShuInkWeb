@@ -10,12 +10,12 @@ namespace ShuInkWeb.Core.Contracts
 {
     public interface IMessageService
     {
-        public Task Add(MessageViewModel model,IFormFile file);
+        public Task AddAsync(MessageViewModel model,IFormFile file);
 
-        public Task<IEnumerable<MessageViewModel>> All();
+        public Task<IEnumerable<MessageViewModel>> GetAllMessagesAsync();
 
-        public Task Delete(Guid id);
+        public Task DeleteAsync(Guid id);
 
-        public Task<bool> IsExistById(Guid id);
+        public Task<bool> IsExistByIdAsync(Guid id);
     }
 }

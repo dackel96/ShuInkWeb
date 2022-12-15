@@ -18,7 +18,7 @@ namespace ShuInkWeb.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> About()
         {
-            var model = await artistService.ArtistsInfo();
+            var model = await artistService.GetArtistsInfoAsync();
 
             if (model == null)
             {

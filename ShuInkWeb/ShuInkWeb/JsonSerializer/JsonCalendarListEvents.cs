@@ -22,7 +22,7 @@ namespace ShuInkWeb.JsonSerializer
                 .Select(x => new
                 {
                     id = x.Id,
-                    title = x.Title,
+                    title = x.Artist.ApplicationUser!.UserName,
                     start = x.Start,
                     end = x.End,
                     resorceId = x.ArtistId,

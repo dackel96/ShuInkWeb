@@ -18,10 +18,10 @@ namespace ShuInkWeb.Core.Services
             this.repository = _repository;
         }
 
-        public async Task<IEnumerable<ArtistViewModel>> ArtistsInfo()
+        public async Task<IEnumerable<ArtistViewModel>> GetArtistsInfoAsync()
         {
             var models = await repository.All()
-                .Include(a => a.Tattos)
+                .Include(a => a.Images)
                 .Select(x => new ArtistViewModel()
                 {
                     FirstLastName = $"{x.ApplicationUser!.FirstName} {x.ApplicationUser.LastName}",
@@ -30,15 +30,16 @@ namespace ShuInkWeb.Core.Services
                     Resume = x.Resume ?? "None",
                     SocialMediaLink = x.ApplicationUser.SocialMedia,
                     imageUrl = x.ImageUrl,
-                    Works = x.Tattos.ToList()
+                    Works = x.Images.ToList()
                 }).ToListAsync();
 
             return models;
         }
 
-        public async Task<bool> ExistById(string userId)
+        public async Task<bool> ExistByIdAsync(string userId)
         {
-            return await repository.All().AnyAsync(x => x.ApplicationUserId == userId);
+            return await repository.All()
+                .AnyAsync(x => x.ApplicationUserId == userId);
         }
 
         public async Task<Guid> GetArtistIdAsync(string userId)

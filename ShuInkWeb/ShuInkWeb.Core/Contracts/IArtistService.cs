@@ -5,11 +5,11 @@ namespace ShuInkWeb.Core.Contracts
 {
     public interface IArtistService
     {
-        public Task<IEnumerable<ArtistViewModel>> ArtistsInfo();
+        public Task<IEnumerable<ArtistViewModel>> GetArtistsInfoAsync();
 
         public Task<IEnumerable<AppointmentArtistViewModel>> GetArtistsIdAsync();
 
-        public Task<bool> ExistById(string userId);
+        public Task<bool> ExistByIdAsync(string userId);
 
         public Task<Guid> GetArtistIdAsync(string userId);
 

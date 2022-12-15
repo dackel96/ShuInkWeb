@@ -21,7 +21,7 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task DeleteAsync(Guid appointmentId);
 
-        public Task<IEnumerable<AppointmentForCurrentArtistModel>> GetAppointmentsForCurrentArtist(Guid id);
+        public Task<IEnumerable<AppointmentForCurrentArtistModel>> GetAppointmentsForCurrentArtistAsync(Guid id);
 
     }
 }

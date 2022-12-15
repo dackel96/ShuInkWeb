@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Exceptions;
 using ShuInkWeb.Core.FilesCloudService;
 using ShuInkWeb.Core.Models.GalleryModels;
 using ShuInkWeb.Core.Models.HappeningModels;
@@ -13,16 +15,28 @@ namespace ShuInkWeb.Core.Services
     {
         private readonly IDeletableEntityRepository<Image> imageRepository;
 
+        private readonly IDeletableEntityRepository<Artist> artistRepository;
+
         private readonly IOldCapitalCloud cloud;
 
+        private readonly IGuard guard;
+
+        private readonly ILogger<GalleryService> logger;
+
         public GalleryService(IDeletableEntityRepository<Image> _imageRepository,
-            IOldCapitalCloud _cloud)
+            IDeletableEntityRepository<Artist> _artistRepository,
+            IOldCapitalCloud _cloud,
+            IGuard _guard,
+            ILogger<GalleryService> _logger)
         {
             imageRepository = _imageRepository;
+            artistRepository = _artistRepository;
             cloud = _cloud;
+            guard = _guard;
+            logger = _logger;
         }
 
-        public async Task Add(ImageViewModel model, IFormFile file)
+        public async Task AddAsync(ImageViewModel model, IFormFile file)
         {
             await cloud.UploadFile(file, model.Title);
 
@@ -33,12 +47,20 @@ namespace ShuInkWeb.Core.Services
                 ImageUrl = cloud.GetUrl(model.Title)
             };
 
-            await imageRepository.AddAsync(image);
+            try
+            {
+                await imageRepository.AddAsync(image);
 
-            await imageRepository.SaveChangesAsync();
+                await imageRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(AddAsync), ex);
+                throw new ApplicationException("Database failed to Add Photo!", ex);
+            }
         }
 
-        public async Task<IEnumerable<ImageViewModel>> AllPhotos()
+        public async Task<IEnumerable<ImageViewModel>> GetAllPhotosAsync()
         {
             return await imageRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
@@ -51,11 +73,15 @@ namespace ShuInkWeb.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ImageViewModel>> AllPhotosForAnArtist(Guid Artistid)
+        public async Task<IEnumerable<ImageViewModel>> GetAllPhotosForAnArtistAsync(Guid artistId)
         {
-            var photos = await imageRepository.All()
+            var artist = await artistRepository.GetByIdAsync(artistId);
+
+            guard.AgainstNull(artist, "Artist Doe's Not Exists!");
+
+            var photos = await imageRepository.AllAsNoTracking()
+                .Where(x => x.ArtistId == artistId)
                .OrderByDescending(x => x.CreatedOn)
-                .Where(x => x.ArtistId == Artistid)
                .Select(x => new ImageViewModel()
                {
                    Id = x.Id,
@@ -67,28 +93,48 @@ namespace ShuInkWeb.Core.Services
             return photos;
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var entity = await imageRepository.GetByIdAsync(id);
 
-            imageRepository.Delete(entity);
+            guard.AgainstNull(entity, "This Photo Doe's Not Exists!");
 
-            await imageRepository.SaveChangesAsync();
+            try
+            {
+                imageRepository.Delete(entity);
+
+                await imageRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(DeleteAsync), ex);
+                throw new ApplicationException("Database failed to Delete Photo!", ex);
+            }
         }
 
-        public async Task Edit(Guid id, ImageViewModel model, IFormFile file)
+        public async Task EditAsync(Guid id, ImageViewModel model, IFormFile file)
         {
             await cloud.UploadFile(file, model.Title);
 
             var entity = await imageRepository.GetByIdAsync(id);
 
-            entity.Title = model.Title;
-            entity.ImageUrl = cloud.GetUrl(model.Title);
+            guard.AgainstNull(entity, "This Photo Doe's Not Exists!");
 
-            await imageRepository.SaveChangesAsync();
+            try
+            {
+                entity.Title = model.Title;
+                entity.ImageUrl = cloud.GetUrl(model.Title);
+
+                await imageRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(EditAsync), ex);
+                throw new ApplicationException("Database failed to Edit Photo!", ex);
+            }
         }
 
-        public async Task<IEnumerable<ImageViewModel>> GetLastAdded()
+        public async Task<IEnumerable<ImageViewModel>> GetLastFivePhotosAsync()
         {
             return await imageRepository.All()
                .OrderByDescending(x => x.CreatedOn)
@@ -102,8 +148,12 @@ namespace ShuInkWeb.Core.Services
                .ToListAsync();
         }
 
-        public async Task<ImageViewModel> GetSingleImage(Guid id)
+        public async Task<ImageViewModel> GetSinglePhotoAsync(Guid id)
         {
+            var entity = await imageRepository.GetByIdAsync(id);
+
+            guard.AgainstNull(entity, "This Photo Doe's Not Exists!");
+
             var model = await imageRepository.All()
                .Where(x => x.Id == id)
                 .Select(x => new ImageViewModel()
@@ -116,9 +166,10 @@ namespace ShuInkWeb.Core.Services
             return model!;
         }
 
-        public async Task<bool> IsExist(Guid id)
+        public async Task<bool> IsExistAsync(Guid id)
         {
-            return await imageRepository.AllAsNoTracking().AnyAsync(x => x.Id == id);
+            return await imageRepository.AllAsNoTracking()
+                .AnyAsync(x => x.Id == id);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ShuInkWeb.Controllers
             appointmentService = _appointmentService;
             artistService = _artistService;
             jsonSerializer = _jsonSerializer;
-            this.clientService = _clientService;
+            clientService = _clientService;
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace ShuInkWeb.Controllers
         [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Add()
         {
-            if (!(await artistService.ExistById(User.Id())))
+            if (!(await artistService.ExistByIdAsync(User.Id())))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
@@ -82,7 +82,7 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            if (!(await artistService.ExistById(User.Id())))
+            if (!(await artistService.ExistByIdAsync(User.Id())))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
@@ -96,7 +96,7 @@ namespace ShuInkWeb.Controllers
 
             await appointmentService.AddAsync(model, artistId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(IndexConst,HomeConst);
         }
 
         [Authorize(Roles = ArtistRoleName)]
@@ -107,7 +107,7 @@ namespace ShuInkWeb.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            if (!(await artistService.ExistById(User.Id())))
+            if (!(await artistService.ExistByIdAsync(User.Id())))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }

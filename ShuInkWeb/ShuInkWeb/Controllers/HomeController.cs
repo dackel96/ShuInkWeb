@@ -6,6 +6,10 @@ using static ShuInkWeb.Constants.ActionsConstants;
 using ShuInkWeb.Core.Models.MessageModels;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Extensions;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Logging;
+using ShuInkWeb.Models;
+using System.Diagnostics;
 
 namespace ShuInkWeb.Controllers
 {
@@ -15,10 +19,13 @@ namespace ShuInkWeb.Controllers
 
         private readonly IGalleryService galleryService;
 
-        public HomeController(IMessageService _messageService, IGalleryService _galleryService)
+        private readonly ILogger<HomeController> logger;
+
+        public HomeController(IMessageService _messageService, IGalleryService _galleryService, ILogger<HomeController> _logger)
         {
             messageService = _messageService;
             galleryService = _galleryService;
+            logger = _logger;
         }
 
         [AllowAnonymous]
@@ -29,7 +36,7 @@ namespace ShuInkWeb.Controllers
                 return RedirectToAction(IndexConst, ArtistRoleName, new { area = ArtistAreaName });
             }
 
-            var models = await galleryService.GetLastAdded();
+            var models = await galleryService.GetLastFivePhotosAsync();
 
             return View(models);
         }
@@ -57,9 +64,19 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            await messageService.Add(model, file);
+            await messageService.AddAsync(model, file);
 
             return RedirectToAction(IndexConst, HomeConst);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            var feature = this.HttpContext.Features.Get<IExceptionHandlerFeature>();
+
+            logger.LogError(feature!.Error, "TraceIdentifier: {0}", Activity.Current?.Id ?? HttpContext.TraceIdentifier);
+
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         //TO DO Interface of HomePage

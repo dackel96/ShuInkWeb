@@ -1,4 +1,5 @@
 ﻿using ShuInkWeb.Core.Contracts;
+using ShuInkWeb.Core.Exceptions;
 using ShuInkWeb.Core.FilesCloudService;
 using ShuInkWeb.Core.Services;
 using ShuInkWeb.Data;
@@ -32,6 +33,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IMessageService, MessageService>();
 
             services.AddScoped<IGalleryService, GalleryService>();
+
+            services.AddScoped<IGuard, Guard>();
 
             services.AddSingleton<ICloudinarySettings, CloudinarySettings>();
 
