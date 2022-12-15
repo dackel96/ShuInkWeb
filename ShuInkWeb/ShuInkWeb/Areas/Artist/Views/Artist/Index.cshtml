@@ -45,12 +45,12 @@
                     @Html.DisplayFor(modelItem => item.End)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientContact)
+                    <a href="@Html.DisplayFor(modelItem => item.ClientContact)" class="fa fa-facebook-official"></a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Appointment" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-area="" asp-controller="Appointment" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-area="" asp-controller="Appointment" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-area="" asp-controller="Appointment" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

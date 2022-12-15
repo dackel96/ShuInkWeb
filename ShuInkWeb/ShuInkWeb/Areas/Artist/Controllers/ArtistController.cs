@@ -20,17 +20,21 @@ namespace ShuInkWeb.Areas.Artist.Controllers
 
         private readonly IGalleryService galleryService;
 
+        private readonly IBlogService postService;
+
         public ArtistController(IAppointmentService _appointmentService,
             UserManager<ApplicationUser> _userManager,
             IArtistService _artistService,
             IMessageService _messageService,
-            IGalleryService _galleryService)
+            IGalleryService _galleryService,
+            IBlogService _postService)
         {
             appointmentService = _appointmentService;
             userManager = _userManager;
             artistService = _artistService;
             messageService = _messageService;
             galleryService = _galleryService;
+            postService = _postService;
         }
 
         public async Task<IActionResult> Index()
@@ -69,6 +73,20 @@ namespace ShuInkWeb.Areas.Artist.Controllers
             }
 
             var models = await messageService.GetAllMessagesAsync();
+
+            return View(models);
+        }
+
+        public async Task<IActionResult> MyPosts()
+        {
+            if (!(User.IsInRole(ArtistRoleName)))
+            {
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+            }
+
+            var id = await artistService.GetArtistIdAsync(User.Id());
+
+            var models = await postService.GetPostsForAnArtistAsync(id);
 
             return View(models);
         }

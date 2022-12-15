@@ -5,7 +5,9 @@ namespace ShuInkWeb.Core.Contracts
 {
     public interface IBlogService
     {
-        public Task<IEnumerable<HappeningViewModel>> GetPostAsync();
+        public Task<IEnumerable<HappeningViewModel>> GetPostsAsync();
+
+        public Task<IEnumerable<HappeningViewModel>> GetPostsForAnArtistAsync(Guid id);
 
         public Task AddAsync(HappeningViewModel model,IFormFile file);
 

@@ -7,6 +7,7 @@ using ShuInkWeb.Core.FilesCloudService;
 using ShuInkWeb.Core.Models.HappeningModels;
 using ShuInkWeb.Data.Common.Repositories;
 using ShuInkWeb.Data.Entities;
+using ShuInkWeb.Data.Entities.Artists;
 
 namespace ShuInkWeb.Core.Services
 {
@@ -14,7 +15,9 @@ namespace ShuInkWeb.Core.Services
     {
         private readonly IOldCapitalCloud cloud;
 
-        private readonly IDeletableEntityRepository<Happening> repository;
+        private readonly IDeletableEntityRepository<Happening> postRepository;
+
+        private readonly IDeletableEntityRepository<Artist> artistRepository;
 
         private readonly ILogger<BlogService> logger;
 
@@ -23,12 +26,14 @@ namespace ShuInkWeb.Core.Services
         public BlogService(IDeletableEntityRepository<Happening> _repository,
             IOldCapitalCloud _cloud,
             ILogger<BlogService> _logger,
-            IGuard _guard)
+            IGuard _guard,
+            IDeletableEntityRepository<Artist> _artistRepository)
         {
-            repository = _repository;
+            postRepository = _repository;
             cloud = _cloud;
             logger = _logger;
             guard = _guard;
+            artistRepository = _artistRepository;
         }
 
         public async Task AddAsync(HappeningViewModel model, IFormFile file)
@@ -37,6 +42,7 @@ namespace ShuInkWeb.Core.Services
 
             var happening = new Happening()
             {
+                ArtistId = model.ArtistId,
                 Title = model.Title,
                 Content = model.Content,
                 ImageUrl = cloud.GetUrl(model.Title)
@@ -44,9 +50,9 @@ namespace ShuInkWeb.Core.Services
 
             try
             {
-                await repository.AddAsync(happening);
+                await postRepository.AddAsync(happening);
 
-                await repository.SaveChangesAsync();
+                await postRepository.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -57,16 +63,16 @@ namespace ShuInkWeb.Core.Services
 
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await repository.GetByIdAsync(id);
+            var entity = await postRepository.GetByIdAsync(id);
 
             guard.AgainstNull(entity, "This Post Doe's Not Exist!");
 
 
             try
             {
-                repository.Delete(entity);
+                postRepository.Delete(entity);
 
-                await repository.SaveChangesAsync();
+                await postRepository.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -79,7 +85,7 @@ namespace ShuInkWeb.Core.Services
         {
             await cloud.UploadFile(file, model.Title);
 
-            var post = await repository.GetByIdAsync(id);
+            var post = await postRepository.GetByIdAsync(id);
 
             guard.AgainstNull(post, "This Post Doe's Not Exists!");
             try
@@ -89,7 +95,7 @@ namespace ShuInkWeb.Core.Services
                 post.Content = model.Content;
                 post.ImageUrl = cloud.GetUrl(model.Title);
 
-                await repository.SaveChangesAsync();
+                await postRepository.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -98,9 +104,27 @@ namespace ShuInkWeb.Core.Services
             }
         }
 
-        public async Task<IEnumerable<HappeningViewModel>> GetPostAsync()
+        public async Task<IEnumerable<HappeningViewModel>> GetPostsAsync()
         {
-            return await repository.All()
+            return await postRepository.AllAsNoTracking()
+                .Select(x => new HappeningViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Content = x.Content,
+                    ImageUrl = x.ImageUrl
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<HappeningViewModel>> GetPostsForAnArtistAsync(Guid id)
+        {
+            var artist = await artistRepository.GetByIdAsync(id);
+
+            guard.AgainstNull(artist, "Artist Doe's Not Exists!");
+
+            return await postRepository.AllAsNoTracking()
+                .Where(x => x.ArtistId == id)
                 .Select(x => new HappeningViewModel()
                 {
                     Id = x.Id,
@@ -113,11 +137,11 @@ namespace ShuInkWeb.Core.Services
 
         public async Task<HappeningViewModel> GetSinglePostAsync(Guid id)
         {
-            var post = await repository.GetByIdAsync(id);
+            var post = await postRepository.GetByIdAsync(id);
 
             guard.AgainstNull(post, "This Post Doe's Not Exists!");
 
-            var model = await repository.All()
+            var model = await postRepository.All()
                 .Where(x => x.Id == id)
                  .Select(x => new HappeningViewModel()
                  {
@@ -132,7 +156,7 @@ namespace ShuInkWeb.Core.Services
 
         public async Task<bool> IsExistAsync(Guid id)
         {
-            return await repository.AllAsNoTracking()
+            return await postRepository.AllAsNoTracking()
                 .AnyAsync(x => x.Id == id);
         }
     }

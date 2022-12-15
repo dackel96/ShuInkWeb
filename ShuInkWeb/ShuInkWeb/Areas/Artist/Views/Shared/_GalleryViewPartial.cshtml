@@ -14,9 +14,9 @@
                 <div class="row-md-4 bg-dark rounded-3">
                     <div class="col-md-4 offset-md-4">
                         <hr />
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-controller="Gallery" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-area="" asp-controller="Gallery" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-area="" asp-controller="Gallery" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-area="" asp-controller="Gallery" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         <hr />
                     </div>
                 </div>

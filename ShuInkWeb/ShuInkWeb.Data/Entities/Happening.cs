@@ -1,5 +1,7 @@
 ﻿using ShuInkWeb.Data.Common;
+using ShuInkWeb.Data.Entities.Artists;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static ShuInkWeb.Data.Constants.HappeningConstants;
 
 
@@ -18,5 +20,10 @@ namespace ShuInkWeb.Data.Entities
         [Required]
         [MaxLength(ImageUrlMax)]
         public string ImageUrl { get; set; } = null!;
+
+        public Guid? ArtistId { get; set; }
+
+        [ForeignKey(nameof(ArtistId))]
+        public Artist? Artist { get; set; }
     }
 }

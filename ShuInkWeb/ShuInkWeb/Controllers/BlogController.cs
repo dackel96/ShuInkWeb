@@ -5,6 +5,7 @@ using ShuInkWeb.Core.Models.HappeningModels;
 using ShuInkWeb.Controllers.Common;
 using static ShuInkWeb.Constants.ActionsConstants;
 using static ShuInkWeb.Constants.AreaConstants;
+using ShuInkWeb.Extensions;
 
 namespace ShuInkWeb.Controllers
 {
@@ -12,15 +13,19 @@ namespace ShuInkWeb.Controllers
     {
         private readonly IBlogService happeningService;
 
-        public BlogController(IBlogService _happeningService)
+        private readonly IArtistService artistService;
+
+        public BlogController(IBlogService _happeningService,
+            IArtistService _artistService)
         {
-            this.happeningService = _happeningService;
+            happeningService = _happeningService;
+            artistService = _artistService;
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var models = await happeningService.GetPostAsync();
+            var models = await happeningService.GetPostsAsync();
 
             return View(models);
         }
@@ -52,6 +57,10 @@ namespace ShuInkWeb.Controllers
             {
                 return View(model);
             }
+
+            var id = await artistService.GetArtistIdAsync(User.Id());
+
+            model.ArtistId = id;
 
             await happeningService.AddAsync(model, file);
 
@@ -132,7 +141,7 @@ namespace ShuInkWeb.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await happeningService.EditAsync(id, model,file);
+            await happeningService.EditAsync(id, model, file);
 
             return RedirectToAction(nameof(All));
         }

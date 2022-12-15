@@ -15,5 +15,7 @@ namespace ShuInkWeb.Core.Models.HappeningModels
         public string Content { get; set; } = null!;
 
         public string? ImageUrl { get; set; }
+
+        public Guid? ArtistId { get; set; }
     }
 }

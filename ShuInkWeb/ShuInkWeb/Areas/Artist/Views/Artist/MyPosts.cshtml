@@ -1,0 +1,26 @@
+﻿@model IEnumerable<HappeningViewModel>
+
+@{
+    ViewBag.Title = "Last News";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4 col-lg-4 col-lg-2">
+            <h3>@item.Title</h3>
+            <p>
+                @item.Content
+            </p>
+            <img src="@item.ImageUrl">
+        </div>
+        @if (User.IsInRole("Artist"))
+        {
+            <hr />
+            <a asp-area="" asp-controller="Blog" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <a asp-area="" asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a asp-area="" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <hr />
+        }
+    }
+</div>
