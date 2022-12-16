@@ -18,9 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
-
             services.AddScoped<IJsonCalendarListEvents, JsonCalendarListEvents>();
-
 
             services.AddScoped<IAppointmentService, AppointmentService>();
 
@@ -33,6 +31,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IMessageService, MessageService>();
 
             services.AddScoped<IGalleryService, GalleryService>();
+
+            services.AddScoped<IMerchandiseService, MerchandiseService>();
 
             services.AddScoped<IGuard, Guard>();
 

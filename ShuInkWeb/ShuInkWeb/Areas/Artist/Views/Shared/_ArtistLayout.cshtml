@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body class="bg-image"
-      style="background-image: url('https://res.cloudinary.com/oldcapitalcloud/image/upload/v1670703435/blurlogooo_uu9eai.jpg');background-repeat: no-repeat; background-attachment: fixed;background-size: cover;">
+      style="background-image: url('https://res.cloudinary.com/oldcapitalcloud/image/upload/v1670703435/blurlogooo_uu9eai.jpg');
+background-repeat: no-repeat; background-attachment: fixed;background-size: cover;">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong bg-dark">
             <div class="container-fluid bg-dark">
@@ -31,9 +32,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Appointment" asp-action="AllForMonth">Schedule</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Gallery" asp-action="All">Gallery</a>
+                        </li>
                     </ul>
                 </div>
             </div>
+            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
             <partial name="_LoginPartial" />
         </nav>
     </header>
@@ -71,6 +76,12 @@
                             <a class="nav-link" asp-area="Artist" asp-controller="Artist" asp-action="MyPosts">My Posts</a>
                         </li>
                         <li>Shop Options</li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Shop" asp-controller="Merchandise" asp-action="Add">Add Product</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>

@@ -22,6 +22,13 @@
         public const string ArtistAreaName = "Artist";
 
         public const string IdentityRoleName = "Identity";
+
+        public const string AdminRoleName = "Administrator";
+
+        public const string ShopControllerName = "Merchandise";
+
+        public const string ShopAreaName = "Shop";
+
     }
     public static class ActionsConstants
     {

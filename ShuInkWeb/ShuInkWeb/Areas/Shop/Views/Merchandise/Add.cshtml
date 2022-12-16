@@ -1,0 +1,56 @@
+﻿@model MerchandiseViewModel
+
+@{
+    ViewBag.Title = "Add Product in shop!";
+}
+<div class="text-center bg-dark rounded-bottom">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
+<div class="row-md-4 bg-dark rounded-3">
+    <div class="col-md-4 offset-md-4">
+        <form asp-action="Add" method="post">
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="@Model.Name" class="form-control text-bg-secondary" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Description" class="form-label">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control text-bg-secondary" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Quantity" class="form-label">Quantity</label>
+                <input asp-for="@Model.Quantity" class="form-control text-bg-secondary" aria-required="true" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.Price" class="form-label">Price</label>
+                <input asp-for="@Model.Price" class="form-control text-bg-secondary" aria-required="true" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label asp-for="@Model.TypeId"></label>
+                <select asp-for="@Model.TypeId" class="form-control text-bg-secondary">
+                    @foreach (var category in Model.Types)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="TypeId" class="small text-danger"></span>
+            </div>
+            <div class="mb-3 text-center">
+                <label for="formFile" class="form-label"></label>
+                <input class="form-control text-bg-secondary" aria-required="true" type="file" name="file" id="formFile">
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

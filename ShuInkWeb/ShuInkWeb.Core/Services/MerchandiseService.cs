@@ -14,11 +14,14 @@ namespace ShuInkWeb.Core.Services
 {
     public class MerchandiseService : IMerchandiseService
     {
-        private readonly IDeletableEntityRepository<Merchandise> repository;
+        private readonly IDeletableEntityRepository<Merchandise> merchandiseRepository;
 
-        public MerchandiseService(IDeletableEntityRepository<Merchandise> _repository)
+        private readonly IDeletableEntityRepository<MerchandiseType> typesRepository;
+
+        public MerchandiseService(IDeletableEntityRepository<Merchandise> _repository, IDeletableEntityRepository<MerchandiseType> _typesRepository)
         {
-            repository = _repository;
+            merchandiseRepository = _repository;
+            typesRepository = _typesRepository;
         }
 
         public async Task AddMerchandiseAsync(MerchandiseViewModel model)
@@ -34,22 +37,26 @@ namespace ShuInkWeb.Core.Services
                 MerchandiseTypeId = model.TypeId
             };
 
-            await repository.AddAsync(merchandise);
+            await merchandiseRepository.AddAsync(merchandise);
 
-            await repository.SaveChangesAsync();
+            await merchandiseRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<MerchandiseViewModel>> GetAllMerchandisesAsync()
         {
-            return await repository.All()
+            return await merchandiseRepository.All()
                 .Select(x => new MerchandiseViewModel()
                 {
                     Name = x.Name,
                     ImageUrl = x.ImageUrl,
                     Price = x.Price,
-                    InStock = x.IsInStock,
                     TypeId = x.MerchandiseTypeId
                 }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<MerchandiseType>> GetMerchandiseTypesAsync()
+        {
+            return await typesRepository.AllAsNoTracking().ToListAsync();
         }
     }
 }

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Merchandise\All.cshtml" />
+    <Content Remove="Areas\Shop\Views\Merchandise\All.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,15 +29,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Merchandise\All.cshtml" />
+    <UpToDateCheckInput Remove="Areas\Shop\Views\Merchandise\All.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Merchandise\All.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Shop\Views\Merchandise\All.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Merchandise\All.cshtml" />
+    <None Include="Areas\Shop\Views\Merchandise\All.cshtml" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />

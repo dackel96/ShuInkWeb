@@ -1,34 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Core.Models.MerchandiseModels;
 
-namespace ShuInkWeb.Controllers
+namespace ShuInkWeb.Areas.Shop.Controllers
 {
-    public class MerchandiseControler : BaseController
+    public class MerchandiseController : BaseController
     {
         private readonly IMerchandiseService merchandiseService;
 
 
-        public MerchandiseControler(IMerchandiseService _merchandiseService)
+        public MerchandiseController(IMerchandiseService _merchandiseService)
         {
-            this.merchandiseService = _merchandiseService;
+            merchandiseService = _merchandiseService;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-
             var models = await merchandiseService.GetAllMerchandisesAsync();
 
             return View(models);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new MerchandiseViewModel();
 
+            model.Types = await merchandiseService.GetMerchandiseTypesAsync();
 
             return View(model);
         }
@@ -38,6 +40,8 @@ namespace ShuInkWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Types = await merchandiseService.GetMerchandiseTypesAsync();
+
                 return View(model);
             }
 

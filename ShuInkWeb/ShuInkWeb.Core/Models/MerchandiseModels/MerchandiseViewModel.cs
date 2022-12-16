@@ -22,8 +22,6 @@ namespace ShuInkWeb.Core.Models.MerchandiseModels
         [Range(typeof(decimal), "0", "79228162514264337593543950335")]
         public decimal Price { get; set; }
 
-        public bool InStock { get; set; }
-
         public string ImageUrl { get; set; } = null!;
 
         public Guid TypeId { get; set; }
