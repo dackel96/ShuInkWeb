@@ -37,6 +37,10 @@ namespace ShuInkWeb.Core.Services
 
         public async Task AddAsync(AppointmentViewModel model, Guid artistId)
         {
+            var artist = await artistRepository.GetByIdAsync(artistId);
+
+            guard.AgainstNull(artist, "Artist Doe's not Exists!");
+
             var appointment = new Appointment()
             {
                 Id = model.Id,
