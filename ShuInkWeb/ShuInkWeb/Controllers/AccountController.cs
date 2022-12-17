@@ -114,12 +114,14 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            if (clientsDb.AllAsNoTracking().Any(x => x.PhoneNumber == user.PhoneNumber))
+            if (clientsDb.All().Any(x => x.PhoneNumber == user.PhoneNumber))
             {
                 var clientInfo = clientsDb.All().FirstOrDefault(x => x.PhoneNumber == user.PhoneNumber);
                 if (clientInfo != null)
                 {
                     clientInfo.UserId = user.Id;
+
+                    await clientsDb.SaveChangesAsync();
                 }
             }
 

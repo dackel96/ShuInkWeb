@@ -36,29 +36,39 @@ namespace ShuInkWeb.Core.Services
                 .AnyAsync(x => x.UserId == userId);
         }
 
-        public async Task<Client> GetClientById(Guid id)
+        public async Task<Client> GetClientById(Guid Id)
         {
-            var client = await repository.GetByIdAsync(id);
+            var client = await repository.GetByIdAsync(Id);
 
-            guard.AgainstNull(client, "Client Doe's Not Exists!");
+            guard.AgainstNull(client, "This CLient Doe's Not Exists!");
 
             return client;
         }
 
-        public async Task<IEnumerable<AppointmentViewForClient>> GetCurrUserAppointments(string phoneNumber)
+        public async Task<Guid> GetClientByUserId(string id)
         {
-            guard.AgainstNull(phoneNumber, "This PhoneNumber Doe's Not Exists!");
+            var client = await repository.All().FirstOrDefaultAsync(x => x.UserId == id);
+
+            guard.AgainstNull(client, "Client Doe's Not Exists!");
+
+            return client!.Id;
+        }
+
+        public async Task<IEnumerable<AppointmentViewForClient>> GetCurrUserAppointments(Guid id)
+        {
+            var entity = await repository.GetByIdAsync(id);
+
+            guard.AgainstNull(entity, "This User Doe's Not Exists!");
 
             return await appointmentRepository.AllAsNoTracking()
-                 .Where(x => x.Client.PhoneNumber == phoneNumber)
-                 .Where(x => x.Start >= DateTime.Now)
-                 .Select(x => new AppointmentViewForClient()
-                 {
-                     ArtistName = x.Artist.ApplicationUser!.FirstName!,
-                     Day = x.Start.ToShortDateString(),
-                     Start = x.Start.ToShortTimeString(),
-                     End = x.End.ToShortTimeString()
-                 }).ToListAsync();
+                .Where(x => x.ClientId == id)
+                .Where(x => x.End >= DateTime.Now)
+                .Select(x => new AppointmentViewForClient()
+                {
+                    Day = x.Start.ToShortDateString(),
+                    Start = x.Start.ToShortTimeString(),
+                    End = x.End.ToShortTimeString()
+                }).ToListAsync();
         }
     }
 }

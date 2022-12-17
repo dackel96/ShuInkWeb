@@ -83,7 +83,7 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            if (await appointmentService.IsFreeThisHourAsync(model.Start, model.Start.AddHours(model.Duration)))
+            if (await appointmentService.IsFreeThisHourAsync(model.Start,model.Start.AddHours(model.Duration)))
             {
                 return View(model);
             }
@@ -102,7 +102,7 @@ namespace ShuInkWeb.Controllers
 
             await appointmentService.AddAsync(model, artistId);
 
-            return RedirectToAction(IndexConst, HomeConst);
+            return RedirectToAction(IndexConst,HomeConst);
         }
 
         [Authorize(Roles = ArtistRoleName)]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShuInkWeb.Controllers.Common;
 using ShuInkWeb.Core.Contracts;
 using ShuInkWeb.Data.Entities.Identities;
+using ShuInkWeb.Extensions;
 using static ShuInkWeb.Constants.ActionsConstants;
 using static ShuInkWeb.Constants.AreaConstants;
 
@@ -24,7 +25,9 @@ namespace ShuInkWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var models = await clientService.GetCurrUserAppointments(userManager.GetUserAsync(User).Result.PhoneNumber);
+            var userId = await clientService.GetClientByUserId(User.Id());
+
+            var models = await clientService.GetCurrUserAppointments(userId);
 
             if (!(models.Any()))
             {

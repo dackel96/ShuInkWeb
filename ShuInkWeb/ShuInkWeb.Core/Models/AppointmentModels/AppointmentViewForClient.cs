@@ -8,7 +8,7 @@ namespace ShuInkWeb.Core.Models.AppointmentModels
 {
     public class AppointmentViewForClient
     {
-        public string ArtistName { get; set; } = null!;
+        //public string ArtistName { get; set; } = null!;
 
         public string Day { get; set; } = null!;
 

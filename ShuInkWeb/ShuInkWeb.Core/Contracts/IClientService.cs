@@ -7,8 +7,10 @@ namespace ShuInkWeb.Core.Contracts
     {
         public Task<bool> ExistById(string userId);
 
-        public Task<Client> GetClientById(Guid id);
+        public Task<Guid> GetClientByUserId(string id);
 
-        public Task<IEnumerable<AppointmentViewForClient>> GetCurrUserAppointments(string phoneNumber);
+        public Task<Client> GetClientById(Guid Id);
+
+        public Task<IEnumerable<AppointmentViewForClient>> GetCurrUserAppointments(Guid id);
     }
 }
