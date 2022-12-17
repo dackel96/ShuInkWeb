@@ -60,18 +60,12 @@ namespace ShuInkWeb.Controllers
         {
             if (!(await artistService.ExistByIdAsync(User.Id())))
             {
-                TempData[ErrorMessage] = "Access Denied!";
-
-                return RedirectToAction(IndexConst, HomeConst);
-                //return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             if (!(User.IsInRole(ArtistRoleName)))
             {
-                TempData[ErrorMessage] = "Access Denied!";
-
-                return RedirectToAction(IndexConst, HomeConst);
-                //return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             var model = new AppointmentViewModel();
@@ -89,7 +83,7 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
-            if (await appointmentService.IsFreeThisHourAsync(model.Start,model.Start.AddHours(model.Duration)))
+            if (await appointmentService.IsFreeThisHourAsync(model.Start, model.Start.AddHours(model.Duration)))
             {
                 return View(model);
             }
@@ -108,9 +102,7 @@ namespace ShuInkWeb.Controllers
 
             await appointmentService.AddAsync(model, artistId);
 
-            TempData[SuccessMessage] = "Success added to you'r Schedule!";
-
-            return RedirectToAction(IndexConst,HomeConst);
+            return RedirectToAction(IndexConst, HomeConst);
         }
 
         [Authorize(Roles = ArtistRoleName)]

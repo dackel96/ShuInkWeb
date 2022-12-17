@@ -3,6 +3,12 @@
     public static class WebConstants
     {
     }
+    public static class MessageConstant
+    {
+        public const string ErrorMessage = "ErrorMessage";
+        public const string WarningMessage = "WarningMessage";
+        public const string SuccessMessage = "SuccessMessage";
+    }
     public static class AccountControllerConstants
     {
         public const string RegisterConst = "Register";
