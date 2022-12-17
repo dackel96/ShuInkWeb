@@ -16,20 +16,20 @@ namespace ShuInkWeb.Core.Services
 
         private readonly IDeletableEntityRepository<Artist> artistRepository;
 
-        private readonly IClientService clientService;
+        private readonly IDeletableEntityRepository<Client> clientRepository;
 
         private readonly IGuard guard;
 
         private readonly ILogger<AppointmentService> logger;
 
         public AppointmentService(IDeletableEntityRepository<Appointment> _repository,
-            IClientService _clientService,
+            IDeletableEntityRepository<Client> _clientRepository,
             IGuard _guard,
             ILogger<AppointmentService> _logger,
             IDeletableEntityRepository<Artist> _artistRepository)
         {
             appointmentRepository = _repository;
-            clientService = _clientService;
+            clientRepository = _clientRepository;
             guard = _guard;
             logger = _logger;
             artistRepository = _artistRepository;
@@ -41,25 +41,25 @@ namespace ShuInkWeb.Core.Services
 
             guard.AgainstNull(artist, "Artist Doe's not Exists!");
 
-            var appointment = new Appointment()
-            {
-                Id = model.Id,
-                Title = model.Title,
-                Description = model.Description,
-                ArtistId = artistId,
-                Client = new Client()
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    SocialMedia = model.SocialMedia
-                },
-                Start = model.Start,
-                End = model.Start.AddHours(model.Duration),
-            };
-
             try
             {
+                var appointment = new Appointment()
+                {
+                    Id = model.Id,
+                    Title = model.Title,
+                    Description = model.Description,
+                    ArtistId = artistId,
+                    Client = new Client()
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber = model.PhoneNumber,
+                        SocialMedia = model.SocialMedia
+                    },
+                    Start = model.Start,
+                    End = model.Start.AddHours(model.Duration),
+                };
+
                 await appointmentRepository.AddAsync(appointment);
                 await appointmentRepository.SaveChangesAsync();
             }
@@ -122,7 +122,7 @@ namespace ShuInkWeb.Core.Services
 
             guard.AgainstNull(appointment, "This Appointment Doe's not Exists!");
 
-            var client = await clientService.GetClientById(appointment.ClientId);
+            var client = await clientRepository.GetByIdAsync(appointment.ClientId);
 
             guard.AgainstNull(client, "Client Doe's not Exists!");
 
@@ -190,9 +190,9 @@ namespace ShuInkWeb.Core.Services
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    Day = DateTime.Now.Day.ToString(),
-                    Month = DateTime.Now.Month.ToString(),
-                    DayOfWeek = DateTime.Now.DayOfWeek.ToString(),
+                    Day = x.Start.Day.ToString(),
+                    Month = x.Start.Month.ToString(),
+                    DayOfWeek = x.Start.DayOfWeek.ToString(),
                     Start = x.Start.ToShortTimeString(),
                     End = x.End.ToShortTimeString(),
                     ArtistName = x.Artist.ApplicationUser!.UserName
@@ -202,10 +202,6 @@ namespace ShuInkWeb.Core.Services
 
         public async Task<bool> HasArtistWithIdAsync(Guid id, string userId)
         {
-            var artist = artistRepository.GetByIdAsync(id);
-
-            guard.AgainstNull(artist, "Artist Doe's not Exists!");
-
             bool isTrue = false;
 
             var appointment = await appointmentRepository.AllAsNoTracking()
@@ -223,7 +219,14 @@ namespace ShuInkWeb.Core.Services
 
         public async Task<bool> IsFreeThisHourAsync(DateTime start, DateTime end)
         {
-            return await appointmentRepository.AllAsNoTracking().AnyAsync(x => (x.Start <= start && x.End > start));
+            if (await appointmentRepository.AllAsNoTracking().AnyAsync(x => (x.Start <= start && x.End > start)))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
