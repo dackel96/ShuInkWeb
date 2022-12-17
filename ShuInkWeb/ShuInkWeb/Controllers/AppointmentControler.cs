@@ -9,6 +9,7 @@ using ShuInkWeb.JsonSerializer;
 using static ShuInkWeb.Constants.AreaConstants;
 using static ShuInkWeb.Constants.AppointmentControllerConstants;
 using static ShuInkWeb.Constants.ActionsConstants;
+using static ShuInkWeb.Constants.MessageConstant;
 
 namespace ShuInkWeb.Controllers
 {
@@ -59,12 +60,18 @@ namespace ShuInkWeb.Controllers
         {
             if (!(await artistService.ExistByIdAsync(User.Id())))
             {
-                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+                TempData[ErrorMessage] = "Access Denied!";
+
+                return RedirectToAction(IndexConst, HomeConst);
+                //return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             if (!(User.IsInRole(ArtistRoleName)))
             {
-                return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
+                TempData[ErrorMessage] = "Access Denied!";
+
+                return RedirectToAction(IndexConst, HomeConst);
+                //return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
             var model = new AppointmentViewModel();
@@ -82,6 +89,11 @@ namespace ShuInkWeb.Controllers
                 return View(model);
             }
 
+            if (await appointmentService.IsFreeThisHourAsync(model.Start,model.Start.AddHours(model.Duration)))
+            {
+                return View(model);
+            }
+
             if (!(await artistService.ExistByIdAsync(User.Id())))
             {
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
@@ -95,6 +107,8 @@ namespace ShuInkWeb.Controllers
             Guid artistId = await artistService.GetArtistIdAsync(User.Id());
 
             await appointmentService.AddAsync(model, artistId);
+
+            TempData[SuccessMessage] = "Success added to you'r Schedule!";
 
             return RedirectToAction(IndexConst,HomeConst);
         }

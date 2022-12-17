@@ -220,5 +220,10 @@ namespace ShuInkWeb.Core.Services
 
             return isTrue;
         }
+
+        public async Task<bool> IsFreeThisHourAsync(DateTime start, DateTime end)
+        {
+            return await appointmentRepository.AllAsNoTracking().AnyAsync(x => (x.Start <= start && x.End > start));
+        }
     }
 }
