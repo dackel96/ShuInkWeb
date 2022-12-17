@@ -40,12 +40,14 @@ namespace ShuInkWeb.Core.Services
         {
             await cloud.UploadFile(file, model.Title);
 
+            var url = cloud.GetUrl(model.Title);
+
             var happening = new Happening()
             {
                 ArtistId = model.ArtistId,
                 Title = model.Title,
                 Content = model.Content,
-                ImageUrl = cloud.GetUrl(model.Title)
+                ImageUrl = url != null ? url : "https://res.cloudinary.com/oldcapitalcloud/image/upload/v1671146726/Novi%20Ceni%20ot%202023.png"
             };
 
             try
@@ -85,15 +87,18 @@ namespace ShuInkWeb.Core.Services
         {
             await cloud.UploadFile(file, model.Title);
 
+            var url = cloud.GetUrl(model.Title);
+
             var post = await postRepository.GetByIdAsync(id);
 
             guard.AgainstNull(post, "This Post Doe's Not Exists!");
+
             try
             {
 
                 post.Title = model.Title;
                 post.Content = model.Content;
-                post.ImageUrl = cloud.GetUrl(model.Title);
+                post.ImageUrl = url != null ? url : "https://res.cloudinary.com/oldcapitalcloud/image/upload/v1671146726/Novi%20Ceni%20ot%202023.png";
 
                 await postRepository.SaveChangesAsync();
             }
