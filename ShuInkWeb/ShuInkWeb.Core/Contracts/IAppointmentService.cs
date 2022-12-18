@@ -23,7 +23,7 @@ namespace ShuInkWeb.Core.Contracts
 
         public Task<IEnumerable<AppointmentForCurrentArtistModel>> GetAppointmentsForCurrentArtistAsync(Guid id);
 
-        public Task<bool> IsFreeThisHourAsync(DateTime start,DateTime end);
+        public Task<bool> IsFreeThisHourAsync(DateTime start,DateTime end,Guid artistId);
 
     }
 }

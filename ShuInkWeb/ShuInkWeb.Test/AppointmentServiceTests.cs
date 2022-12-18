@@ -532,12 +532,15 @@ namespace ShuInkWeb.Test
             var start = DateTime.Parse("18 December 2022 13:00:00");
             var end = DateTime.Parse("18 December 2022 15:00:00");
 
+            var artistId = Guid.Parse("c2343ead-d0a1-491a-a74b-e42b6cdfb6ac");
+
             var appointment = new Appointment()
             {
                 Id = Guid.NewGuid(),
                 Title = "test",
                 Start = start,
-                End = end
+                End = end,
+                ArtistId = artistId
             };
 
             applicationDbContext.Appointments.Add(appointment);
@@ -546,17 +549,17 @@ namespace ShuInkWeb.Test
             var startTest = DateTime.Parse("18 December 2022 13:30:00");
             var endTest = DateTime.Parse("18 December 2022 14:00:00");
 
-            Assert.IsFalse(await appointmentService.IsFreeThisHourAsync(startTest, endTest));
+            Assert.IsFalse(await appointmentService.IsFreeThisHourAsync(startTest, endTest,artistId));
 
             var startTestBefore = DateTime.Parse("18 December 2022 10:00:00");
             var endTestBefore = DateTime.Parse("18 December 2022 12:00:00");
 
-            Assert.IsTrue(await appointmentService.IsFreeThisHourAsync(startTestBefore, endTestBefore));
+            Assert.IsTrue(await appointmentService.IsFreeThisHourAsync(startTestBefore, endTestBefore,artistId));
 
             var startTestAfter = DateTime.Parse("18 December 2022 15:00:00");
             var endTestAfter = DateTime.Parse("18 December 2022 16:00:00");
 
-            Assert.IsTrue(await appointmentService.IsFreeThisHourAsync(startTestAfter, endTestAfter));
+            Assert.IsTrue(await appointmentService.IsFreeThisHourAsync(startTestAfter, endTestAfter,artistId));
         }
 
         [TearDown]

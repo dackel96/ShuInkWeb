@@ -78,12 +78,14 @@ namespace ShuInkWeb.Controllers
         [Authorize(Roles = ArtistRoleName)]
         public async Task<IActionResult> Add(AppointmentViewModel model)
         {
+            Guid artistId = await artistService.GetArtistIdAsync(User.Id());
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (await appointmentService.IsFreeThisHourAsync(model.Start,model.Start.AddHours(model.Duration)))
+            if ((await appointmentService.IsFreeThisHourAsync(model.Start, model.Start.AddHours(model.Duration), artistId)) == false)
             {
                 return View(model);
             }
@@ -98,11 +100,10 @@ namespace ShuInkWeb.Controllers
                 return RedirectToPage(InvalidOperation, new { area = IdentityRoleName });
             }
 
-            Guid artistId = await artistService.GetArtistIdAsync(User.Id());
 
             await appointmentService.AddAsync(model, artistId);
 
-            return RedirectToAction(IndexConst,HomeConst);
+            return RedirectToAction(IndexConst, HomeConst);
         }
 
         [Authorize(Roles = ArtistRoleName)]

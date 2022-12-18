@@ -217,9 +217,9 @@ namespace ShuInkWeb.Core.Services
             return isTrue;
         }
 
-        public async Task<bool> IsFreeThisHourAsync(DateTime start, DateTime end)
+        public async Task<bool> IsFreeThisHourAsync(DateTime start, DateTime end,Guid artistId)
         {
-            if (await appointmentRepository.AllAsNoTracking().AnyAsync(x => (x.Start <= start && x.End > start)))
+            if (await appointmentRepository.AllAsNoTracking().Where(x => x.ArtistId == artistId).AnyAsync(x => (x.Start <= start && x.End > start)))
             {
                 return false;
             }
