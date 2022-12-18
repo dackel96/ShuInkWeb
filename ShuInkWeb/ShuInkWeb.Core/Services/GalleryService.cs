@@ -40,11 +40,13 @@ namespace ShuInkWeb.Core.Services
         {
             await cloud.UploadFile(file, model.Title);
 
+            var url = cloud.GetUrl(model.Title);
+
             var image = new Image()
             {
                 ArtistId = model.ArtistId,
                 Title = model.Title,
-                ImageUrl = cloud.GetUrl(model.Title)
+                ImageUrl = url != null ? url : "https://res.cloudinary.com/oldcapitalcloud/image/upload/v1671146726/Novi%20Ceni%20ot%202023.png"
             };
 
             try
@@ -114,16 +116,25 @@ namespace ShuInkWeb.Core.Services
 
         public async Task EditAsync(Guid id, ImageViewModel model, IFormFile file)
         {
-            await cloud.UploadFile(file, model.Title);
-
             var entity = await imageRepository.GetByIdAsync(id);
 
             guard.AgainstNull(entity, "This Photo Doe's Not Exists!");
 
+            if (model == null)
+            {
+                throw new ApplicationException("Model is Empty!");
+            }
+
             try
             {
+
+                await cloud.UploadFile(file, model.Title);
+
+                var url = cloud.GetUrl(model.Title);
+
+
                 entity.Title = model.Title;
-                entity.ImageUrl = cloud.GetUrl(model.Title);
+                entity.ImageUrl = url != null ? url : "https://res.cloudinary.com/oldcapitalcloud/image/upload/v1671146726/Novi%20Ceni%20ot%202023.png";
 
                 await imageRepository.SaveChangesAsync();
             }

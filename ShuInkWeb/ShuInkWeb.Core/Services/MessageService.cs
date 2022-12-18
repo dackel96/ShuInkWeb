@@ -35,15 +35,17 @@ namespace ShuInkWeb.Core.Services
         {
             await cloud.UploadFile(file, model.Name);
 
-            var message = new Message()
-            {
-                Name = model.Name,
-                Content = model.Content,
-                ImageUrl = cloud.GetUrl(model.Name)
-            };
+            var url = cloud.GetUrl(model.Name);
 
             try
             {
+                var message = new Message()
+                {
+                    Name = model.Name,
+                    Content = model.Content,
+                    ImageUrl = url != null ? url : "https://res.cloudinary.com/oldcapitalcloud/image/upload/v1671146726/Novi%20Ceni%20ot%202023.png"
+                };
+
                 await messageRepository.AddAsync(message);
 
                 await messageRepository.SaveChangesAsync();
