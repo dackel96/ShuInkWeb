@@ -5,6 +5,8 @@ website is project for my friends who are tatto artists
 you can check out them here : https://www.instagram.com/alexandarspasov/?hl=bg
  : https://www.instagram.com/yngsovage/?hl=bg
 
+For Photos Upload i use : https://cloudinary.com/documentation
+For Schedule i use : https://fullcalendar.io/
 
 Regular Users Can
 + Browse Site
