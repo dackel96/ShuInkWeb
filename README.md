@@ -1,32 +1,32 @@
 # Old Capital Tatto Shop
 
-Web Site for Tatto Appointment and shop Merchendise
-website is project for my friends who are tatto artists
-you can check out them here : https://www.instagram.com/alexandarspasov/?hl=bg
+Web Site for Tattoo Appointments and Shop Merchandise
+website is a project for my friends who are tattoo artists
+you can check out them here: https://www.instagram.com/alexandarspasov/?hl=bg
  : https://www.instagram.com/yngsovage/?hl=bg
 
-For Photos Upload i use : https://cloudinary.com/documentation
-For Schedule i use : https://fullcalendar.io/
+For Photos Upload I use: https://cloudinary.com/documentation
+For Schedule i use: https://fullcalendar.io/
 
 Regular Users Can
 + Browse Site
-+ Look Last News for the Studio
-+ Look The Schedule of Artists
++ Look at the latest news for the Studio
++ Look at The Schedule of Artists
 + Look Gallery
-+ If They Register with phonenumber of actual Appointment they can see it in My Appointments page
-+ They can Contact with the Artist with basic Message Form and add Some Photo to Express them selfs
++ If They Register with the phone number of the actual Appointment they can see it on the My Appointments page
++ They can Contact the Artist with a basic Message Form and add Some Photo to Express them selfs
 
 Artists Can
-+ Add Appointment in there own Schedule (separate from another artist)
++ Add an Appointment in their Schedule (separate from another artist)
 + To see Own Appointments
 + To See All Appointments for the Studio
-+ Add Photos and Manage Them (Again is separate every artist see his own)
-+ It have MailBox where they recive Contact forms from Regular Users (the only option is to read and delete them for now)
-+ Add Posts with news and Manage Them (separate)
++ Add Photos and Manage Them (Again, this is separate every artist sees his own)
++ It has MailBox where they receive Contact forms from Regular Users (the only option is to read and delete them for now)
++ Add Posts with news and Manage Them (separately)
 
-Artist has they'r own Area for Management of Website Functions
+Artist has their Area for the Management of Website Functions
 
-In Future will be add Shop Part of the website
+In the Future will be Shop Part of the website
 
 Database Diagram
 ![diagram](https://user-images.githubusercontent.com/92174873/208293579-c6819a0b-6843-4ad9-b369-13fc219346e6.png)
