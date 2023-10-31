@@ -1,4 +1,5 @@
-***[Old Capital Tattoo Shop]***
+**[Old Capital Tattoo Shop]** <br>
+
 Web Site for Tattoo Appointments and Shop Merchandise
 website is a project for my friends who are tattoo artists
 you can check out them here: https://www.instagram.com/alexandarspasov/?hl=bg
